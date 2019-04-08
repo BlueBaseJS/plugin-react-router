@@ -16,6 +16,7 @@ export class Navigation extends React.Component<NavigationProps> {
 
 		const { navigator, ...rest } = this.props;
 		const BB: BlueBase = this.context;
+		console.log(BB)
 
 		// Make sure paths are in correct format.
 		const navigatorObject = preparePaths(navigator);
