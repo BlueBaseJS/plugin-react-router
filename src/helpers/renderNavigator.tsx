@@ -1,17 +1,8 @@
-import {
-  BlueBase,
-  NavigatorProps,
-  resolveThunk,
-} from '@bluebase/core';
-import {
-   NavigatorPropsWithResolvedRoutes,
-   RouteConfigWithResolveSubRoutes,
-} from '../types';
-import { DrawerNavigator } from '../Navigators/DrawerNavigator';
+import { BlueBase, resolveThunk } from '@bluebase/core';
+import { DrawerNavigator, StackNavigator, SwitchNavigator, TabNavigator } from '../navigators';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../types';
+import { NavigatorProps } from '@bluebase/components';
 import React from 'react';
-import { StackNavigator } from '../Navigators/StackNavigator';
-import { SwitchNavigator } from '../Navigators/SwitchNavigator';
-import { TabNavigator } from '../TabNavigator';
 
 export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 

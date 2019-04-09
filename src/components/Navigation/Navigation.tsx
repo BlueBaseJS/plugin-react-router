@@ -4,9 +4,9 @@ import {
 	NavigationProps,
 } from '@bluebase/core';
 import React from 'react';
-import { Router } from '../lib/index';
+import { Router } from '../../lib/index';
 import { preparePaths } from './preparePaths';
-import { renderNavigator } from '../helpers/renderNavigator';
+import { renderNavigator } from '../../helpers/renderNavigator';
 
 /**
  * Navigation

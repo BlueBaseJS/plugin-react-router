@@ -7,13 +7,9 @@ import {
 	getComponent,
 	resolveThunk,
 } from '@bluebase/core';
-import { StyleProp, ViewStyle } from 'react-native';
-import { NavigatorPropsWithResolvedRoutes } from '../types';
+import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
-
-export interface ScreenStyles {
-	root: StyleProp<ViewStyle>
-}
+import { ScreenStyles } from '../../components';
 
 export interface TabViewProps {
 	navigationOptions?: MaybeThunk<NavigationOptions>,

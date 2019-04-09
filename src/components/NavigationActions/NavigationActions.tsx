@@ -1,8 +1,8 @@
-import { RouteComponentProps, withRouter } from '../lib';
+import { RouteComponentProps, withRouter } from '../../lib';
 import { BlueBaseConsumer } from '@bluebase/core';
 import { NavigationActionsProps } from '@bluebase/components';
 import React from 'react';
-import { historyToActionObject } from '../helpers/historyToActionObject';
+import { historyToActionObject } from '../../helpers/historyToActionObject';
 
 type NavigationActionsWithRouter = NavigationActionsProps & RouteComponentProps;
 

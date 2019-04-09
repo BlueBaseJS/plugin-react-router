@@ -8,7 +8,7 @@ import {
 	resolveThunk,
 } from '@bluebase/core';
 import { StyleProp, ViewStyle } from 'react-native';
-import { NavigatorPropsWithResolvedRoutes } from './types';
+import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
 export interface ScreenStyles {
