@@ -1,7 +1,6 @@
 import { NavigatorProps } from '@bluebase/components';
 import { preparePaths } from '../preparePaths';
 
-
 const input: NavigatorProps = {
 	initialRouteName: 'Root',
 	routes: [
@@ -45,7 +44,7 @@ const input: NavigatorProps = {
 // 	type: 'stack',
 // };
 
-test('preparePaths', async () => {
+test('preparePaths', () => {
 
 	const navigator = preparePaths(input);
 

@@ -10,6 +10,7 @@ import React from 'react';
 import { ScreenProps } from '../../components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 const DrawerView = getComponent('DrawerView');
 
@@ -66,10 +67,10 @@ export class DrawerNavigator extends React.Component<DrawerNavigatorProps> {
 
 		return (
 			<Route {...routeProps}>
-				{(routerProps) => (
+				{(routerProps: RouteChildrenProps) => (
 					<DrawerView
 						{...screenProps}
-						navigation={historyToActionObject(routerProps, BB)}
+						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 					/>
 				)}
 			</Route>

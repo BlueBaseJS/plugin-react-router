@@ -10,6 +10,7 @@ import { ScreenProps } from '../../components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 import { Noop } from '@bluebase/components';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 export interface SwitchNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
@@ -47,7 +48,7 @@ export class SwitchNavigator extends React.Component<SwitchNavigatorProps> {
 		};
 
 		// Screen component
-		const Component = screen
+		const Component: React.ComponentType<any> = screen
 		? (typeof screen === 'string') ? getComponent(screen) : screen
 		: Noop;
 
@@ -62,10 +63,10 @@ export class SwitchNavigator extends React.Component<SwitchNavigatorProps> {
 
 		return (
 			<Route {...routeProps}>
-				{(routerProps) => (
+				{(routerProps: RouteChildrenProps) => (
 					<Component
 						{...screenProps}
-						navigation={historyToActionObject(routerProps, BB)}
+						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 					/>
 				)}
 			</Route>

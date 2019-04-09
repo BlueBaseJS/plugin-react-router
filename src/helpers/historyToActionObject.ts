@@ -13,6 +13,10 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 	const configs: NavigatorProps = BB.Configs.getValue('plugin.react-router.navigationConfigs');
 	const enableSource: boolean = BB.Configs.getValue('plugin.react-router.enableSourceInNavigationActions');
 
+	if (!router.match) {
+		throw Error('An error occurent in React Router Plugn. We did not find match object');
+	}
+
 	const obj = findRouteByKey(router.match.path, 'path', configs);
 
 	const actions: NavigationActionsObject = {
@@ -48,7 +52,7 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 		source: enableSource ? router : undefined,
 
 		state: {
-			key: router.location.key,
+			key: router.location.key as string,
 			params: { ...router.location.state, ...router.match.params },
 			routeName: obj ? obj.name : '',
 			search: router.location.search,

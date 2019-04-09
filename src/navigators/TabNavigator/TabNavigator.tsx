@@ -9,6 +9,7 @@ import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 import { Redirect } from '@bluebase/components';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 const TabView = getComponent('TabView');
 
@@ -65,10 +66,10 @@ export class TabNavigator extends React.Component<TabNavigatorProps> {
 
 		return (
 			<Route {...routeProps}>
-				{(routerProps) => (
+				{(routerProps: RouteChildrenProps) => (
 					<TabView
 						{...screenProps}
-						navigation={historyToActionObject(routerProps, BB)}
+						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 					/>
 				)}
 			</Route>

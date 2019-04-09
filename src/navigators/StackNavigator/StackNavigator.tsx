@@ -10,6 +10,7 @@ import { ScreenProps } from '../../components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 import { Redirect } from '@bluebase/components';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 const Screen = getComponent('Screen');
 
@@ -66,10 +67,10 @@ export class StackNavigator extends React.Component<StackNavigatorProps> {
 
 		return (
 			<Route {...routeProps}>
-				{(routerProps) => (
+				{(routerProps: RouteChildrenProps) => (
 					<Screen
 						{...screenProps}
-						navigation={historyToActionObject(routerProps, BB)}
+						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 					/>
 				)}
 			</Route>

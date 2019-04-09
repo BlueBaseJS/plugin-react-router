@@ -30,7 +30,7 @@ const DrawerLayout = getComponent('DrawerLayout');
 const DrawerNavigationView = (props: any) => {
 
 	const { navigationState } = props;
-	const { index, routes } = navigationState;
+	const { routes } = navigationState;
 
 	return (
 		<ScrollView>
@@ -38,7 +38,7 @@ const DrawerNavigationView = (props: any) => {
 				<NavigationActions>
 					{({ navigate }) => {
 
-						return routes.map(r => (
+						return routes.map((r: any) => (
 							<DrawerItem key={r.routeName} title={r.title} onPress={() => navigate(r.routeName)} />
 						));
 					}}
