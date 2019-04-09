@@ -1,8 +1,8 @@
 import {
-	NavigatorProps,
 	joinPaths,
 	resolveThunk,
 } from '@bluebase/core';
+import { NavigatorProps } from '@bluebase/components';
 
 /**
  * Converts paths from react-navigation pattern to react-router pattern
