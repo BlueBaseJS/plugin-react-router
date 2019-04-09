@@ -4,7 +4,7 @@ import {
 	Noop,
 	getComponent,
 } from '@bluebase/core';
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from './types';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../types';
 import { Route, Switch } from '../lib';
 import React from 'react';
 import { ScreenProps } from '../Screen';

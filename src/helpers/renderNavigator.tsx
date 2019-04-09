@@ -11,7 +11,7 @@ import { DrawerNavigator } from '../Navigators/DrawerNavigator';
 import React from 'react';
 import { StackNavigator } from '../Navigators/StackNavigator';
 import { SwitchNavigator } from '../Navigators/SwitchNavigator';
-import { TabNavigator } from '../Navigators/TabNavigator';
+import { TabNavigator } from '../TabNavigator';
 
 export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 

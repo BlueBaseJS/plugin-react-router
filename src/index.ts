@@ -1,8 +1,8 @@
+import { TabBar, TabView } from './TabNavigator';
 import { DrawerView } from './DrawerView';
 import { Navigation } from './Navigation';
 import { NavigationActions } from './NavigationActions';
 import { Screen } from './Screen';
-import { TabView } from './TabView';
 import { createPlugin } from '@bluebase/core';
 
 export default createPlugin({
@@ -24,6 +24,7 @@ export default createPlugin({
 		Navigation,
 		NavigationActions,
 		Screen,
+		TabBar,
 		TabView,
 	}
 });

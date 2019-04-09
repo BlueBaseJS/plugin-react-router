@@ -5,7 +5,7 @@ import {
 	NavigatorProps,
 } from '@bluebase/core';
 import { RouteComponentProps } from '../lib';
-import { executeAction } from './exectureAction';
+import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
 
 export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase) => {

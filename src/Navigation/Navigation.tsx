@@ -4,10 +4,15 @@ import {
 	NavigationProps,
 } from '@bluebase/core';
 import React from 'react';
-import { Router } from './lib/index';
-import { preparePaths } from './helpers/preparePaths';
-import { renderNavigator } from './helpers/renderNavigator';
+import { Router } from '../lib/index';
+import { preparePaths } from './preparePaths';
+import { renderNavigator } from '../helpers/renderNavigator';
 
+/**
+ * Navigation
+ * This serves as an entry point where BlueBase passes routes and navigation
+ * configs to this component.
+ */
 export class Navigation extends React.Component<NavigationProps> {
 
 	static contextType = BlueBaseContext;
@@ -16,7 +21,6 @@ export class Navigation extends React.Component<NavigationProps> {
 
 		const { navigator, ...rest } = this.props;
 		const BB: BlueBase = this.context;
-		console.log(BB)
 
 		// Make sure paths are in correct format.
 		const navigatorObject = preparePaths(navigator);

@@ -1,4 +1,5 @@
 import { BootOptions } from '@bluebase/core';
+import MaterialUI from '@bluebase/plugin-material-ui';
 import commonBootOptions from '../common/bluebase';
 import deepmerge from 'deepmerge';
 
@@ -8,15 +9,7 @@ import deepmerge from 'deepmerge';
  * the common folder, and extend them here.
  */
 const bootOptions: Partial<BootOptions> = {
-
-	// config: {
-
-	// 	wallpaper: {
-	// 		backgroundColor: 'white',
-	// 		resizeMode: 'cover',
-	// 		source: require('./../../assets/web/wallpaper.png'),
-	// 	},
-	// }
+	plugins: [MaterialUI]
 };
 
 export default deepmerge(commonBootOptions, bootOptions);

@@ -23,6 +23,5 @@ export function findRouteByKey(search: string, key: string, configs: NavigatorPr
 		}
 	}
 
-
 	return found;
 }

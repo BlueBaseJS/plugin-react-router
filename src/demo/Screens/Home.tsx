@@ -1,5 +1,5 @@
-import { Button, ScrollView, StatusBar, View } from 'react-native';
-import { H6 } from '@bluebase/components';
+import { Button, Divider, ListItem, ListSection, ListSubheader } from '@bluebase/components';
+import { ScrollView, StatusBar, View } from 'react-native';
 import React from 'react';
 // tslint:disable: jsx-no-lambda
 
@@ -9,24 +9,35 @@ export class HomeScreen extends React.Component<any> {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
 				<ScrollView style={{ flex: 1 }}>
-						<H6>Apps</H6>
-						<Button
+					<ListSection>
+						<ListSubheader>Apps</ListSubheader>
+						<ListItem
 							title="Setting"
-							// description="Go to Settings Page"
+							description="Go to Settings Page"
 							onPress={() => this.props.navigation.navigate('Settings')}
 						/>
-						<Button
+						<ListItem
 							title="Tabs"
 							onPress={() => this.props.navigation.navigate('SettingsTabs')}
 						/>
-						<Button
+						<ListItem
 							title="Bottom Tabs"
 							onPress={() => this.props.navigation.navigate('SettingsBottomTabs')}
 						/>
-						<Button
+						<ListItem
 							title="Drawer"
 							onPress={() => this.props.navigation.navigate('SettingsDrawer')}
 						/>
+					</ListSection>
+					<Divider />
+					<ListSection>
+						<ListSubheader>Danger</ListSubheader>
+						<ListItem
+							title="Delete Place"
+							description="Do you want to delete this place? This action is not reversable."
+							right={<Button>Delete</Button>}
+						/>
+					</ListSection>
 				</ScrollView>
       </View>
 		);

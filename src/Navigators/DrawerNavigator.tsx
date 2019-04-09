@@ -4,7 +4,7 @@ import {
 	Redirect,
 	getComponent,
 } from '@bluebase/core';
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from './types';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../types';
 import { Route, Switch } from '../lib/index';
 import React from 'react';
 import { ScreenProps } from '../Screen';
@@ -34,7 +34,7 @@ export class DrawerNavigator extends React.Component<DrawerNavigatorProps> {
 		return (
 			<Switch {...rest}>
 				{routes.map(route => this.renderRoute(route, BB))}
-				{!!initialRoute ? <Redirect routeName={initialRoute} />: null}
+				{!!initialRoute ? <Redirect routeName={initialRoute} /> : null}
 			</Switch>
 		);
 	}
