@@ -6,7 +6,7 @@ import {
 import {
    NavigatorPropsWithResolvedRoutes,
    RouteConfigWithResolveSubRoutes,
-} from '../Navigators/types';
+} from '../types';
 import { DrawerNavigator } from '../Navigators/DrawerNavigator';
 import React from 'react';
 import { StackNavigator } from '../Navigators/StackNavigator';
