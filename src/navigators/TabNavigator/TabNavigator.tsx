@@ -1,7 +1,6 @@
 import {
 	BlueBase,
 	BlueBaseContext,
-	Redirect,
 	getComponent,
 } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
@@ -9,6 +8,7 @@ import { Route, Switch } from '../../lib';
 import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
+import { Redirect } from '@bluebase/components';
 
 const TabView = getComponent('TabView');
 

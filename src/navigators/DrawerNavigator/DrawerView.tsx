@@ -1,10 +1,13 @@
-import { DrawerItem, NavigationActions } from '@bluebase/components';
+import { 
+	DrawerItem, 
+	NavigationActions, 
+	NavigationActionsObject, 
+	NavigationOptions, 
+	View,
+} from '@bluebase/components';
 import {
 	MaybeThunk,
-	NavigationActionsObject,
-	NavigationOptions,
 	Theme,
-	View,
 	getComponent,
 	resolveThunk,
 } from '@bluebase/core';

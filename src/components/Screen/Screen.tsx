@@ -1,10 +1,12 @@
 import {
 	Header,
-	MaybeThunk,
 	NavigationActionsObject,
 	NavigationOptions,
-	Theme,
 	View,
+} from '@bluebase/components';
+import {
+	MaybeThunk,
+	Theme,
 	resolveThunk,
 } from '@bluebase/core';
 import { StyleProp, ViewStyle } from 'react-native';

@@ -1,6 +1,6 @@
-// tslint:disable: no-submodule-imports
-import { NavigationActions, NavigationActionsObject } from '@bluebase/core';
 import {
+	NavigationActions,
+	NavigationActionsObject,
 	Tab,
 	TabBarProps,
 	TabBarRoute,

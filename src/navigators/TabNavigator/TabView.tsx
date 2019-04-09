@@ -1,12 +1,14 @@
 import {
 	MaybeThunk,
-	NavigationActionsObject,
-	NavigationOptions,
 	Theme,
-	View,
 	getComponent,
 	resolveThunk,
 } from '@bluebase/core';
+import {
+	NavigationActionsObject,
+	NavigationOptions,
+	View,
+} from '@bluebase/components';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 import { ScreenStyles } from '../../components';

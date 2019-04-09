@@ -1,8 +1,8 @@
 import {
 	BlueBase,
 	BlueBaseContext,
-	NavigationProps,
 } from '@bluebase/core';
+import { NavigationProps } from '@bluebase/components';
 import React from 'react';
 import { Router } from '../../lib/index';
 import { preparePaths } from './preparePaths';

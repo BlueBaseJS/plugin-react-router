@@ -1,7 +1,6 @@
 import {
 	BlueBase,
 	BlueBaseContext,
-	Noop,
 	getComponent,
 } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
@@ -10,6 +9,7 @@ import React from 'react';
 import { ScreenProps } from '../../components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
+import { Noop } from '@bluebase/components';
 
 export interface SwitchNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
