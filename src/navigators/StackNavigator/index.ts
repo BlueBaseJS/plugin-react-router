@@ -1,2 +1,2 @@
-export * from './Screen';
+export * from './ScreenView';
 export * from './StackNavigator';

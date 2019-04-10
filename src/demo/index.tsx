@@ -26,13 +26,6 @@ export default createPlugin({
 			title: 'Settings',
 		}
 	}, {
-		name: 'SettingsDetail',
-		path: '/:id',
-		screen: SettingsDetailScreen,
-		navigationOptions: {
-			title: 'Settings Detail',
-		}
-	}, {
 		name: 'Switch',
 		path: 'switch',
 		navigator: {
@@ -148,6 +141,13 @@ export default createPlugin({
 		},
 		navigationOptions: {
 			title: 'Settings Tabs',
+		}
+	}, {
+		name: 'SettingsDetail',
+		path: '/:id',
+		screen: SettingsDetailScreen,
+		navigationOptions: {
+			title: 'Settings Detail',
 		}
 	}],
 });

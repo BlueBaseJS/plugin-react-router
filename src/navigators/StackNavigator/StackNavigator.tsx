@@ -7,7 +7,7 @@ import { Redirect } from '@bluebase/components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 
-const Screen = getComponent('Screen');
+const ScreenView = getComponent('ScreenView');
 
 export interface StackNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
@@ -17,7 +17,7 @@ export interface StackNavigatorState {
 }
 
 /**
- * Provides a way for your app to transition between screens where each new 
+ * Provides a way for your app to transition between screens where each new
  * screen is placed on top of a stack.
  */
 export class StackNavigator extends React.Component<StackNavigatorProps> {
@@ -84,14 +84,14 @@ export class StackNavigator extends React.Component<StackNavigatorProps> {
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => (
-					<Screen
+					<ScreenView
 						screen={screen}
 						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 						navigationOptions={navigationOptions}
 						navigator={this.props}
 					>
 					{navigator && renderNavigator(navigator, BB)}
-					</Screen>
+					</ScreenView>
 				)}
 			</Route>
 		);

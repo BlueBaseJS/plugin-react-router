@@ -4,12 +4,12 @@ import { StyleProp, ViewStyle } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
-export interface ScreenStyles {
+export interface ScreenViewStyles {
 	content: StyleProp<ViewStyle>;
 	root: StyleProp<ViewStyle>;
 }
 
-export interface ScreenProps {
+export interface ScreenViewProps {
 	/**
 	 * Navigation Options
 	 */
@@ -38,26 +38,17 @@ export interface ScreenProps {
 	/**
 	 * Themed styles
 	 */
-	styles?: ScreenStyles
+	styles?: ScreenViewStyles
 }
 
 /**
  * Screen component, renders a screen with a header
  * @param props
  */
-export const Screen = (props: ScreenProps) => {
+export const ScreenView = (props: ScreenViewProps) => {
 
-	const { screen: ScreenView, navigationOptions, navigator, styles, ...rest } = props;
-	const stylesheet = styles as ScreenStyles;
-
-	// If there is no ScreenView, then is probably an instance where we are
-	// given only a child navigator
-	if (!ScreenView) {
-
-		// Wrap the children in a View, this allows us to give this View a
-		// screen height, and background color.
-		return (<View {...rest} style={[stylesheet.root, stylesheet.root]} />);
-	}
+	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
+	const stylesheet = styles as ScreenViewStyles;
 
 	// If navigationOptions is a thunk, resolve it
 	const finalNavigationOptions = resolveThunk(
@@ -68,19 +59,17 @@ export const Screen = (props: ScreenProps) => {
 		}
 	);
 
-	// if (navigator && navigator.type === 'stack') {
 	return (
 		<View style={stylesheet.root}>
 			<Header {...finalNavigationOptions} />
 			<View style={stylesheet.content}>
-				<ScreenView {...rest} />
+				{Screen ? <Screen {...rest} /> : rest.children}
 			</View>
 		</View>
 	);
-	// }
 };
 
-Screen.defaultStyles = (theme: Theme) => ({
+ScreenView.defaultStyles = (theme: Theme) => ({
 	content: {
 		flex: 1,
 	},
