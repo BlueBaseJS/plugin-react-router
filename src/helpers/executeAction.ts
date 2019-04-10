@@ -2,9 +2,11 @@ import {
 	NavigationActionParams,
 	NavigationActionPayload,
 	NavigatorProps,
-	joinPaths
-} from '@bluebase/core';
+	NavitionActionPathPayload,
+	NavitionActionRouteNamePayload,
+} from '@bluebase/components';
 import { findRouteByKey } from './findRouteByKey';
+import { joinPaths } from '@bluebase/core';
 
 export const executeAction =
 (configs: NavigatorProps, fn: any, routeName: NavigationActionPayload, params?: NavigationActionParams) => {
@@ -15,11 +17,11 @@ export const executeAction =
 		const routeObj = findRouteByKey(routeName, 'name', configs);
 		path = routeObj && routeObj.path;
 	}
-	else if (typeof (routeName as any).routeName === 'string') {
+	else if (typeof (routeName as NavitionActionRouteNamePayload).routeName === 'string') {
 		const routeObj = findRouteByKey(routeName as any, 'routeName', configs);
 		path = routeObj && routeObj.path;
 	}
-	else if (typeof (routeName as any).path === 'string') {
+	else if (typeof (routeName as NavitionActionPathPayload).path === 'string') {
 		path = (routeName as any).path;
 	}
 

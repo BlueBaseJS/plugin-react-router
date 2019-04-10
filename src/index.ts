@@ -1,5 +1,5 @@
-import { DrawerView, TabBar, TabView } from './navigators';
-import { Navigation, NavigationActions, Screen } from './components';
+import { DrawerView, Screen, TabBar, TabView } from './navigators';
+import { Navigation, NavigationActions } from './components';
 import { createPlugin } from '@bluebase/core';
 
 export default createPlugin({

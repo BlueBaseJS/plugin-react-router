@@ -26,6 +26,36 @@ export default createPlugin({
 			title: 'Settings',
 		}
 	}, {
+		name: 'SettingsDetail',
+		path: '/:id',
+		screen: SettingsDetailScreen,
+		navigationOptions: {
+			title: 'Settings Detail',
+		}
+	}, {
+		name: 'Switch',
+		path: 'switch',
+		navigator: {
+			type: 'switch',
+			routes: [{
+				name: 'Page1',
+				path: 'p1',
+				exact: true,
+				screen: Tab1Screen,
+				navigationOptions: {
+					title: 'Page 1',
+				}
+			}, {
+				name: 'Page1',
+				path: 'p2',
+				exact: true,
+				screen: Tab2Screen,
+				navigationOptions: {
+					title: 'Page 2',
+				}
+			}]
+		}
+	}, {
 		name: 'SettingsTabs',
 		path: 'tabs',
 		// TODO: test initial route here
@@ -118,13 +148,6 @@ export default createPlugin({
 		},
 		navigationOptions: {
 			title: 'Settings Tabs',
-		}
-	}, {
-		name: 'SettingsDetail',
-		path: '/:id',
-		screen: SettingsDetailScreen,
-		navigationOptions: {
-			title: 'Settings Detail',
 		}
 	}],
 });

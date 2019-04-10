@@ -1,14 +1,5 @@
-import {
-	Header,
-	NavigationActionsObject,
-	NavigationOptions,
-	View,
-} from '@bluebase/components';
-import {
-	MaybeThunk,
-	Theme,
-	resolveThunk,
-} from '@bluebase/core';
+import { Header, NavigationActionsObject, NavigationOptions, View } from '@bluebase/components';
+import { MaybeThunk, Theme, resolveThunk } from '@bluebase/core';
 import { StyleProp, ViewStyle } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';

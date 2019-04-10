@@ -1,30 +1,62 @@
-import {
-	BlueBase,
-	BlueBaseContext,
-	getComponent,
-} from '@bluebase/core';
+import { BlueBase, BlueBaseContext, getComponent } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 import React from 'react';
-import { ScreenProps } from '../../components';
+import { Redirect } from '@bluebase/components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
-import { Redirect } from '@bluebase/components';
-import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 const Screen = getComponent('Screen');
 
 export interface StackNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
 
+export interface StackNavigatorState {
+	routes: RouteConfigWithResolveSubRoutes[];
+}
+
+/**
+ * Provides a way for your app to transition between screens where each new 
+ * screen is placed on top of a stack.
+ */
 export class StackNavigator extends React.Component<StackNavigatorProps> {
 
 	static contextType = BlueBaseContext;
 
+	readonly state: StackNavigatorState = {
+		routes: this.props.routes || [],
+	};
+
+	/**
+	 * We resolve all screen components here
+	 * @param props
+	 */
+	static getDerivedStateFromProps(props: StackNavigatorProps) {
+
+		const routes = (props.routes || []).map(route => {
+
+			// If there is no screen component, render nothing
+			if (!route.screen) {
+				return route;
+			}
+
+			return {
+				...route,
+
+				// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
+				screen: (typeof route.screen === 'string') ? getComponent(route.screen) : route.screen
+			};
+		});
+
+		return { routes };
+	}
+
 	public render() {
 
 		const BB: BlueBase = this.context;
-		const { type, routes, initialRouteName, ...rest } = this.props;
+		const { type, initialRouteName, ...rest } = this.props;
+		const { routes } = this.state;
 
 		if (routes.length === 0) {
 			return null;
@@ -40,38 +72,26 @@ export class StackNavigator extends React.Component<StackNavigatorProps> {
 		);
 	}
 
+	/**
+	 * Render each indivitual route
+	 * @param route
+	 * @param BB
+	 */
 	private renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
 
-		const parentNavigator = this.props;
-		const { exact, name, navigationOptions, navigator, path, screen } = route;
-
-		// react-router's route object
-		const routeProps: any = {
-			exact,
-			key: name,
-			path,
-		};
-
-		// Screen component
-		const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
-
-		const screenProps: Partial<ScreenProps> = {
-			component: Component,
-			navigationOptions,
-			navigator: parentNavigator,
-		};
-
-		if (navigator) {
-			screenProps.children = renderNavigator(navigator as any, BB);
-		}
+		const { exact, name, navigationOptions, navigator, path, screen: Component } = route;
 
 		return (
-			<Route {...routeProps}>
+			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => (
 					<Screen
-						{...screenProps}
+						component={Component}
 						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
-					/>
+						navigationOptions={navigationOptions}
+						navigator={this.props}
+					>
+					{navigator && renderNavigator(navigator, BB)}
+					</Screen>
 				)}
 			</Route>
 		);

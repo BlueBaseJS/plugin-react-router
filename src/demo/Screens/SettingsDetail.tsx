@@ -1,4 +1,4 @@
-import { Button, Text, View } from 'react-native';
+import { Button, Text, View } from '@bluebase/components';
 import { NavigationActions } from '@bluebase/core';
 import React from 'react';
 
