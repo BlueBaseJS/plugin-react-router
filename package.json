@@ -76,23 +76,18 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@babel/runtime": "^7.4.3",
     "@bluebase/components": "^2.8.1",
-    "compression": "^1.7.4",
     "deepmerge": "^3.2.0",
-    "metro-react-native-babel-preset": "^0.53.1",
     "react-native": "^0.57.8",
     "react-router-dom": "^5.0.0",
     "react-router-native": "^5.0.0",
-    "source-map-support": "^0.5.11",
-    "tslib": "^1.9.3",
-    "uuid": "^3.3.2"
+    "tslib": "^1.9.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.3",
     "@bluebase/cli-essentials": "^0.0.4",
-    "@bluebase/code-standards": "^1.0.2",
+    "@bluebase/code-standards": "^1.1.0",
     "@bluebase/core": "^4.0.0-aplha.14",
     "@bluebase/plugin-material-ui": "^1.10.0",
     "@bluebase/storybook-addon": "^3.0.0",
@@ -140,12 +135,12 @@
     "remark-cli": "^6.0.1",
     "remark-preset-lint-recommended": "^3.0.2",
     "schedule": "^0.5.0",
-    "size-limit": "^0.21.1",
+    "size-limit": "^1.0.1",
     "trash-cli": "^1.4.0",
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.1",
     "typedoc": "^0.14.2",
-    "typescript": "3.3.3333"
+    "typescript": "3.4.2"
   },
   "peerDependencies": {
     "@bluebase/core": "^4.*",

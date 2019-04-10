@@ -1,6 +1,7 @@
 import { BlueBaseApp } from '@bluebase/core';
 import { Navigation } from '../Navigation';
 import { NavigatorProps } from '@bluebase/components';
+import Plugin from '../../../index';
 import React from 'react';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
@@ -31,7 +32,7 @@ describe('Navigation', () => {
 	it('should render a router with child navigators', async () => {
 
 		const wrapper = mount(
-			<BlueBaseApp>
+			<BlueBaseApp plugins={[Plugin]}>
 				<Navigation navigator={input} />
 			</BlueBaseApp>
 		);

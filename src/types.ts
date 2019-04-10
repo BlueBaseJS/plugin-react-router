@@ -1,4 +1,4 @@
-import { NavigatorProps, RouteConfig } from '@bluebase/core';
+import { NavigatorProps, RouteConfig } from '@bluebase/components';
 
 
 export interface RouteConfigWithResolveSubRoutes extends RouteConfig {
