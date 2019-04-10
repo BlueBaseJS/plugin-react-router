@@ -5,29 +5,61 @@ import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
 export interface ScreenStyles {
-	root: StyleProp<ViewStyle>
+	content: StyleProp<ViewStyle>;
+	root: StyleProp<ViewStyle>;
 }
 
 export interface ScreenProps {
+	/**
+	 * Navigation Options
+	 */
 	navigationOptions?: MaybeThunk<NavigationOptions>,
-	component?: React.ComponentType<any>,
+
+	/**
+	 * This is the screen component. This is the main view of the route.
+	 */
+	screen?: React.ComponentType<any>,
+
+	/**
+	 * Navigation actions
+	 */
 	navigation: NavigationActionsObject,
+
+	/**
+	 * Parent navigator props
+	 */
 	navigator: NavigatorPropsWithResolvedRoutes,
+
+	/**
+	 * This is normally a nested navigator
+	 */
 	children: React.ReactNode,
+
+	/**
+	 * Themed styles
+	 */
 	styles?: ScreenStyles
 }
 
-const ScreenContent = ({ children }: any) => (
-	<View style={{ flex: 1 }}>{children}</View>
-);
-
+/**
+ * Screen component, renders a screen with a header
+ * @param props
+ */
 export const Screen = (props: ScreenProps) => {
 
-	const { component, navigationOptions, navigator, styles, ...rest } = props;
+	const { screen: ScreenView, navigationOptions, navigator, styles, ...rest } = props;
 	const stylesheet = styles as ScreenStyles;
 
-	const Component = component || ScreenContent;
+	// If there is no ScreenView, then is probably an instance where we are
+	// given only a child navigator
+	if (!ScreenView) {
 
+		// Wrap the children in a View, this allows us to give this View a
+		// screen height, and background color.
+		return (<View {...rest} style={[stylesheet.root, stylesheet.root]} />);
+	}
+
+	// If navigationOptions is a thunk, resolve it
 	const finalNavigationOptions = resolveThunk(
 		navigationOptions || {},
 		{
@@ -36,19 +68,22 @@ export const Screen = (props: ScreenProps) => {
 		}
 	);
 
-	if (navigator && navigator.type === 'stack') {
-		return (
-			<View style={stylesheet.root}>
-				<Header {...finalNavigationOptions} />
-				<Component {...rest} />
+	// if (navigator && navigator.type === 'stack') {
+	return (
+		<View style={stylesheet.root}>
+			<Header {...finalNavigationOptions} />
+			<View style={stylesheet.content}>
+				<ScreenView {...rest} />
 			</View>
-		);
-	}
-
-	return (<Component {...rest} />);
+		</View>
+	);
+	// }
 };
 
 Screen.defaultStyles = (theme: Theme) => ({
+	content: {
+		flex: 1,
+	},
 	root: {
 		backgroundColor: theme.palette.background.default,
 		flex: 1,

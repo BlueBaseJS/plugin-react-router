@@ -79,13 +79,13 @@ export class StackNavigator extends React.Component<StackNavigatorProps> {
 	 */
 	private renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
 
-		const { exact, name, navigationOptions, navigator, path, screen: Component } = route;
+		const { exact, name, navigationOptions, navigator, path, screen } = route;
 
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => (
 					<Screen
-						component={Component}
+						screen={screen}
 						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
 						navigationOptions={navigationOptions}
 						navigator={this.props}
