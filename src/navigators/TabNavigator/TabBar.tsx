@@ -1,98 +1,60 @@
-import {
-	NavigationActions,
-	NavigationActionsObject,
-	Tab,
-	TabBarProps,
-	TabBarRoute,
-	TabBarScene,
-	Tabs,
-} from '@bluebase/components';
+import { BottomNavigation, BottomNavigationAction, Tab, Tabs } from '@bluebase/components';
 import React from 'react';
+import { RouteConfigWithResolveSubRoutes } from '../../types';
+import { TabViewProps } from './TabView';
+import { resolveThunk } from '@bluebase/core';
 
-// export interface TabBarState {
-// 	value: number;
-// }
+export interface TabBarProps extends TabViewProps {
 
-export class TabBar extends React.Component<TabBarProps<TabBarRoute>> {
+	/**
+	 * If true, renders BottomNavigation instead of Tabs
+	 */
+	bottomNavigation: boolean;
+}
 
-	static defaultProps: Partial<TabBarProps> = {
-
-		getAccessibilityLabel: ({ route }: TabBarScene<TabBarRoute>) =>
-		typeof route.accessibilityLabel === 'string'
-			? route.accessibilityLabel
-			: typeof route.title === 'string'
-			? route.title
-			: undefined,
-
-		getAccessible: ({ route }: TabBarScene<TabBarRoute>) =>
-      typeof route.accessible !== 'undefined' ? route.accessible : true,
-
-		getLabelText: ({ route }: TabBarScene<TabBarRoute>) =>
-				typeof route.title === 'string' ? route.title.toUpperCase() : route.title,
-
-		getTestID: ({ route }: TabBarScene<TabBarRoute>) => route.testID,
-		// renderIndicator: (props: IndicatorProps<TabBarRoute>) => (
-    //   <TabBarIndicator {...props} />
-    // ),
-	};
-
-	// readonly state: TabBarState = {
-	// 	value: 0
-	// };
-
-	constructor(props: TabBarProps<TabBarRoute>) {
-		super(props);
-
-    // This binding is necessary to make `this` work in the callback
-		this.renderTab = this.renderTab.bind(this);
-	}
+export class TabBar extends React.Component<TabBarProps> {
 
 	render() {
 
-		const { navigationState } = this.props;
-		// const { value } = this.state;
-		const { routes } = navigationState;
+		const { bottomNavigation, navigation, navigator } = this.props;
+		const { routes } = navigator;
 
-		const scenes = routes.map((route, index) => ({
-			focused: false,
-			index,
-			route,
-		}));
+		// Resolve active tab index
+		const currentRouteName = navigation.state.routeName;
+		const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
+
+		const onChange = (_e: any, i: number) => navigation.push(routes[i].name);
+
+		const Component = bottomNavigation === true ? BottomNavigation : Tabs;
 
 		return (
-			<NavigationActions>
-				{({ push }: NavigationActionsObject) => {
-
-					const onChange = (_e: any, index: number) => {
-						// this.setState({ value: index });
-						push(routes[index].routeName);
-					};
-
-					return (
-						<Tabs value={navigationState.index} onChange={onChange}>
-							{scenes.map(this.renderTab)}
-						</Tabs>
-					);
-				}}
-			</NavigationActions>
+			<Component value={currentIndex} onChange={onChange}>
+				{navigator.routes.map((route, index) => this.renderTab(route, index, this.props))}
+			</Component>
 		);
-
 	}
 
-	private renderTab(scene: TabBarScene<TabBarRoute>) {
+	private renderTab(route: RouteConfigWithResolveSubRoutes, index: number, props: TabBarProps) {
 
-		const { getLabelText, renderIcon, renderLabel } = this.props;
+		const { bottomNavigation, ...rest } = props;
 
-		const label = renderLabel
-		? renderLabel(scene)
-		: getLabelText ? getLabelText(scene) : undefined;
+		const Component = bottomNavigation === true ? BottomNavigationAction : Tab;
+
+		// Resolve navigationOptions
+		const options = resolveThunk(
+			route.navigationOptions || {},
+			{
+				navigation: props.navigation,
+				screenProps: rest
+			}
+		);
 
 		return (
-			<Tab
-				icon={renderIcon ? renderIcon(scene) : null as any}
-				label={label}
-				value={String(scene.index)}
-				key={scene.index}
+			<Component
+				icon={route.icon}
+				label={options.title}
+				value={index as any}
+				key={index}
 			/>
 		);
 	}

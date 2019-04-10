@@ -1,29 +1,58 @@
-import {
-	BlueBase,
-	BlueBaseContext,
-	getComponent,
-} from '@bluebase/core';
+import { BlueBase, BlueBaseContext, getComponent } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib';
+import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 import React from 'react';
+import { Redirect } from '@bluebase/components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
-import { Redirect } from '@bluebase/components';
-import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
 const TabView = getComponent('TabView');
 
 export interface TabNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
 
+export interface TabNavigatorState {
+	routes: RouteConfigWithResolveSubRoutes[];
+}
+
 export class TabNavigator extends React.Component<TabNavigatorProps> {
 
 	static contextType = BlueBaseContext;
 
+	readonly state: TabNavigatorState = {
+		routes: this.props.routes || [],
+	};
+
+	/**
+	 * We resolve all screen components here
+	 * @param props
+	 */
+	static getDerivedStateFromProps(props: TabNavigatorProps) {
+
+		const routes = (props.routes || []).map(route => {
+
+			// If there is no screen component, render nothing
+			if (!route.screen) {
+				return route;
+			}
+
+			return {
+				...route,
+
+				// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
+				screen: (typeof route.screen === 'string') ? getComponent(route.screen) : route.screen
+			};
+		});
+
+		return { routes };
+	}
+
 	public render() {
 
 		const BB: BlueBase = this.context;
-		const { type, routes, initialRouteName, ...rest } = this.props;
+		const { type, initialRouteName, ...rest } = this.props;
+		const { routes } = this.state;
 
 		if (routes.length === 0) {
 			return null;
@@ -41,36 +70,19 @@ export class TabNavigator extends React.Component<TabNavigatorProps> {
 
 	private renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
 
-		const parentNavigator = this.props as TabNavigatorProps;
 		const { exact, name, navigationOptions, navigator, path, screen } = route;
 
-		// react-router's route object
-		const routeProps: any = {
-			exact,
-			key: name,
-			path,
-		};
-
-		// Screen component
-		const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
-
-		const screenProps: any = {
-			component: Component,
-			navigationOptions,
-			navigator: parentNavigator,
-		};
-
-		if (navigator) {
-			screenProps.children = renderNavigator(navigator as any, BB);
-		}
-
 		return (
-			<Route {...routeProps}>
+			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => (
 					<TabView
-						{...screenProps}
+						screen={screen}
 						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
-					/>
+						navigationOptions={navigationOptions}
+						navigator={this.props}
+					>
+					{navigator && renderNavigator(navigator, BB)}
+					</TabView>
 				)}
 			</Route>
 		);

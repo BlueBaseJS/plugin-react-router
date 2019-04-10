@@ -14,15 +14,15 @@ import {
 import { SafeAreaView, ScrollView } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
-import { ScreenStyles } from '../../components';
+import { ScreenViewStyles } from '../StackNavigator';
 
 export interface DrawerViewProps {
 	navigationOptions?: MaybeThunk<NavigationOptions>,
-	component?: React.ComponentType<any>,
+	screen?: React.ComponentType<any>,
 	navigation: NavigationActionsObject,
 	navigator: NavigatorPropsWithResolvedRoutes,
 	children: React.ReactNode,
-	styles?: ScreenStyles
+	styles?: ScreenViewStyles
 }
 
 const DrawerLayout = getComponent('DrawerLayout');
@@ -50,10 +50,10 @@ const DrawerNavigationView = (props: any) => {
 
 export const DrawerView = (props: DrawerViewProps) => {
 
-	const { component, navigationOptions, navigator, styles, ...rest } = props;
+	const { screen: component, navigationOptions, navigator, styles, ...rest } = props;
 	const { contentOptions, routes, type, ...other } = navigator;
 
-	const stylesheet = styles as ScreenStyles;
+	const stylesheet = styles as ScreenViewStyles;
 
 	const Component = component; // || DrawerViewContent;
 

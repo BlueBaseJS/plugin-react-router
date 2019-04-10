@@ -1,85 +1,50 @@
-import {
-	MaybeThunk,
-	Theme,
-	getComponent,
-	resolveThunk,
-} from '@bluebase/core';
-import {
-	NavigationActionsObject,
-	NavigationOptions,
-	View,
-} from '@bluebase/components';
+import { MaybeThunk, Theme, getComponent } from '@bluebase/core';
+import { NavigationActionsObject, NavigationOptions, View } from '@bluebase/components';
+import { StyleProp, ViewStyle } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
-import { ScreenStyles } from '../../components';
+
+
+export interface TabViewStyles {
+	content: StyleProp<ViewStyle>;
+	root: StyleProp<ViewStyle>;
+}
 
 export interface TabViewProps {
 	navigationOptions?: MaybeThunk<NavigationOptions>,
-	component?: React.ComponentType<any>,
+	screen?: React.ComponentType<any>,
 	navigation: NavigationActionsObject,
 	navigator: NavigatorPropsWithResolvedRoutes,
 	children: React.ReactNode,
-	styles?: ScreenStyles
+	styles?: TabViewStyles
 }
 
-const BottomNavigation = getComponent('BottomNavigation');
+// const BottomNavigation = getComponent('BottomNavigation');
 const TabBar = getComponent('TabBar');
 
-const TabViewContent = ({ children }: any) => (
-	<View style={{ flex: 1 }}>{children}</View>
-);
 
 export const TabView = (props: TabViewProps) => {
 
-	const { component, navigationOptions, navigator, styles, ...rest } = props;
-	const stylesheet = styles as ScreenStyles;
+	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
+	const stylesheet = styles as TabViewStyles;
 
-	const Component = component || TabViewContent;
-
-	// Resolve active tab index
-	const currentRouteName = props.navigation.state.routeName;
-	const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
-
-	// Navigation State
-	const navigationState = {
-		index: currentIndex,
-		routes: navigator.routes.map((route, index) => {
-
-			// Resolve navigationOptions
-			const options = resolveThunk(
-				route.navigationOptions || {},
-				{
-					navigation: props.navigation,
-					screenProps: rest
-				}
-			);
-
-			return {
-				index,
-				routeName: route.name,
-				title: options.title,
-			};
-		})
-	};
-
-	if (navigator.type === 'bottom-tab') {
-		return (
-			<View style={stylesheet.root}>
-				<Component {...rest} />
-				<BottomNavigation navigationState={navigationState} />
-			</View>
-		);
-	}
+	const bottomNavigation = (navigator.type === 'bottom-navigation') ? true : false;
 
 	return (
 		<View style={stylesheet.root}>
-			<TabBar navigationState={navigationState} />
-			<Component {...rest} />
+			{!bottomNavigation && <TabBar bottomNavigation={bottomNavigation} {...props} />}
+			<View style={stylesheet.content}>
+				{Screen ? <Screen {...rest} /> : rest.children}
+			</View>
+			{bottomNavigation && <TabBar bottomNavigation={bottomNavigation} {...props} />}
 		</View>
 	);
 };
 
 TabView.defaultStyles = (theme: Theme) => ({
+	content: {
+		flex: 1,
+	},
 	root: {
 		backgroundColor: theme.palette.background.default,
 		flex: 1,

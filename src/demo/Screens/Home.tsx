@@ -27,6 +27,7 @@ export class HomeScreen extends React.Component<any> {
 						<ListItem
 							title="Tabs"
 							onPress={() => this.props.navigation.navigate('SettingsTabs')}
+							description="A tab bar on the top of the screen that lets you switch between different routes by tapping the route or swiping horizontally. "
 						/>
 						<Divider />
 						<ListItem

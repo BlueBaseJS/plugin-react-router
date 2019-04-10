@@ -79,7 +79,7 @@ export default createPlugin({
 		name: 'SettingsBottomTabs',
 		path: 'btabs',
 		navigator: {
-			type: 'bottom-tab',
+			type: 'bottom-navigation',
 			routes: [{
 				name: 'BTab1',
 				path: 'bt1',

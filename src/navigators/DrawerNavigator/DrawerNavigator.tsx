@@ -7,10 +7,10 @@ import {
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib/index';
 import React from 'react';
-import { ScreenProps } from '../../components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
+import { ScreenViewProps } from '../StackNavigator';
 
 const DrawerView = getComponent('DrawerView');
 
@@ -55,8 +55,8 @@ export class DrawerNavigator extends React.Component<DrawerNavigatorProps> {
 		// Screen component
 		const Component = (typeof screen === 'string') ? getComponent(screen) : screen;
 
-		const screenProps: Partial<ScreenProps> = {
-			component: Component,
+		const screenProps: Partial<ScreenViewProps> = {
+			screen: Component,
 			navigationOptions,
 			navigator: parentNavigator,
 		};

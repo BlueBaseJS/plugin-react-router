@@ -23,11 +23,9 @@ export function renderNavigator(navigator: NavigatorProps, BB: BlueBase) {
 			break;
 
 		case 'tab':
-		case 'top-tab':
-			NavigatorComponent = TabNavigator;
-			break;
-
-		case 'bottom-tab':
+		case 'tabs':
+		case 'top-navigation':
+		case 'bottom-navigation':
 			NavigatorComponent = TabNavigator;
 			break;
 
