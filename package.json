@@ -17,7 +17,7 @@
   },
   "size-limit": [
     {
-      "limit": "20 KB",
+      "limit": "14 KB",
       "webpack": false,
       "path": "dist/**/*.js"
     }
@@ -29,7 +29,7 @@
     "watch:test": "jest --watch",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
     "info": "npm-scripts-info",
-    "build": "run-s clean && run-p build:* && cp -r ./dist/src/* ./dist && rm -r ./dist/src && yarn run size",
+    "build": "run-s clean && run-p build:* && cp -r ./dist/src/* ./dist && rm -r ./dist/src && rm -r ./dist/demo && yarn run size",
     "build:main": "tsc -p tsconfig.json && babel ./src --out-dir dist --ignore \"**/__tests__\",\"**/__stories__\" --extensions \".ts,.tsx,.js,.jsx\"",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
@@ -89,7 +89,7 @@
     "@bluebase/cli-essentials": "^0.0.4",
     "@bluebase/code-standards": "^1.1.0",
     "@bluebase/core": "^4.0.0-aplha.14",
-    "@bluebase/plugin-material-ui": "^1.10.0",
+    "@bluebase/plugin-material-ui": "^1.11.0",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
     "@types/compression": "^0.0.36",

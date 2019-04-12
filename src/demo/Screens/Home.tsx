@@ -32,11 +32,13 @@ export class HomeScreen extends React.Component<any> {
 						<Divider />
 						<ListItem
 							title="Bottom Tabs"
+							description="A simple tab bar on the bottom of the screen that lets you switch between different routes."
 							onPress={() => this.props.navigation.navigate('SettingsBottomTabs')}
 						/>
 						<Divider />
 						<ListItem
 							title="Drawer"
+							description="Navigation drawers provide access to destinations in your app."
 							onPress={() => this.props.navigation.navigate('SettingsDrawer')}
 						/>
 						<Divider />

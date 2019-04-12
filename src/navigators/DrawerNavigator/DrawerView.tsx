@@ -27,7 +27,7 @@ export interface DrawerViewProps {
 
 const DrawerLayout = getComponent('DrawerLayout');
 
-const DrawerNavigationView = (props: any) => {
+const DrawerNavigationView = (props: any) => () => {
 
 	const { navigationState } = props;
 	const { routes } = navigationState;
@@ -84,16 +84,9 @@ export const DrawerView = (props: DrawerViewProps) => {
 		})
 	};
 
-	// return (
-	// 	<View style={stylesheet.root}>
-	// 		<TabBar navigationState={navigationState} />
-	// 		<Component {...rest} />
-	// 	</View>
-	// );
-
 	return (
 	 		<View style={stylesheet.root}>
-				<DrawerLayout {...other} navigationState={navigationState} renderNavigationView={DrawerNavigationView}>
+				<DrawerLayout {...other} renderNavigationView={DrawerNavigationView({ ...props, navigationState })}>
 					{Component ? <Component {...rest} /> : null}
 				</DrawerLayout>
 			</View>

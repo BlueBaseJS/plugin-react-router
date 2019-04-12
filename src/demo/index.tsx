@@ -1,5 +1,7 @@
 // tslint:disable: object-literal-sort-keys
 import {
+	DrawerPage1,
+	DrawerPage2,
 	HomeScreen,
 	SettingsDetailScreen,
 	SettingsScreen,
@@ -14,6 +16,8 @@ export default createPlugin({
 	name: 'Settings',
 
 	components: {
+		DrawerPage1,
+		DrawerPage2,
 		HomeScreen,
 	},
 
@@ -110,6 +114,10 @@ export default createPlugin({
 
 			drawerType: 'slide',
 
+			open: true,
+
+			drawerWidth: 175,
+
 			contentOptions: {
 				activeTintColor: '#e91e63',
 				itemsContainerStyle: {
@@ -124,7 +132,7 @@ export default createPlugin({
 				name: 'DTab1',
 				path: 'dt1',
 				exact: true,
-				screen: Tab1Screen,
+				screen: 'DrawerPage1',
 				navigationOptions: {
 					title: 'DTab A',
 					// drawerLockMode: 'locked-open',
@@ -133,7 +141,7 @@ export default createPlugin({
 				name: 'DTab2',
 				path: 'Dt2',
 				exact: true,
-				screen: Tab2Screen,
+				screen: 'DrawerPage2',
 				navigationOptions: {
 					title: 'DTab B',
 				}
