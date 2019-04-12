@@ -12,6 +12,7 @@ export class Tab2Screen extends React.Component {
           {({ navigate }: any) => (
             <Button
               title="Home"
+              // tslint:disable-next-line: jsx-no-lambda
               onPress={() => navigate('Home')}
             />
           )}
