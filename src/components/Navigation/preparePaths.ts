@@ -7,11 +7,9 @@ import { NavigatorProps } from '@bluebase/components';
  * @param parentPath
  */
 export function preparePaths(navigator: NavigatorProps, parentPath: string = ''): NavigatorProps {
-
 	// If routes prop is a thunk, resolve it.
 	// Then map it to have new paths
 	const routes = resolveThunk(navigator.routes).map(r => {
-
 		// Create new path by joing current path with parent path
 		const path = `/${joinPaths(parentPath, r.path)}`;
 
@@ -19,9 +17,9 @@ export function preparePaths(navigator: NavigatorProps, parentPath: string = '')
 		const resolvedNavigator = r.navigator ? preparePaths(r.navigator, path) : undefined;
 
 		// Return the final object
-		return { ...r, navigator: resolvedNavigator, path, };
+		return { ...r, navigator: resolvedNavigator, path };
 	});
 
 	// Merge and return incoming navigator with newer routes
-	return { ...navigator, routes, };
+	return { ...navigator, routes };
 }

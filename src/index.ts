@@ -23,5 +23,5 @@ export default createPlugin({
 		ScreenView,
 		TabBar,
 		TabView,
-	}
+	},
 });

@@ -1,8 +1,8 @@
-import { 
-	DrawerItem, 
-	NavigationActions, 
-	NavigationActionsObject, 
-	NavigationOptions, 
+import {
+	DrawerItem,
+	NavigationActions,
+	NavigationActionsObject,
+	NavigationOptions,
 	View,
 } from '@bluebase/components';
 import {

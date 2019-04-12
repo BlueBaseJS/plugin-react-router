@@ -1,7 +1,7 @@
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
 import { findRouteByKey } from '../findRouteByKey';
 
-const input: NavigatorProps = {
+const inputRoutes: NavigatorProps = {
 	initialRouteName: 'Root',
 	routes: [
 		{
@@ -11,21 +11,32 @@ const input: NavigatorProps = {
 				initialRouteName: 'Home',
 				routes: [
 					{ name: 'Home', path: '', exact: true, screen: 'HomeScreen', navigationOptions: {} },
-					{ name: 'Settings', path: 'p/settings', exact: true, screen: 'SettingsScreen', navigationOptions: {} },
-					{ name: 'SettingsDetail', path: 'p/settings/:id', screen: 'SettingsDetail', navigationOptions: {} }
+					{
+						exact: true,
+						name: 'Settings',
+						navigationOptions: {},
+						path: 'p/settings',
+						screen: 'SettingsScreen',
+					},
+					{
+						name: 'SettingsDetail',
+						navigationOptions: {},
+						path: 'p/settings/:id',
+						screen: 'SettingsDetail',
+					},
 				],
 				type: 'stack',
 			},
 			path: '', //
-		}
+		},
 	],
 	type: 'stack',
 };
 
 test('findRouteByKey', () => {
-
-	expect((findRouteByKey('', 'path', input) as RouteConfig).name).toBe('Root');
-	expect((findRouteByKey('p/settings', 'path', input) as RouteConfig).name).toBe('Settings');
-	expect((findRouteByKey('SettingsDetail', 'name', input) as RouteConfig).path).toBe('p/settings/:id');
-
+	expect((findRouteByKey('', 'path', inputRoutes) as RouteConfig).name).toBe('Root');
+	expect((findRouteByKey('p/settings', 'path', inputRoutes) as RouteConfig).name).toBe('Settings');
+	expect((findRouteByKey('SettingsDetail', 'name', inputRoutes) as RouteConfig).path).toBe(
+		'p/settings/:id'
+	);
 });

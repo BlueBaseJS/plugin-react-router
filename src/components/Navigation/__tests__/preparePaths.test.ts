@@ -11,13 +11,24 @@ const input: NavigatorProps = {
 				initialRouteName: 'Home',
 				routes: [
 					{ name: 'Home', path: '', exact: true, screen: 'HomeScreen', navigationOptions: {} },
-					{ name: 'Settings', path: 'p/settings', exact: true, screen: 'SettingsScreen', navigationOptions: {} },
-					{ name: 'SettingsDetail', path: 'p/settings/:id', screen: 'SettingsDetail', navigationOptions: {} }
+					{
+						name: 'Settings',
+						path: 'p/settings',
+						exact: true,
+						screen: 'SettingsScreen',
+						navigationOptions: {},
+					},
+					{
+						name: 'SettingsDetail',
+						path: 'p/settings/:id',
+						screen: 'SettingsDetail',
+						navigationOptions: {},
+					},
 				],
 				type: 'stack',
 			},
 			path: '', //
-		}
+		},
 	],
 	type: 'stack',
 };
@@ -45,7 +56,6 @@ const input: NavigatorProps = {
 // };
 
 test('preparePaths', () => {
-
 	const navigator = preparePaths(input);
 
 	expect((navigator as any).routes[0].path).toBe('/');

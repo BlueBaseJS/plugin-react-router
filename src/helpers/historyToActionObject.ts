@@ -9,9 +9,10 @@ import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
 
 export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase) => {
-
 	const configs: NavigatorProps = BB.Configs.getValue('plugin.react-router.navigationConfigs');
-	const enableSource: boolean = BB.Configs.getValue('plugin.react-router.enableSourceInNavigationActions');
+	const enableSource: boolean = BB.Configs.getValue(
+		'plugin.react-router.enableSourceInNavigationActions'
+	);
 
 	if (!router.match) {
 		throw Error('An error occurent in React Router Plugn. We did not find match object');
@@ -20,7 +21,6 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 	const obj = findRouteByKey(router.match.path, 'path', configs);
 
 	const actions: NavigationActionsObject = {
-
 		navigate: (routeName, params?: NavigationActionParams) => {
 			return executeAction(configs, router.history.push, routeName, params);
 		},
@@ -34,7 +34,7 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 		},
 
 		pop: (steps: number = 0) => {
-			router.history.go(steps * -1);
+			router.history.go(steps === 0 ? 0 : steps * -1);
 		},
 
 		goBack: () => {
@@ -62,4 +62,3 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 
 	return actions;
 };
-
