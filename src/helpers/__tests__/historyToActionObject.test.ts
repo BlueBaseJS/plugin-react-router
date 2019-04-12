@@ -251,6 +251,6 @@ describe('historyToActionObject', () => {
 
 		result.getParam('getting', 'hello');
 
-		expect(result.getParam('id', 'hello')).toBe('hello');
+		expect(result.getParam('getting', 'hello')).toBe('hello');
 	});
 });
