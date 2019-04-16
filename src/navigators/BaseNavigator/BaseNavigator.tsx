@@ -1,9 +1,9 @@
 import { BlueBase, BlueBaseContext, getComponent } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
+import { Noop, Redirect } from '@bluebase/components';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 import React from 'react';
-import { Redirect } from '@bluebase/components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 import { renderNavigator } from '../../helpers/renderNavigator';
 
@@ -82,7 +82,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 		const { exact, name, navigationOptions, navigator, path, screen } = route;
 
-		const RouteView = this.props.RouteView || screen;
+		const RouteView = this.props.RouteView || screen || Noop;
 
 		return (
 			<Route key={name} exact={exact} path={path}>
