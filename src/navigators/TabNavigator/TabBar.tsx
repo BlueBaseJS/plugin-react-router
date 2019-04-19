@@ -25,7 +25,7 @@ export class TabBar extends React.Component<TabBarProps> {
 
 		const onChange = (_e: any, i: number) => navigation.push(routes[i].name);
 
-		const Component = bottomNavigation === true ? BottomNavigation : Tabs;
+		const Component : any = bottomNavigation === true ? BottomNavigation : Tabs;
 
 		return (
 			<Component value={currentIndex} onChange={onChange}>
@@ -38,7 +38,7 @@ export class TabBar extends React.Component<TabBarProps> {
 
 		const { bottomNavigation, ...rest } = props;
 
-		const Component = bottomNavigation === true ? BottomNavigationAction : Tab;
+		const Component: any = bottomNavigation === true ? BottomNavigationAction : Tab;
 
 		// Resolve navigationOptions
 		const options = resolveThunk(

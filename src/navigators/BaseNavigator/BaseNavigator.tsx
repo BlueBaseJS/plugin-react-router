@@ -1,4 +1,4 @@
-import { BlueBase, BlueBaseContext, getComponent } from '@bluebase/core';
+import { BlueBase, BlueBaseContext, getComponent, NavigationActionsObject, resolveThunk } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Noop, Redirect } from '@bluebase/components';
 import { Route, Switch } from '../../lib';
@@ -84,18 +84,31 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 		const RouteView = this.props.RouteView || screen || Noop;
 
+		const finalNavigationOptions =
+			(navigation: NavigationActionsObject) => (screen && (screen as any).navigationOptions !== undefined) ?
+				{
+					...navigationOptions,
+					...resolveThunk((screen as any).navigationOptions, { navigation })
+				} : {
+					...navigationOptions
+				};
+
 		return (
 			<Route key={name} exact={exact} path={path}>
-				{(routerProps: RouteChildrenProps) => (
-					<RouteView
-						screen={screen}
-						navigation={historyToActionObject(routerProps as RouteComponentProps, BB)}
-						navigationOptions={navigationOptions}
-						navigator={this.props}
-					>
-					{navigator && renderNavigator(navigator, BB)}
-					</RouteView>
-				)}
+				{(routerProps: RouteChildrenProps) => {
+					const navigation: NavigationActionsObject = historyToActionObject(routerProps as RouteComponentProps, BB);
+					return (
+						<RouteView
+							screen={screen}
+							navigation={navigation}
+							navigationOptions={finalNavigationOptions(navigation)}
+							navigator={this.props}
+						>
+							{navigator && renderNavigator(navigator, BB)}
+						</RouteView>
+					);
+				}
+				}
 			</Route>
 		);
 	}
