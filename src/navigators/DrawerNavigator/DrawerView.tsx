@@ -9,7 +9,6 @@ import {
 	MaybeThunk,
 	Theme,
 	getComponent,
-	resolveThunk,
 } from '@bluebase/core';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';

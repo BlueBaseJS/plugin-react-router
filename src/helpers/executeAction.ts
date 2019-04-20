@@ -5,6 +5,7 @@ import {
 	NavitionActionPathPayload,
 	NavitionActionRouteNamePayload,
 } from '@bluebase/components';
+import { compile } from 'path-to-regexp';
 import { findRouteByKey } from './findRouteByKey';
 import { joinPaths } from '@bluebase/core';
 
@@ -16,6 +17,7 @@ export const executeAction = (
 ) => {
 	let path;
 
+	debugger;
 	if (typeof routeName === 'string') {
 		const routeObj = findRouteByKey(routeName, 'name', configs);
 		path = routeObj && routeObj.path;
@@ -34,5 +36,6 @@ export const executeAction = (
 		throw Error('Invalid props provided to navigation action');
 	}
 
-	fn(`/${joinPaths(path)}`, params);
+	const toPath = compile(`/${joinPaths(path)}`);
+	fn(toPath(params), params);
 };
