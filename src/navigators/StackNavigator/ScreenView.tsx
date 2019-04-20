@@ -50,18 +50,11 @@ export const ScreenView = (props: ScreenViewProps) => {
 	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
 	const stylesheet = styles as ScreenViewStyles;
 
-	// If navigationOptions is a thunk, resolve it
-	const finalNavigationOptions = resolveThunk(
-		navigationOptions || {},
-		{
-			navigation: props.navigation,
-			screenProps: rest
-		}
-	);
+	const options = navigationOptions as NavigationOptions;
 
 	return (
 		<View style={stylesheet.root}>
-			<Header {...finalNavigationOptions} />
+			<Header {...options} />
 			<View style={stylesheet.content}>
 				{Screen ? <Screen {...rest} /> : rest.children}
 			</View>

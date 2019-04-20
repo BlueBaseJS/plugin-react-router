@@ -128,25 +128,25 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 		// Create navigationOptions from main navigation configs
 		let navigationOptions = resolveThunk(
-			mainNavigationConfigs.defaultNavigationOptions,
+			mainNavigationConfigs.defaultNavigationOptions || {},
 			{ navigation, screenProps, navigationOptions: {} },
 		);
 
 		// Create navigationOptions from navigatior defaultNavigationOptions
 		navigationOptions = resolveThunk(
-			this.props.defaultNavigationOptions || {},
+			this.props.defaultNavigationOptions || navigationOptions,
 			{ navigation, screenProps, navigationOptions },
 		);
 
 		// Now, create navigationOptions from route's navigationOptions object
 		navigationOptions = resolveThunk(
-			route.navigationOptions || {},
+			route.navigationOptions || navigationOptions,
 			{ navigation, screenProps, navigationOptions },
 		);
 
 		// And finally, create navigationOptions from route.screen NavigationOptions
 		navigationOptions = resolveThunk(
-			route.screen && (route.screen as any).navigationOptions || {},
+			(route.screen && (route.screen as any).navigationOptions) || navigationOptions,
 			{ navigation, screenProps, navigationOptions },
 		);
 

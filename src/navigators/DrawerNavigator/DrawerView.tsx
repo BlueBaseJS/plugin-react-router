@@ -66,14 +66,7 @@ export const DrawerView = (props: DrawerViewProps) => {
 		index: currentIndex,
 		routes: navigator.routes.map((route, index) => {
 
-			// Resolve navigationOptions
-			const options = resolveThunk(
-				route.navigationOptions || {},
-				{
-					navigation: props.navigation,
-					screenProps: rest
-				}
-			);
+			const options = route.navigationOptions as NavigationOptions;
 
 			return {
 				index,

@@ -1,8 +1,7 @@
-import { BottomNavigation, BottomNavigationAction, Tab, Tabs } from '@bluebase/components';
+import { BottomNavigation, BottomNavigationAction, NavigationOptions, Tab, Tabs } from '@bluebase/components';
 import React from 'react';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { TabViewProps } from './TabView';
-import { resolveThunk } from '@bluebase/core';
 
 export interface TabBarProps extends TabViewProps {
 
@@ -36,18 +35,11 @@ export class TabBar extends React.Component<TabBarProps> {
 
 	private renderTab(route: RouteConfigWithResolveSubRoutes, index: number, props: TabBarProps) {
 
-		const { bottomNavigation, ...rest } = props;
+		const { bottomNavigation } = props;
 
 		const Component: any = bottomNavigation === true ? BottomNavigationAction : Tab;
 
-		// Resolve navigationOptions
-		const options = resolveThunk(
-			route.navigationOptions || {},
-			{
-				navigation: props.navigation,
-				screenProps: rest
-			}
-		);
+		const options = route.navigationOptions as NavigationOptions;
 
 		return (
 			<Component
