@@ -18,19 +18,21 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 		throw Error('An error occurent in React Router Plugn. We did not find match object');
 	}
 
+	const params = { ...router.location.state, ...router.match.params };
+
 	const obj = findRouteByKey(router.match.path, 'path', configs);
 
 	const actions: NavigationActionsObject = {
-		navigate: (routeName, params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.push, routeName, params);
+		navigate: (routeName, _params?: NavigationActionParams) => {
+			return executeAction(configs, router.history.push, routeName, _params);
 		},
 
-		push: (routeName, params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.push, routeName, params);
+		push: (routeName, _params?: NavigationActionParams) => {
+			return executeAction(configs, router.history.push, routeName, _params);
 		},
 
-		replace: (routeName, params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.replace, routeName, params);
+		replace: (routeName, _params?: NavigationActionParams) => {
+			return executeAction(configs, router.history.replace, routeName, _params);
 		},
 
 		pop: (steps: number = 0) => {
@@ -41,19 +43,19 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 			router.history.goBack();
 		},
 
-		setParams: (params: NavigationActionParams) => {
-			router.history.replace(router.match.path, { ...router.match.params, ...params });
+		setParams: (_params: NavigationActionParams) => {
+			router.history.replace(router.match.path, { ...params, ..._params });
 		},
 
 		getParam: (key: string, defaultValue: any) => {
-			return (router.match.params as any)[key] || defaultValue;
+			return params[key] || defaultValue;
 		},
 
 		source: enableSource ? router : undefined,
 
 		state: {
 			key: router.location.key as string,
-			params: { ...router.location.state, ...router.match.params },
+			params,
 			routeName: obj ? obj.name : '',
 			search: router.location.search,
 			url: router.match.url,

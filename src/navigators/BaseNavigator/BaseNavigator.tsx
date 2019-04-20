@@ -1,6 +1,6 @@
-import { BlueBase, BlueBaseContext, getComponent, NavigationActionsObject, resolveThunk } from '@bluebase/core';
+import { BlueBase, BlueBaseContext, NavigationActionsObject, resolveThunk } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import { Noop, Redirect } from '@bluebase/components';
+import { Noop, Redirect, RouteConfig } from '@bluebase/components';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 import React from 'react';
@@ -29,28 +29,37 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		routes: this.props.routes || [],
 	};
 
+	constructor(props: BaseNavigatorProps) {
+		super(props);
+
+    // This binding is necessary to make `this` work in the callback
+		this.getNavigationOptions = this.getNavigationOptions.bind(this);
+	}
+
 	/**
 	 * We resolve all screen components here
 	 * @param props
 	 */
-	static getDerivedStateFromProps(props: BaseNavigatorProps) {
+	componentWillMount() {
 
-		const routes = (props.routes || []).map(route => {
+		const BB: BlueBase = this.context;
+
+		const routes = (this.props.routes || []).map(route => {
 
 			// If there is no screen component, render nothing
 			if (!route.screen) {
 				return route;
 			}
 
-			return {
-				...route,
+			// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
+			const screen = (typeof route.screen === 'string')
+			? BB.Components.resolve(route.screen)
+			: route.screen;
 
-				// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
-				screen: (typeof route.screen === 'string') ? getComponent(route.screen) : route.screen
-			};
+			return { ...route, screen };
 		});
 
-		return { routes };
+		this.setState({ routes });
 	}
 
 	public render() {
@@ -80,36 +89,68 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 */
 	protected renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
 
-		const { exact, name, navigationOptions, navigator, path, screen } = route;
+		const { exact, name, navigator, path, screen } = route;
 
 		const RouteView = this.props.RouteView || screen || Noop;
-
-		const finalNavigationOptions =
-			(navigation: NavigationActionsObject) => (screen && (screen as any).navigationOptions !== undefined) ?
-				{
-					...navigationOptions,
-					...resolveThunk((screen as any).navigationOptions, { navigation })
-				} : {
-					...navigationOptions
-				};
 
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => {
 					const navigation: NavigationActionsObject = historyToActionObject(routerProps as RouteComponentProps, BB);
+
 					return (
 						<RouteView
 							screen={screen}
 							navigation={navigation}
-							navigationOptions={finalNavigationOptions(navigation)}
+							navigationOptions={this.getNavigationOptions(route, navigation)}
 							navigator={this.props}
 						>
 							{navigator && renderNavigator(navigator, BB)}
 						</RouteView>
 					);
-				}
-				}
+				}}
 			</Route>
 		);
+	}
+
+	private getNavigationOptions(
+		route: RouteConfig,
+		navigation: NavigationActionsObject
+	) {
+
+		const BB: BlueBase = this.context;
+
+		// Save the resolved tree in configs to use later
+		const mainNavigationConfigs = BB.Configs.getValue('plugin.react-router.navigationConfigs');
+
+		// Extract screenProps
+		const screenProps = { ...mainNavigationConfigs.screenProps, BB };
+
+		// Create navigationOptions from main navigation configs
+		let navigationOptions = resolveThunk(
+			mainNavigationConfigs.defaultNavigationOptions,
+			{ navigation, screenProps, navigationOptions: {} },
+		);
+
+		// Create navigationOptions from navigatior defaultNavigationOptions
+		navigationOptions = resolveThunk(
+			this.props.defaultNavigationOptions || {},
+			{ navigation, screenProps, navigationOptions },
+		);
+
+		// Now, create navigationOptions from route's navigationOptions object
+		navigationOptions = resolveThunk(
+			route.navigationOptions || {},
+			{ navigation, screenProps, navigationOptions },
+		);
+
+		// And finally, create navigationOptions from route.screen NavigationOptions
+		navigationOptions = resolveThunk(
+			route.screen && (route.screen as any).navigationOptions || {},
+			{ navigation, screenProps, navigationOptions },
+		);
+
+		// Phew...
+		return navigationOptions;
 	}
 }
