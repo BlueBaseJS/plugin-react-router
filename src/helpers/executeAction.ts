@@ -17,7 +17,6 @@ export const executeAction = (
 ) => {
 	let path;
 
-	debugger;
 	if (typeof routeName === 'string') {
 		const routeObj = findRouteByKey(routeName, 'name', configs);
 		path = routeObj && routeObj.path;
