@@ -22,7 +22,7 @@ export class TabBar extends React.Component<TabBarProps> {
 		const currentRouteName = navigation.state.routeName;
 		const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
 
-		const onChange = (_e: any, i: number) => navigation.push(routes[i].name);
+		const onChange = (_e: any, i: number) => navigation.push(routes[i].name, navigation.state.params);
 
 		const Component : any = bottomNavigation === true ? BottomNavigation : Tabs;
 

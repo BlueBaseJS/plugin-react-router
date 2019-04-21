@@ -35,10 +35,10 @@ const DrawerNavigationView = (props: any) => () => {
 		<ScrollView>
 			<SafeAreaView>
 				<NavigationActions>
-					{({ navigate }) => {
+					{({ navigate, state }) => {
 
 						return routes.map((r: any) => (
-							<DrawerItem key={r.routeName} title={r.title} onPress={() => navigate(r.routeName)} />
+							<DrawerItem key={r.routeName} title={r.title} onPress={() => navigate(r.routeName, state.params)} />
 						));
 					}}
 				</NavigationActions>
