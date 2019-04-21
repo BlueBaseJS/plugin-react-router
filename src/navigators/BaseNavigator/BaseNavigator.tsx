@@ -34,6 +34,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
     // This binding is necessary to make `this` work in the callback
 		this.getNavigationOptions = this.getNavigationOptions.bind(this);
+		this.renderInitialRoute = this.renderInitialRoute.bind(this);
 	}
 
 	/**
@@ -65,19 +66,17 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	public render() {
 
 		const BB: BlueBase = this.context;
-		const { type, initialRouteName, ...rest } = this.props;
+		const { type, initialRouteName: _initialRouteName, ...rest } = this.props;
 		const { routes } = this.state;
 
 		if (routes.length === 0) {
 			return null;
 		}
 
-		const initialRoute = initialRouteName || routes[0].name;
-
 		return (
 			<Switch {...rest}>
 				{routes.map(route => this.renderRoute(route, BB))}
-				{!!initialRoute ? <Redirect routeName={initialRoute} />: null}
+				{this.renderInitialRoute(BB)}
 			</Switch>
 		);
 	}
@@ -108,6 +107,33 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 							{navigator && renderNavigator(navigator, BB)}
 						</RouteView>
 					);
+				}}
+			</Route>
+		);
+	}
+
+	/**
+	 * Redirects to the initial route, if non is given redirects to the
+	 * first route in the routes array.
+	 * @param BB
+	 */
+	protected renderInitialRoute(BB: BlueBase) {
+
+		const { initialRouteName: _initialRouteName } = this.props;
+		const { routes } = this.state;
+
+		if (routes.length === 0) {
+			return null;
+		}
+
+		const initialRouteName = _initialRouteName || routes[0].name;
+
+		return (
+			<Route>
+				{(routerProps: RouteChildrenProps) => {
+					const navigation: NavigationActionsObject = historyToActionObject(routerProps as RouteComponentProps, BB);
+
+					return (<Redirect routeName={initialRouteName} params={navigation.state.params} />);
 				}}
 			</Route>
 		);

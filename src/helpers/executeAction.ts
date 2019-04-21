@@ -13,7 +13,7 @@ export const executeAction = (
 	configs: NavigatorProps,
 	fn: any,
 	routeName: NavigationActionPayload,
-	params?: NavigationActionParams
+	params: NavigationActionParams = {}
 ) => {
 	let path;
 
