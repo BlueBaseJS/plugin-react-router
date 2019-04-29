@@ -105,6 +105,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 						historyToActionObject(routerProps as RouteComponentProps, BB);
 
 					// Sub Routes
+					// We do this to resolve navigationOptions
 					const navigator = {
 						...this.props,
 						routes: routes.map(r => ({

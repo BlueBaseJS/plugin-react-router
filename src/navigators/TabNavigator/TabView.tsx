@@ -1,6 +1,6 @@
 import { MaybeThunk, Theme, getComponent } from '@bluebase/core';
 import { NavigationActionsObject, NavigationOptions, View } from '@bluebase/components';
-import { StyleProp, ViewStyle } from 'react-native';
+import { ScrollView, StyleProp, ViewStyle } from 'react-native';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
@@ -30,13 +30,25 @@ export const TabView = (props: TabViewProps) => {
 
 	const bottomNavigation = (navigator.type === 'bottom-navigation') ? true : false;
 
+	if (bottomNavigation) {
+		return (
+			<View style={stylesheet.root}>
+				<View style={stylesheet.content}>
+					<ScrollView>
+						{Screen ? <Screen {...rest} /> : rest.children}
+					</ScrollView>
+				</View>
+				<TabBar bottomNavigation {...props} />
+			</View>
+		);
+
+	}
 	return (
 		<View style={stylesheet.root}>
-			{!bottomNavigation && <TabBar bottomNavigation={bottomNavigation} {...props} />}
+			<TabBar bottomNavigation={false} {...props} />
 			<View style={stylesheet.content}>
 				{Screen ? <Screen {...rest} /> : rest.children}
 			</View>
-			{bottomNavigation && <TabBar bottomNavigation={bottomNavigation} {...props} />}
 		</View>
 	);
 };

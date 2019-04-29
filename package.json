@@ -2,7 +2,7 @@
   "name": "@bluebase/plugin-react-router",
   "description": "Use React Router navigation in BlueBase apps!",
   "author": "BlueEast Team <code@blueeast.com>",
-  "version": "0.0.1-aplha.7",
+  "version": "0.0.1-aplha.8",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/index.js",
