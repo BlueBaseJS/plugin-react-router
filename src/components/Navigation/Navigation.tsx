@@ -1,12 +1,9 @@
-import {
-	BlueBase,
-	BlueBaseContext,
-} from '@bluebase/core';
+import { BlueBase, BlueBaseContext } from '@bluebase/core';
+import { InternalNavigator } from '../InternalNavigator';
 import { NavigationProps } from '@bluebase/components';
 import React from 'react';
 import { Router } from '../../lib/index';
 import { preparePaths } from './preparePaths';
-import { renderNavigator } from '../../helpers/renderNavigator';
 
 /**
  * Navigation
@@ -19,7 +16,7 @@ export class Navigation extends React.Component<NavigationProps> {
 
 	render() {
 
-		const { navigator, ...rest } = this.props;
+		const { navigator, screenProps, ...rest } = this.props;
 		const BB: BlueBase = this.context;
 
 		// Make sure paths are in correct format.
@@ -30,7 +27,7 @@ export class Navigation extends React.Component<NavigationProps> {
 
 		return (
 			<Router {...rest}>
-				{renderNavigator(navigatorObject, BB)}
+				<InternalNavigator navigator={navigatorObject} />
 			</Router>
 		);
 	}

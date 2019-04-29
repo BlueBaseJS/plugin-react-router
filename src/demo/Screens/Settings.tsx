@@ -1,5 +1,4 @@
-import { Button, Text, View } from '@bluebase/components';
-import { NavigationActions } from '@bluebase/core';
+import { Button, NavigationActions, Text, View } from '@bluebase/components';
 import React from 'react';
 
 export class SettingsScreen extends React.Component<any, any> {

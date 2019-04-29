@@ -2,6 +2,7 @@ import { BottomNavigation, BottomNavigationAction, NavigationOptions, Tab, Tabs 
 import React from 'react';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { TabViewProps } from './TabView';
+import { getIcon, getTitle } from './helpers';
 
 export interface TabBarProps extends TabViewProps {
 
@@ -27,7 +28,7 @@ export class TabBar extends React.Component<TabBarProps> {
 		const Component : any = bottomNavigation === true ? BottomNavigation : Tabs;
 
 		return (
-			<Component value={currentIndex} onChange={onChange}>
+			<Component value={currentIndex} onChange={onChange} style={{ zIndex: 1100 }}>
 				{navigator.routes.map((route, index) => this.renderTab(route, index, this.props))}
 			</Component>
 		);
@@ -40,11 +41,13 @@ export class TabBar extends React.Component<TabBarProps> {
 		const Component: any = bottomNavigation === true ? BottomNavigationAction : Tab;
 
 		const options = route.navigationOptions as NavigationOptions;
+		const icon = getIcon(options);
+		const title = getTitle(options);
 
 		return (
 			<Component
-				icon={route.icon}
-				label={options.title}
+				icon={icon}
+				label={title}
 				value={index as any}
 				key={index}
 			/>

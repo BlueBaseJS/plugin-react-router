@@ -1,4 +1,4 @@
-import { Divider, ListItem, ListSection, ListSubheader } from '@bluebase/components';
+import { Divider, List, ListItem, ListSubheader } from '@bluebase/components';
 import { ScrollView, StatusBar, View } from 'react-native';
 import React from 'react';
 // tslint:disable: jsx-no-lambda max-line-length
@@ -9,7 +9,7 @@ export class HomeScreen extends React.Component<any> {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
 				<ScrollView style={{ flex: 1 }}>
-					<ListSection>
+					<List>
 						<ListSubheader>Navigators</ListSubheader>
 						<Divider />
 						<ListItem
@@ -42,7 +42,7 @@ export class HomeScreen extends React.Component<any> {
 							onPress={() => this.props.navigation.navigate('SettingsDrawer')}
 						/>
 						<Divider />
-					</ListSection>
+					</List>
 				</ScrollView>
       </View>
 		);

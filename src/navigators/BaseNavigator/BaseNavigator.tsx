@@ -1,18 +1,21 @@
-import { BlueBase, BlueBaseContext, NavigationActionsObject, resolveThunk } from '@bluebase/core';
+import {
+	BlueBase,
+	BlueBaseContext,
+	resolveThunk,
+} from '@bluebase/core';
+import { NavigationActionsObject, Noop, Redirect, RouteConfig } from '@bluebase/components';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import { Noop, Redirect, RouteConfig } from '@bluebase/components';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
+import { InternalNavigator } from '../../components/InternalNavigator';
 import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
-import { renderNavigator } from '../../helpers/renderNavigator';
 
 export interface BaseNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 }
 
 export interface BaseNavigatorState {
 	routes: RouteConfigWithResolveSubRoutes[];
-
 	RouteView?: React.ComponentType<any>;
 }
 
@@ -35,6 +38,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
     // This binding is necessary to make `this` work in the callback
 		this.getNavigationOptions = this.getNavigationOptions.bind(this);
 		this.renderInitialRoute = this.renderInitialRoute.bind(this);
+		this.renderRoute = this.renderRoute.bind(this);
 	}
 
 	/**
@@ -65,7 +69,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 	public render() {
 
-		const BB: BlueBase = this.context;
+		// const BB: BlueBase = this.context;
 		const { type, initialRouteName: _initialRouteName, ...rest } = this.props;
 		const { routes } = this.state;
 
@@ -75,8 +79,8 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 		return (
 			<Switch {...rest}>
-				{routes.map(route => this.renderRoute(route, BB))}
-				{this.renderInitialRoute(BB)}
+				{routes.map(this.renderRoute)}
+				{this.renderInitialRoute()}
 			</Switch>
 		);
 	}
@@ -86,25 +90,38 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * @param route
 	 * @param BB
 	 */
-	protected renderRoute(route: RouteConfigWithResolveSubRoutes, BB: BlueBase) {
+	protected renderRoute(route: RouteConfigWithResolveSubRoutes) {
 
-		const { exact, name, navigator, path, screen } = route;
+		const BB: BlueBase = this.context;
+		const { exact, name, navigator: subNavigator, path, screen } = route;
+		const { routes } = this.state;
 
 		const RouteView = this.props.RouteView || screen || Noop;
 
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => {
-					const navigation: NavigationActionsObject = historyToActionObject(routerProps as RouteComponentProps, BB);
+					const navigation: NavigationActionsObject =
+						historyToActionObject(routerProps as RouteComponentProps, BB);
 
+					// Sub Routes
+					const navigator = {
+						...this.props,
+						routes: routes.map(r => ({
+							...r,
+							navigationOptions: this.getNavigationOptions(r, navigation)
+						}))
+					};
+
+					//
 					return (
 						<RouteView
 							screen={screen}
 							navigation={navigation}
 							navigationOptions={this.getNavigationOptions(route, navigation)}
-							navigator={this.props}
+							navigator={navigator}
 						>
-							{navigator && renderNavigator(navigator, BB)}
+							{subNavigator ? <InternalNavigator navigator={subNavigator} /> : null}
 						</RouteView>
 					);
 				}}
@@ -117,8 +134,9 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * first route in the routes array.
 	 * @param BB
 	 */
-	protected renderInitialRoute(BB: BlueBase) {
+	protected renderInitialRoute() {
 
+		const BB: BlueBase = this.context;
 		const { initialRouteName: _initialRouteName } = this.props;
 		const { routes } = this.state;
 
@@ -145,12 +163,16 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	) {
 
 		const BB: BlueBase = this.context;
+		const { screenProps } = this.props;
 
 		// Save the resolved tree in configs to use later
 		const mainNavigationConfigs = BB.Configs.getValue('plugin.react-router.navigationConfigs');
 
-		// Extract screenProps
-		const screenProps = { ...mainNavigationConfigs.screenProps, BB };
+		// // Extract screenProps
+		// const screenProps: ScreenProps = {
+		// 	...mainNavigationConfigs.screenProps,
+		// 	...params.screenProps
+		// };
 
 		// Create navigationOptions from main navigation configs
 		let navigationOptions = resolveThunk(

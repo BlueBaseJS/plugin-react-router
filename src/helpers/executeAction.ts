@@ -1,8 +1,8 @@
 import {
 	NavigationActionParams,
+	NavigationActionPathPayload,
 	NavigationActionPayload,
 	NavigatorProps,
-	NavitionActionPathPayload,
 	NavitionActionRouteNamePayload,
 } from '@bluebase/components';
 import { compile } from 'path-to-regexp';
@@ -27,7 +27,7 @@ export const executeAction = (
 		// const routeObj = findRouteByKey(routeName as any, 'routeName', configs);
 		const routeObj = findRouteByKey((routeName as any).routeName, 'name', configs);
 		path = routeObj && routeObj.path;
-	} else if (routeName && typeof (routeName as NavitionActionPathPayload).path === 'string') {
+	} else if (routeName && typeof (routeName as NavigationActionPathPayload).path === 'string') {
 		path = (routeName as any).path;
 	}
 

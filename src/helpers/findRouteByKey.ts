@@ -1,4 +1,5 @@
-import { NavigatorProps, RouteConfig, resolveThunk } from '@bluebase/core';
+import { NavigatorProps, RouteConfig } from '@bluebase/components';
+import { resolveThunk } from '@bluebase/core';
 
 /**
  * This funtion is this plugin's dog 🐶. Give it a bone and it will find it from

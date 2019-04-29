@@ -1,9 +1,9 @@
 import {
-	BlueBase,
 	NavigationActionParams,
 	NavigationActionsObject,
 	NavigatorProps,
-} from '@bluebase/core';
+} from '@bluebase/components';
+import { BlueBase } from '@bluebase/core';
 import { RouteComponentProps } from '../lib';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';

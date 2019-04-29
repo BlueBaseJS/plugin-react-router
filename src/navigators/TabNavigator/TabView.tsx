@@ -25,7 +25,7 @@ const TabBar = getComponent('TabBar');
 
 export const TabView = (props: TabViewProps) => {
 
-	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
+	const { screen: Screen, navigator, styles, ...rest } = props;
 	const stylesheet = styles as TabViewStyles;
 
 	const bottomNavigation = (navigator.type === 'bottom-navigation') ? true : false;

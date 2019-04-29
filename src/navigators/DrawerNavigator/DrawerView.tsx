@@ -1,5 +1,6 @@
 import {
 	DrawerItem,
+	DrawerSection,
 	NavigationActions,
 	NavigationActionsObject,
 	NavigationOptions,
@@ -11,6 +12,7 @@ import {
 	getComponent,
 } from '@bluebase/core';
 import { SafeAreaView, ScrollView } from 'react-native';
+import { getIcon, getTitle } from './helpers';
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 import { ScreenViewStyles } from '../StackNavigator';
@@ -34,14 +36,23 @@ const DrawerNavigationView = (props: any) => () => {
 	return (
 		<ScrollView>
 			<SafeAreaView>
-				<NavigationActions>
-					{({ navigate, state }) => {
+				<DrawerSection>
+					<NavigationActions>
+						{({ navigate, state }) => routes.map((r: any) => {
+							const title = getTitle(r.options);
+							const icon = getIcon(r.options);
 
-						return routes.map((r: any) => (
-							<DrawerItem key={r.routeName} title={r.title} onPress={() => navigate(r.routeName, state.params)} />
-						));
-					}}
-				</NavigationActions>
+							return (
+								<DrawerItem
+									key={r.routeName}
+									title={title}
+									icon={icon}
+									onPress={() => navigate(r.routeName, state.params)}
+								/>
+							);
+						})}
+					</NavigationActions>
+				</DrawerSection>
 			</SafeAreaView>
 		</ScrollView>
 	);
@@ -49,12 +60,12 @@ const DrawerNavigationView = (props: any) => () => {
 
 export const DrawerView = (props: DrawerViewProps) => {
 
-	const { screen: component, navigationOptions, navigator, styles, ...rest } = props;
+	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
 	const { contentOptions, routes, type, ...other } = navigator;
 
 	const stylesheet = styles as ScreenViewStyles;
 
-	const Component = component; // || DrawerViewContent;
+	// const Component = Screen; // || DrawerViewContent;
 
 	// Resolve active tab index
 	const currentRouteName = props.navigation.state.routeName;
@@ -69,17 +80,19 @@ export const DrawerView = (props: DrawerViewProps) => {
 
 			return {
 				index,
+				options,
 				path: route.path,
 				routeName: route.name,
-				title: options.title,
+				// title: options.title,
 			};
 		})
 	};
+	// debugger;
 
 	return (
 	 		<View style={stylesheet.root}>
 				<DrawerLayout {...other} renderNavigationView={DrawerNavigationView({ ...props, navigationState })}>
-					{Component ? <Component {...rest} /> : null}
+				{Screen ? <Screen {...rest} /> : rest.children}
 				</DrawerLayout>
 			</View>
 	);

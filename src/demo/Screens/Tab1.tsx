@@ -1,6 +1,6 @@
 import { Button, Text, View } from 'react-native';
 // import { DrawerActions } from '../../components';
-import { NavigationActions } from '@bluebase/core';
+import { NavigationActions } from '@bluebase/components';
 import React from 'react';
 
 export class Tab1Screen extends React.Component {
