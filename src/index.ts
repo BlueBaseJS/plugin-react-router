@@ -1,5 +1,5 @@
 import { DrawerView, ScreenView, TabBar, TabView } from './navigators';
-import { Navigation, NavigationActions } from './components';
+import { Header, HeaderBackButton, HeaderTitle, Navigation, NavigationActions } from './components';
 import { createPlugin } from '@bluebase/core';
 
 export default createPlugin({
@@ -18,6 +18,9 @@ export default createPlugin({
 
 	components: {
 		DrawerView,
+		Header,
+		HeaderBackButton,
+		HeaderTitle,
 		Navigation,
 		NavigationActions,
 		ScreenView,
