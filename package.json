@@ -93,6 +93,8 @@
     "@bluebase/plugin-material-ui": "^2.5.0",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
+    "@expo/vector-icons": "^10.0.1",
+    "@material-ui/icons": "^3.0.2",
     "@types/compression": "^0.0.36",
     "@types/deepmerge": "^2.2.0",
     "@types/enzyme": "^3.9.0",
