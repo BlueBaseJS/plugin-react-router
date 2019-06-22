@@ -1,8 +1,15 @@
 import { DrawerView, ScreenView, TabBar, TabView } from './navigators';
-import { Header, HeaderBackButton, HeaderTitle, Navigation, NavigationActions } from './components';
+import {
+	Header,
+	HeaderBackButton,
+	HeaderTitle,
+	NavigationActions,
+	createNavigation,
+} from './components';
+
 import { createPlugin } from '@bluebase/core';
 
-export default createPlugin({
+export const BasePlugin = {
 	description: 'Use React Router navigation in BlueBase apps!',
 	key: '@bluebase/plugin-react-router',
 	name: 'BlueBase React Router Plugin',
@@ -21,10 +28,12 @@ export default createPlugin({
 		Header,
 		HeaderBackButton,
 		HeaderTitle,
-		Navigation,
+		Navigation: createNavigation(),
 		NavigationActions,
 		ScreenView,
 		TabBar,
 		TabView,
 	},
-});
+};
+
+export default createPlugin(BasePlugin);

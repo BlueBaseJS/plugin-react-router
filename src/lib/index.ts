@@ -1,6 +1,7 @@
 export {
 	BrowserRouter as Router,
 	MemoryRouter,
+	StaticRouter,
 	Switch,
 	Switch as Stack,
 	Route,

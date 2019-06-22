@@ -1,6 +1,7 @@
 export {
 	NativeRouter as Router,
 	MemoryRouter,
+	NativeRouter as StaticRouter,
 	Switch,
 	Switch as Stack,
 	Route,
