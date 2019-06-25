@@ -64,7 +64,6 @@ const DrawerNavigationView = (props: any) => () => {
 export const DrawerView = (props: DrawerViewProps) => {
 	const { screen: Screen, navigationOptions, navigator, styles, ...rest } = props;
 	const { contentOptions, routes, type, ...other } = navigator;
-	debugger;
 
 	const stylesheet = styles as ScreenViewStyles;
 
