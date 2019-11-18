@@ -1,4 +1,4 @@
-import { BasePlugin } from './index';
+import { BasePlugin } from './BasePlugin';
 import { MemoryRouter } from './lib';
 import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';

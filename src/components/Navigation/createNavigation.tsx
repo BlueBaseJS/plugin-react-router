@@ -3,10 +3,9 @@ import { BlueBase, BlueBaseContext } from '@bluebase/core';
 import { InternalNavigator } from '../InternalNavigator';
 import { NavigationProps } from '@bluebase/components';
 import React from 'react';
-import { Router } from '../../lib/index';
 import { preparePaths } from './preparePaths';
 
-export function createNavigation(InputRouter: any = Router) {
+export function createNavigation(InputRouter: any) {
 	/**
 	 * Navigation
 	 * This serves as an entry point where BlueBase passes routes and navigation
