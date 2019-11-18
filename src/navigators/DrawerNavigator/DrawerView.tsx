@@ -1,12 +1,13 @@
 import {
 	DrawerItem,
+	DrawerLayout,
 	DrawerSection,
 	NavigationActions,
 	NavigationActionsObject,
 	NavigationOptions,
 	View,
 } from '@bluebase/components';
-import { MaybeThunk, Theme, getComponent } from '@bluebase/core';
+import { MaybeThunk, Theme } from '@bluebase/core';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { getIcon, getTitle } from './helpers';
 
@@ -23,7 +24,7 @@ export interface DrawerViewProps {
 	styles?: ScreenViewStyles;
 }
 
-const DrawerLayout = getComponent('DrawerLayout');
+// const DrawerLayout = getComponent('DrawerLayout');
 
 const DrawerNavigationView = (props: any) => () => {
 	const { navigationState } = props;
