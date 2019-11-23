@@ -3,16 +3,19 @@ import {
 	NavigationActionsObject,
 	NavigatorProps,
 } from '@bluebase/components';
-import { BlueBase } from '@bluebase/core';
+
 import { RouteComponentProps } from '../lib';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
 
-export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase) => {
-	const configs: NavigatorProps = BB.Configs.getValue('plugin.react-router.navigationConfigs');
-	const enableSource: boolean = BB.Configs.getValue(
-		'plugin.react-router.enableSourceInNavigationActions'
-	);
+export const historyToActionObject = (
+	router: RouteComponentProps,
+	mainNavigator: NavigatorProps
+	// BB: BlueBase
+) => {
+	// const enableSource: boolean = BB.Configs.getValue(
+	// 	'plugin.react-router.enableSourceInNavigationActions'
+	// );
 
 	if (!router.match) {
 		throw Error('An error occurent in React Router Plugn. We did not find match object');
@@ -20,19 +23,19 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 
 	const params = { ...router.location.state, ...router.match.params };
 
-	const obj = findRouteByKey(router.match.path, 'path', configs);
+	const obj = findRouteByKey(router.match.path, 'path', mainNavigator);
 
 	const actions: NavigationActionsObject = {
 		navigate: (routeName, _params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.push, routeName, _params);
+			return executeAction(mainNavigator, router.history.push, routeName, _params);
 		},
 
 		push: (routeName, _params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.push, routeName, _params);
+			return executeAction(mainNavigator, router.history.push, routeName, _params);
 		},
 
 		replace: (routeName, _params?: NavigationActionParams) => {
-			return executeAction(configs, router.history.replace, routeName, _params);
+			return executeAction(mainNavigator, router.history.replace, routeName, _params);
 		},
 
 		pop: (steps: number = 0) => {
@@ -51,7 +54,8 @@ export const historyToActionObject = (router: RouteComponentProps, BB: BlueBase)
 			return params[key] || defaultValue;
 		},
 
-		source: enableSource ? router : undefined,
+		// source: enableSource ? router : undefined,
+		source: router,
 
 		state: {
 			key: router.location.key as string,

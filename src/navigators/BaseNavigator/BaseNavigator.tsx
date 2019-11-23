@@ -1,18 +1,19 @@
-import {
-	BlueBase,
-	BlueBaseContext,
-	resolveThunk,
-} from '@bluebase/core';
 import { NavigationActionsObject, Noop, Redirect, RouteConfig } from '@bluebase/components';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
+import { getComponent, resolveThunk } from '@bluebase/core';
+
 import { InternalNavigator } from '../../components/InternalNavigator';
+import { MainNavigatorContext } from '../../components';
 import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 
-export interface BaseNavigatorProps extends NavigatorPropsWithResolvedRoutes {
-}
+export interface BaseNavigatorProps extends NavigatorPropsWithResolvedRoutes {}
+
+// export interface BaseNavigatorInternalProps extends BaseNavigatorProps {
+// mainNavigationConfigs: NavigatorProps;
+// }
 
 export interface BaseNavigatorState {
 	routes: RouteConfigWithResolveSubRoutes[];
@@ -25,8 +26,7 @@ export interface BaseNavigatorState {
  * Contain functionality common to all Navigators
  */
 export class BaseNavigator extends React.Component<BaseNavigatorProps> {
-
-	static contextType = BlueBaseContext;
+	static contextType = MainNavigatorContext;
 
 	readonly state: BaseNavigatorState = {
 		routes: this.props.routes || [],
@@ -35,7 +35,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	constructor(props: BaseNavigatorProps) {
 		super(props);
 
-    // This binding is necessary to make `this` work in the callback
+		// This binding is necessary to make `this` work in the callback
 		this.getNavigationOptions = this.getNavigationOptions.bind(this);
 		this.renderInitialRoute = this.renderInitialRoute.bind(this);
 		this.renderRoute = this.renderRoute.bind(this);
@@ -46,21 +46,16 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * @param props
 	 */
 	componentWillMount() {
-
-		const BB: BlueBase = this.context;
-
 		const routes = (this.props.routes || []).map(route => {
-
 			// If there is no screen component, render nothing
 			if (!route.screen) {
 				return route;
 			}
 
 			// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
-			const screen = (typeof route.screen === 'string')
-			? BB.Components.resolve(route.screen)
-			: route.screen;
+			const screen = getComponent(route.screen);
 
+			console.log('screen', screen);
 			return { ...route, screen };
 		});
 
@@ -68,7 +63,6 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	}
 
 	public render() {
-
 		// const BB: BlueBase = this.context;
 		const { type, initialRouteName: _initialRouteName, ...rest } = this.props;
 		const { routes } = this.state;
@@ -91,8 +85,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * @param BB
 	 */
 	protected renderRoute(route: RouteConfigWithResolveSubRoutes) {
-
-		const BB: BlueBase = this.context;
+		const mainNavigationConfigs = this.context;
 		const { exact, name, navigator: subNavigator, path, screen } = route;
 		const { routes } = this.state;
 
@@ -101,8 +94,10 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => {
-					const navigation: NavigationActionsObject =
-						historyToActionObject(routerProps as RouteComponentProps, BB);
+					const navigation: NavigationActionsObject = historyToActionObject(
+						routerProps as RouteComponentProps,
+						mainNavigationConfigs
+					);
 
 					// Sub Routes
 					// We do this to resolve navigationOptions
@@ -110,8 +105,8 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 						...this.props,
 						routes: routes.map(r => ({
 							...r,
-							navigationOptions: this.getNavigationOptions(r, navigation)
-						}))
+							navigationOptions: this.getNavigationOptions(r, navigation),
+						})),
 					};
 
 					//
@@ -136,8 +131,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * @param BB
 	 */
 	protected renderInitialRoute() {
-
-		const BB: BlueBase = this.context;
+		const mainNavigationConfigs = this.context;
 		const { initialRouteName: _initialRouteName } = this.props;
 		const { routes } = this.state;
 
@@ -150,24 +144,20 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		return (
 			<Route>
 				{(routerProps: RouteChildrenProps) => {
-					const navigation: NavigationActionsObject = historyToActionObject(routerProps as RouteComponentProps, BB);
+					const navigation: NavigationActionsObject = historyToActionObject(
+						routerProps as RouteComponentProps,
+						mainNavigationConfigs
+					);
 
-					return (<Redirect routeName={initialRouteName} params={navigation.state.params} />);
+					return <Redirect routeName={initialRouteName} params={navigation.state.params} />;
 				}}
 			</Route>
 		);
 	}
 
-	private getNavigationOptions(
-		route: RouteConfig,
-		navigation: NavigationActionsObject
-	) {
-
-		const BB: BlueBase = this.context;
+	private getNavigationOptions(route: RouteConfig, navigation: NavigationActionsObject) {
+		const mainNavigationConfigs = this.context;
 		const { screenProps } = this.props;
-
-		// Save the resolved tree in configs to use later
-		const mainNavigationConfigs = BB.Configs.getValue('plugin.react-router.navigationConfigs');
 
 		// // Extract screenProps
 		// const screenProps: ScreenProps = {
@@ -176,30 +166,40 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		// };
 
 		// Create navigationOptions from main navigation configs
-		let navigationOptions = resolveThunk(
-			mainNavigationConfigs.defaultNavigationOptions || {},
-			{ navigation, screenProps, navigationOptions: {} },
-		);
+		let navigationOptions = resolveThunk(mainNavigationConfigs.defaultNavigationOptions || {}, {
+			navigation,
+			navigationOptions: {},
+			screenProps,
+		});
 
 		// Create navigationOptions from navigatior defaultNavigationOptions
-		navigationOptions = resolveThunk(
-			this.props.defaultNavigationOptions || navigationOptions,
-			{ navigation, screenProps, navigationOptions },
-		);
+		navigationOptions = resolveThunk(this.props.defaultNavigationOptions || navigationOptions, {
+			navigation,
+			navigationOptions,
+			screenProps,
+		});
 
 		// Now, create navigationOptions from route's navigationOptions object
-		navigationOptions = resolveThunk(
-			route.navigationOptions || navigationOptions,
-			{ navigation, screenProps, navigationOptions },
-		);
+		navigationOptions = resolveThunk(route.navigationOptions || navigationOptions, {
+			navigation,
+			navigationOptions,
+			screenProps,
+		});
 
 		// And finally, create navigationOptions from route.screen NavigationOptions
 		navigationOptions = resolveThunk(
 			(route.screen && (route.screen as any).navigationOptions) || navigationOptions,
-			{ navigation, screenProps, navigationOptions },
+			{ navigation, screenProps, navigationOptions }
 		);
 
 		// Phew...
 		return navigationOptions;
 	}
 }
+
+// export const BaseNavigator: React.ComponentType<BaseNavigatorProps> = (
+// 	props: BaseNavigatorProps
+// ) => {
+// 	const mainNavigationConfigs = useContext(MainNavigatorContext);
+// 	return <BaseNavigatorInternal {...props} mainNavigationConfigs={mainNavigationConfigs} />;
+// };

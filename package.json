@@ -2,7 +2,7 @@
   "name": "@bluebase/plugin-react-router",
   "description": "Use React Router navigation in BlueBase apps!",
   "author": "BlueEast Team <code@blueeast.com>",
-  "version": "0.0.1-alpha.17",
+  "version": "0.0.1-alpha.18",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/index.js",
@@ -79,7 +79,6 @@
     "@bluebase/components": "^5.6.0",
     "deepmerge": "^3.2.0",
     "path-to-regexp": "^3.0.0",
-    "react-native": "^0.57.8",
     "react-router-dom": "^5.0.0",
     "react-router-native": "^5.0.0",
     "tslib": "^1.9.3"
@@ -89,7 +88,7 @@
     "@babel/core": "^7.4.3",
     "@bluebase/cli-essentials": "^0.0.4",
     "@bluebase/code-standards": "^1.1.0",
-    "@bluebase/core": "^4.0.0-aplha.23",
+    "@bluebase/core": "^5.3.1",
     "@bluebase/plugin-material-ui": "^2.5.0",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
@@ -144,8 +143,8 @@
     "typescript": "3.4.2"
   },
   "peerDependencies": {
-    "@bluebase/core": "^4.*",
-    "react": "^16.*"
+    "@bluebase/core": "^5.3.1",
+    "react": "^16.8.0"
   },
   "prettier": {
     "singleQuote": true,

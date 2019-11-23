@@ -3,6 +3,8 @@ import { Router } from './lib/index';
 import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';
 
+export { createNavigation } from './components';
+
 export default createPlugin({
 	...BasePlugin,
 

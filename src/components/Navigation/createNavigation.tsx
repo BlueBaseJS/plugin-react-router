@@ -1,9 +1,11 @@
 import { BlueBase, BlueBaseContext } from '@bluebase/core';
+import { NavigationProps, NavigatorProps } from '@bluebase/components';
+import React, { createContext } from 'react';
 
 import { InternalNavigator } from '../InternalNavigator';
-import { NavigationProps } from '@bluebase/components';
-import React from 'react';
 import { preparePaths } from './preparePaths';
+
+export const MainNavigatorContext = createContext<NavigatorProps>({ routes: [] });
 
 export function createNavigation(InputRouter: any) {
 	/**
@@ -21,15 +23,14 @@ export function createNavigation(InputRouter: any) {
 			// Make sure paths are in correct format.
 			const navigatorObject = preparePaths(navigator);
 
-			// Save the resolved tree in configs to use later
-			BB.Configs.setValue('plugin.react-router.navigationConfigs', navigatorObject);
-
 			const routerProps = BB.Configs.getValue('plugin.react-router.router-props');
 
 			return (
-				<InputRouter {...rest} {...routerProps}>
-					<InternalNavigator navigator={navigatorObject} />
-				</InputRouter>
+				<MainNavigatorContext.Provider value={navigatorObject}>
+					<InputRouter {...rest} {...routerProps}>
+						<InternalNavigator navigator={navigatorObject} />
+					</InputRouter>
+				</MainNavigatorContext.Provider>
 			);
 		}
 	};
