@@ -7,6 +7,7 @@ import {
 import { RouteComponentProps } from '../lib';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
+import queryString from 'query-string';
 
 export const historyToActionObject = (
 	router: RouteComponentProps,
@@ -46,8 +47,30 @@ export const historyToActionObject = (
 			router.history.goBack();
 		},
 
-		setParams: (_params: NavigationActionParams) => {
-			router.history.replace(router.match.path, { ...params, ..._params });
+		setParams: (_params: NavigationActionParams, search: boolean = false) => {
+			let searchStr = router.history.location.search;
+			if (search) {
+				const parsed = queryString.parse(router.history.location.search, { arrayFormat: 'index' });
+				const searchItems = {
+					...parsed,
+				};
+
+				// If items are objects, JSON.stringify them, otherwise use as is
+				Object.keys(_params).forEach(
+					key =>
+						(searchItems[key] =
+							typeof _params[key] === 'object' ? JSON.stringify(_params[key]) : _params[key])
+				);
+
+				searchStr = queryString.stringify(searchItems, { arrayFormat: 'index' });
+			}
+
+			const fn = search ? router.history.push : router.history.replace;
+			fn({
+				pathname: router.match.path,
+				search: searchStr,
+				state: { ...params, ..._params },
+			});
 		},
 
 		getParam: (key: string, defaultValue: any) => {
