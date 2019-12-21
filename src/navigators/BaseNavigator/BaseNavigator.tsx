@@ -1,8 +1,8 @@
 import { NavigationActionsObject, Noop, Redirect, RouteConfig } from '@bluebase/components';
+import { NavigationContext, getComponent, resolveThunk } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
-import { getComponent, resolveThunk } from '@bluebase/core';
 
 import { InternalNavigator } from '../../components/InternalNavigator';
 import { MainNavigatorContext } from '../../components';
@@ -110,14 +110,16 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 
 					//
 					return (
-						<RouteView
-							screen={screen}
-							navigation={navigation}
-							navigationOptions={this.getNavigationOptions(route, navigation)}
-							navigator={navigator}
-						>
-							{subNavigator ? <InternalNavigator navigator={subNavigator} /> : null}
-						</RouteView>
+						<NavigationContext.Provider value={navigation}>
+							<RouteView
+								screen={screen}
+								navigation={navigation}
+								navigationOptions={this.getNavigationOptions(route, navigation)}
+								navigator={navigator}
+							>
+								{subNavigator ? <InternalNavigator navigator={subNavigator} /> : null}
+							</RouteView>
+						</NavigationContext.Provider>
 					);
 				}}
 			</Route>
