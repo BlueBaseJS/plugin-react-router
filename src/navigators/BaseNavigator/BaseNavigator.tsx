@@ -1,5 +1,5 @@
 import { NavigationActionsObject, Noop, Redirect, RouteConfig } from '@bluebase/components';
-import { NavigationContext, getComponent, resolveThunk } from '@bluebase/core';
+import { NavigationContext, resolveThunk } from '@bluebase/core';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
@@ -46,6 +46,8 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 	 * @param props
 	 */
 	componentWillMount() {
+		const { BB } = this.props.screenProps;
+
 		const routes = (this.props.routes || []).map(route => {
 			// If there is no screen component, render nothing
 			if (!route.screen) {
@@ -53,7 +55,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 			}
 
 			// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
-			const screen = getComponent(route.screen);
+			const screen = BB.Components.resolve(route.screen);
 
 			return { ...route, screen };
 		});
