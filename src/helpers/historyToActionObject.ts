@@ -5,6 +5,7 @@ import {
 } from '@bluebase/components';
 
 import { RouteComponentProps } from '../lib';
+import { compile } from 'path-to-regexp';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
 import queryString from 'query-string';
@@ -48,7 +49,10 @@ export const historyToActionObject = (
 		},
 
 		setParams: (_params: NavigationActionParams, search: boolean = false) => {
+			const currentState = router.location.state;
+
 			let searchStr = router.history.location.search;
+
 			if (search) {
 				const parsed = queryString.parse(router.history.location.search, { arrayFormat: 'index' });
 				const searchItems = {
@@ -66,10 +70,13 @@ export const historyToActionObject = (
 			}
 
 			const fn = search ? router.history.push : router.history.replace;
+			const toPath = compile(router.match.path);
+			const state = { ...currentState, ...params, ..._params };
+
 			fn({
-				pathname: router.match.path,
+				pathname: toPath(state),
 				search: searchStr,
-				state: { ...params, ..._params },
+				state,
 			});
 		},
 
