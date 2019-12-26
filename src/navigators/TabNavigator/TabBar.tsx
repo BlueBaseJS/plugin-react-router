@@ -1,11 +1,18 @@
-import { BottomNavigation, BottomNavigationAction, NavigationOptions, Tab, Tabs } from '@bluebase/components';
+import {
+	BottomNavigation,
+	BottomNavigationAction,
+	NavigationOptions,
+	Tab,
+	Tabs,
+	Text,
+} from '@bluebase/components';
+import { getIcon, getTitle } from './helpers';
+
 import React from 'react';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { TabViewProps } from './TabView';
-import { getIcon, getTitle } from './helpers';
 
 export interface TabBarProps extends TabViewProps {
-
 	/**
 	 * If true, renders BottomNavigation instead of Tabs
 	 */
@@ -13,30 +20,33 @@ export interface TabBarProps extends TabViewProps {
 }
 
 export class TabBar extends React.Component<TabBarProps> {
-
 	render() {
-
 		const { bottomNavigation, navigation, navigator } = this.props;
-		const { routes } = navigator;
+		const { routes, tabBarOptions = {} } = navigator;
 
 		// Resolve active tab index
 		const currentRouteName = navigation.state.routeName;
 		const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
 
-		const onChange = (_e: any, i: number) => navigation.push(routes[i].name, navigation.state.params);
+		const onChange = (_e: any, i: number) =>
+			navigation.push(routes[i].name, navigation.state.params);
 
-		const Component : any = bottomNavigation === true ? BottomNavigation : Tabs;
+		const Component: any = bottomNavigation === true ? BottomNavigation : Tabs;
 
 		return (
-			<Component value={currentIndex} onChange={onChange} style={{ zIndex: 1100 }}>
+			<Component
+				value={currentIndex}
+				onChange={onChange}
+				style={{ zIndex: 1100, ...tabBarOptions.style }}
+			>
 				{navigator.routes.map((route, index) => this.renderTab(route, index, this.props))}
 			</Component>
 		);
 	}
 
 	private renderTab(route: RouteConfigWithResolveSubRoutes, index: number, props: TabBarProps) {
-
-		const { bottomNavigation } = props;
+		const { bottomNavigation, navigator } = props;
+		const { tabBarOptions = {} } = navigator;
 
 		const Component: any = bottomNavigation === true ? BottomNavigationAction : Tab;
 
@@ -46,10 +56,11 @@ export class TabBar extends React.Component<TabBarProps> {
 
 		return (
 			<Component
-				icon={icon}
-				label={title}
+				icon={tabBarOptions.showIcon && icon}
+				label={<Text style={tabBarOptions.labelStyle}>{title}</Text>}
 				value={index as any}
 				key={index}
+				style={tabBarOptions.tabStyle}
 			/>
 		);
 	}
