@@ -36,7 +36,7 @@ const DrawerNavigationView = (props: any) => () => {
 	}
 
 	return (
-		<ScrollView>
+		<ScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
 			<SafeAreaView>
 				<DrawerSection>
 					<NavigationActions>
