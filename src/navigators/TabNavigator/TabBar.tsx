@@ -4,9 +4,9 @@ import {
 	NavigationOptions,
 	Tab,
 	Tabs,
-	Text,
 } from '@bluebase/components';
 import { getIcon, getTitle } from './helpers';
+import { merge, useTheme } from '@bluebase/core';
 
 import React from 'react';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
@@ -19,49 +19,65 @@ export interface TabBarProps extends TabViewProps {
 	bottomNavigation: boolean;
 }
 
-export class TabBar extends React.Component<TabBarProps> {
-	render() {
-		const { bottomNavigation, navigation, navigator } = this.props;
-		const { routes, tabBarOptions = {} } = navigator;
+export const TabBar = (props: TabBarProps) => {
+	const { bottomNavigation, navigation, navigator } = props;
+	const { routes } = navigator;
+	const { theme } = useTheme();
 
-		// Resolve active tab index
-		const currentRouteName = navigation.state.routeName;
-		const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
+	const tabBarOptions = merge(
+		{
+			activeBackgroundColor: theme.palette.background.card,
+			activeTintColor: theme.palette.primary.main,
+			inactiveBackgroundColor: theme.palette.background.card,
+			inactiveTintColor: theme.palette.text.secondary,
 
-		const onChange = (_e: any, i: number) =>
-			navigation.push(routes[i].name, navigation.state.params);
+			showIcon: true,
+			showLabel: true,
 
-		const Component: any = bottomNavigation === true ? BottomNavigation : Tabs;
+			labelStyle: {},
+			style: {
+				...theme.elevation(8),
+			},
+			tabStyle: {},
+		},
+		navigator.tabBarOptions || {}
+	);
 
-		return (
-			<Component
-				value={currentIndex}
-				onChange={onChange}
-				style={{ zIndex: 1100, ...tabBarOptions.style }}
-			>
-				{navigator.routes.map((route, index) => this.renderTab(route, index, this.props))}
-			</Component>
-		);
-	}
+	// Resolve active tab index
+	const currentRouteName = navigation.state.routeName;
+	const currentIndex = navigator.routes.findIndex(route => route.name === currentRouteName);
 
-	private renderTab(route: RouteConfigWithResolveSubRoutes, index: number, props: TabBarProps) {
-		const { bottomNavigation, navigator } = props;
-		const { tabBarOptions = {} } = navigator;
+	const onChange = (_e: any, i: number) => {
+		navigation.push(routes[i].name, navigation.state.params);
+	};
 
-		const Component: any = bottomNavigation === true ? BottomNavigationAction : Tab;
+	const TabbarComponent: any = bottomNavigation === true ? BottomNavigation : Tabs;
+
+	const renderTab = (route: RouteConfigWithResolveSubRoutes, index: number) => {
+		const TabComponent: any = bottomNavigation === true ? BottomNavigationAction : Tab;
 
 		const options = route.navigationOptions as NavigationOptions;
-		const icon = getIcon(options);
-		const title = getTitle(options);
+		const icon = getIcon(options, tabBarOptions, index === currentIndex);
+		const title = getTitle(options, tabBarOptions, index === currentIndex);
 
 		return (
-			<Component
-				icon={tabBarOptions.showIcon && icon}
-				label={<Text style={tabBarOptions.labelStyle}>{title}</Text>}
+			<TabComponent
+				icon={icon}
+				label={title}
 				value={index as any}
 				key={index}
 				style={tabBarOptions.tabStyle}
 			/>
 		);
-	}
-}
+	};
+
+	return (
+		<TabbarComponent
+			value={currentIndex}
+			onChange={onChange}
+			style={{ zIndex: 1100, ...tabBarOptions.style }}
+		>
+			{navigator.routes.map((route, index) => renderTab(route, index))}
+		</TabbarComponent>
+	);
+};
