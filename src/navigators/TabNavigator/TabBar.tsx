@@ -24,24 +24,24 @@ export const TabBar = (props: TabBarProps) => {
 	const { routes } = navigator;
 	const { theme } = useTheme();
 
-	const tabBarOptions = merge(
-		{
-			activeBackgroundColor: theme.palette.background.card,
-			activeTintColor: theme.palette.primary.main,
-			inactiveBackgroundColor: theme.palette.background.card,
-			inactiveTintColor: theme.palette.text.secondary,
+	const bottomNavigationBaseOptions: any = {
+		activeBackgroundColor: theme.palette.background.card,
+		activeTintColor: theme.palette.primary.main,
+		inactiveBackgroundColor: theme.palette.background.card,
+		inactiveTintColor: theme.palette.text.secondary,
 
-			showIcon: true,
-			showLabel: true,
+		showIcon: true,
+		showLabel: true,
 
-			labelStyle: {},
-			style: {
-				...theme.elevation(8),
-			},
-			tabStyle: {},
+		labelStyle: {},
+		style: {
+			...theme.elevation(8),
 		},
-		navigator.tabBarOptions || {}
-	);
+		tabStyle: {},
+	};
+
+	const baseOptions = bottomNavigation === true ? bottomNavigationBaseOptions : {};
+	const tabBarOptions: any = merge(baseOptions, navigator.tabBarOptions || {});
 
 	// Resolve active tab index
 	const currentRouteName = navigation.state.routeName;
@@ -77,7 +77,7 @@ export const TabBar = (props: TabBarProps) => {
 			onChange={onChange}
 			style={{ zIndex: 1100, ...tabBarOptions.style }}
 		>
-			{navigator.routes.map((route, index) => renderTab(route, index))}
+			{navigator.routes.map(renderTab)}
 		</TabbarComponent>
 	);
 };
