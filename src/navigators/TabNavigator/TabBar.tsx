@@ -40,7 +40,17 @@ export const TabBar = (props: TabBarProps) => {
 		tabStyle: {},
 	};
 
-	const baseOptions = bottomNavigation === true ? bottomNavigationBaseOptions : {};
+	const topNavigationBaseOptions: any = {
+		showIcon: true,
+		showLabel: true,
+
+		labelStyle: {},
+		style: {},
+		tabStyle: {},
+	};
+
+	const baseOptions =
+		bottomNavigation === true ? bottomNavigationBaseOptions : topNavigationBaseOptions;
 	const tabBarOptions: any = merge(baseOptions, navigator.tabBarOptions || {});
 
 	// Resolve active tab index
