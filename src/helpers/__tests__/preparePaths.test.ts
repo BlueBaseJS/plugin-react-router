@@ -55,13 +55,18 @@ const input: NavigatorProps = {
 // 	type: 'stack',
 // };
 
-test('preparePaths', () => {
-	const navigator = preparePaths(input);
+describe('preparePaths', () => {
+	it('should prepare paths', () => {
+		const navigator = preparePaths(input);
 
-	expect((navigator as any).routes[0].path).toBe('/');
-	expect((navigator as any).routes[0].navigator.routes[0].path).toBe('/');
-	expect((navigator as any).routes[0].navigator.routes[1].path).toBe('/p/settings');
-	expect((navigator as any).routes[0].navigator.routes[2].path).toBe('/p/settings/:id');
+		expect((navigator as any).routes[0].path).toBe('/');
+		expect((navigator as any).routes[0].navigator.routes[0].path).toBe('/');
+		expect((navigator as any).routes[0].navigator.routes[1].path).toBe('/p/settings');
+		expect((navigator as any).routes[0].navigator.routes[2].path).toBe('/p/settings/:id');
+	});
 
-	// expect(navigator).toMatchObject(output);
+	it('should handle undefined routes', () => {
+		const navigator = preparePaths({ routes: undefined } as any);
+		expect((navigator as any).routes).toHaveLength(0);
+	});
 });

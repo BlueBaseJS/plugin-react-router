@@ -3,7 +3,7 @@ import { NavigationProps, NavigatorProps } from '@bluebase/components';
 import React, { createContext } from 'react';
 
 import { InternalNavigator } from '../InternalNavigator';
-import { preparePaths } from './preparePaths';
+import { preparePaths } from '../../helpers';
 
 export const MainNavigatorContext = createContext<NavigatorProps>({ routes: [] });
 

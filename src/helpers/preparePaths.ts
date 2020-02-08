@@ -1,15 +1,18 @@
+import { NavigatorProps, RouteConfig } from '@bluebase/components';
 import { joinPaths, resolveThunk } from '@bluebase/core';
-import { NavigatorProps } from '@bluebase/components';
 
 /**
  * Converts paths from react-navigation pattern to react-router pattern
  * @param navigator
  * @param parentPath
  */
-export function preparePaths(navigator: NavigatorProps, parentPath: string = ''): NavigatorProps {
+export const preparePaths = (
+	navigator: NavigatorProps,
+	parentPath: string = ''
+): NavigatorProps => {
 	// If routes prop is a thunk, resolve it.
 	// Then map it to have new paths
-	const routes = resolveThunk(navigator.routes || []).map(r => {
+	const routes = resolveThunk(navigator.routes || []).map((r: RouteConfig) => {
 		// Create new path by joing current path with parent path
 		const path = `/${joinPaths(parentPath, r.path)}`;
 
@@ -22,4 +25,4 @@ export function preparePaths(navigator: NavigatorProps, parentPath: string = '')
 
 	// Merge and return incoming navigator with newer routes
 	return { ...navigator, routes };
-}
+};
