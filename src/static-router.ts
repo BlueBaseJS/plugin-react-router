@@ -1,15 +1,13 @@
 import { BasePlugin } from './BasePlugin';
-import { Router } from './lib/index';
+import { StaticRouter } from './lib';
 import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';
-
-export { createNavigation } from './components';
 
 export default createPlugin({
 	...BasePlugin,
 
 	components: {
 		...BasePlugin.components,
-		Navigation: createNavigation(Router),
+		Navigation: createNavigation(StaticRouter),
 	},
 });
