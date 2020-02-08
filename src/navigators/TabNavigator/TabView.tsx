@@ -1,9 +1,10 @@
-import { MaybeThunk, Theme, getComponent } from '@bluebase/core';
+import { MaybeThunk, Theme, getComponent, useBlueBase } from '@bluebase/core';
 import { NavigationActionsObject, NavigationOptions, View } from '@bluebase/components';
 import { ScrollView, StyleProp, ViewStyle } from 'react-native';
 
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
+import { resolveScreenComponent } from '../../helpers';
 
 export interface TabViewStyles {
 	content: StyleProp<ViewStyle>;
@@ -23,9 +24,11 @@ export interface TabViewProps {
 const TabBar = getComponent('TabBar');
 
 export const TabView = (props: TabViewProps) => {
-	const { screen: Screen, navigator, styles, ...rest } = props;
+	const BB = useBlueBase();
+	const { route, navigator, styles, ...rest } = props;
 	const stylesheet = styles as TabViewStyles;
 
+	const Screen = resolveScreenComponent(route, BB);
 	const bottomNavigation = navigator.type === 'bottom-navigation' ? true : false;
 
 	if (bottomNavigation) {

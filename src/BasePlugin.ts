@@ -1,5 +1,5 @@
-import { DrawerView, ScreenView, TabBar, TabView } from './navigators';
-import { Header, HeaderBackButton, HeaderTitle, Navigator } from './components';
+import { DrawerView, TabBar, TabView } from './navigators';
+import { Header, HeaderBackButton, HeaderTitle, Navigator, ScreenView } from './components';
 
 export const BasePlugin = {
 	description: 'Use React Router navigation in BlueBase apps!',
@@ -12,13 +12,17 @@ export const BasePlugin = {
 		Header,
 		HeaderBackButton,
 		HeaderTitle,
-		ScreenView,
 		TabBar,
 		TabView,
 
 		Navigator: {
 			applyStyles: false,
 			value: Navigator,
+		},
+
+		ScreenView: {
+			applyStyles: false,
+			value: ScreenView,
 		},
 	},
 };

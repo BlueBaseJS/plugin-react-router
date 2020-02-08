@@ -19,7 +19,7 @@ export const historyToActionObject = (
 		throw Error('An error occurent in React Router Plugn. We did not find match object');
 	}
 
-	const params = { ...router.location.state, ...router.match.params };
+	const params: { [key: string]: any } = { ...router.location.state, ...router.match.params };
 
 	const obj = findRouteByKey(router.match.path, 'path', mainNavigator);
 

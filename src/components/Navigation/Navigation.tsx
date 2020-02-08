@@ -25,7 +25,7 @@ export const Navigation = (props: RRNavigationProps) => {
 	return (
 		<MainNavigatorContext.Provider value={navigatorObject}>
 			<Router {...rest} {...routerProps}>
-				<Navigator navigator={navigatorObject} />
+				<Navigator {...navigatorObject} />
 			</Router>
 		</MainNavigatorContext.Provider>
 	);

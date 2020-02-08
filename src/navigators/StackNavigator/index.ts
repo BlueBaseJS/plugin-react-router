@@ -1,2 +1,1 @@
-export * from './ScreenView';
-export * from './StackNavigator';
+export * from './Stack';

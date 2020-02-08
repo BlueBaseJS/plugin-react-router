@@ -1,23 +1,23 @@
-import { DrawerNavigator, StackNavigator, SwitchNavigator, TabNavigator } from './';
+import { Stack } from './';
 
 const NavigatorMap: { [key: string]: any } = {
-	'bottom-tab': TabNavigator,
-	'bottom-tabs': TabNavigator,
+	'bottom-tab': Stack,
+	'bottom-tabs': Stack,
 
-	drawer: DrawerNavigator,
+	drawer: Stack,
 
-	'bottom-navigation': TabNavigator,
-	'material-bottom-tab': TabNavigator,
-	'material-bottom-tabs': TabNavigator,
+	'bottom-navigation': Stack,
+	'material-bottom-tab': Stack,
+	'material-bottom-tabs': Stack,
 
-	tab: TabNavigator,
-	tabs: TabNavigator,
+	tab: Stack,
+	tabs: Stack,
 
-	'native-stack': StackNavigator,
+	'native-stack': Stack,
 
-	stack: StackNavigator,
+	stack: Stack,
 
-	switch: SwitchNavigator,
+	switch: Stack,
 };
 
 /**
@@ -25,6 +25,8 @@ const NavigatorMap: { [key: string]: any } = {
  * @param type
  * @param BB
  */
-export const getNavigator = (type?: string) => {
+export const getNavigator = (
+	type?: string
+): { Navigator: React.ComponentType<any>; Screen: React.ComponentType<any> } => {
 	return NavigatorMap[type || 'stack'];
 };

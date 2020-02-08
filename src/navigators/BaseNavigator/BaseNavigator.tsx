@@ -8,6 +8,7 @@ import { MainNavigatorContext } from '../../components';
 import { Navigator } from '../../components/Navigator';
 import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
+import { resolveScreenComponent } from '../../helpers';
 
 export interface BaseNavigatorProps extends NavigatorPropsWithResolvedRoutes {}
 
@@ -41,27 +42,27 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		this.renderRoute = this.renderRoute.bind(this);
 	}
 
-	/**
-	 * We resolve all screen components here
-	 * @param props
-	 */
-	componentWillMount() {
-		const { BB } = this.props.screenProps;
+	// /**
+	//  * We resolve all screen components here
+	//  * @param props
+	//  */
+	// componentWillMount() {
+	// 	const { BB } = this.props.screenProps;
 
-		const routes = (this.props.routes || []).map(route => {
-			// If there is no screen component, render nothing
-			if (!route.screen) {
-				return route;
-			}
+	// 	const routes = (this.props.routes || []).map(route => {
+	// 		// If there is no screen component, render nothing
+	// 		if (!route.screen) {
+	// 			return route;
+	// 		}
 
-			// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
-			const screen = BB.Components.resolveFromCache(route.screen);
+	// 		// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
+	// 		const screen = BB.Components.resolveFromCache(route.screen);
 
-			return { ...route, screen };
-		});
+	// 		return { ...route, screen };
+	// 	});
 
-		this.setState({ routes });
-	}
+	// 	this.setState({ routes });
+	// }
 
 	public render() {
 		// const BB: BlueBase = this.context;
@@ -89,8 +90,9 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 		const mainNavigationConfigs = this.context;
 		const { exact, name, navigator: subNavigator, path, screen } = route;
 		const { routes } = this.state;
+		const { BB } = this.props.screenProps;
 
-		const RouteView = this.props.RouteView || screen || Noop;
+		const RouteView = this.props.RouteView || resolveScreenComponent(route, BB);
 
 		return (
 			<Route key={name} exact={exact} path={path}>
@@ -114,10 +116,12 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 					return (
 						<NavigationContext.Provider value={navigation}>
 							<RouteView
+								navigator={navigator}
+								route={route}
+								// Remove Following
 								screen={screen}
 								navigation={navigation}
 								navigationOptions={this.getNavigationOptions(route, navigation)}
-								navigator={navigator}
 							>
 								{subNavigator ? <Navigator navigator={subNavigator} /> : null}
 							</RouteView>
