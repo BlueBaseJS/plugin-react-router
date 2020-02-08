@@ -1,4 +1,4 @@
-import { Stack } from './';
+import { Stack, Switch } from './';
 
 const NavigatorMap: { [key: string]: any } = {
 	'bottom-tab': Stack,
@@ -17,7 +17,7 @@ const NavigatorMap: { [key: string]: any } = {
 
 	stack: Stack,
 
-	switch: Stack,
+	switch: Switch,
 };
 
 /**

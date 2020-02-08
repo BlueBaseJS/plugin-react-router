@@ -1,1 +1,1 @@
-export * from './SwitchNavigator';
+export * from './Switch';
