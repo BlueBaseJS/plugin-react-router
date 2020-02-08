@@ -49,7 +49,7 @@ export const Navigator = (props: NavigatorProps) => {
 	 * @param route
 	 */
 	const renderRoute = (route: RouteConfigWithResolveSubRoutes) => {
-		const { exact, name, navigator: subNavigator, path } = route;
+		const { exact, name, path } = route;
 
 		return (
 			<Route key={name} exact={exact} path={path}>
@@ -63,7 +63,7 @@ export const Navigator = (props: NavigatorProps) => {
 						<NavigationContext.Provider value={navigation}>
 							<ScreenView
 								Layout={NavigatorImpl.Screen}
-								navigator={subNavigator}
+								navigator={props}
 								route={route}
 								navigation={navigation}
 								options={resolveRouteOptions(route, props, mainNavigator, {
@@ -71,7 +71,7 @@ export const Navigator = (props: NavigatorProps) => {
 									screenProps,
 								})}
 							>
-								{subNavigator ? <Navigator {...subNavigator} /> : null}
+								{route.navigator ? <Navigator {...route.navigator} /> : null}
 							</ScreenView>
 						</NavigationContext.Provider>
 					);
@@ -97,7 +97,12 @@ export const Navigator = (props: NavigatorProps) => {
 						mainNavigator
 					);
 
-					return <Redirect routeName={initialRouteName} params={navigation.state.params} />;
+					return (
+						<Redirect
+							routeName={initialRouteName || resolvedRoutes[0].name}
+							params={navigation.state.params}
+						/>
+					);
 				}}
 			</Route>
 		);
