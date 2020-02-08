@@ -116,6 +116,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-native-typescript-transformer": "^1.2.13",
+    "react-router-test-context": "^0.1.0",
     "react-test-renderer": "^16.12.0",
     "remark-cli": "^7.0.1",
     "remark-preset-lint-recommended": "^3.0.3",

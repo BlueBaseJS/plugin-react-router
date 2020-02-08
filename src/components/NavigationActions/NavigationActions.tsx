@@ -14,7 +14,7 @@ type NavigationActionsWithRouter = NavigationActionsProps & RouteComponentProps;
  * actions into the component directly, or don't want to pass it in case
  * of a deeply nested child.
  */
-export const NavigationActions = withRouter(
+export const NavigationActions: React.ComponentType<NavigationActionsProps> = withRouter(
 	({ children, ...rest }: NavigationActionsWithRouter) => {
 		const mainNavigatorConfigs = useContext(MainNavigatorContext);
 

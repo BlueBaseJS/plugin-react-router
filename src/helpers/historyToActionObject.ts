@@ -1,5 +1,6 @@
 import {
 	NavigationActionParams,
+	NavigationActionPayload,
 	NavigationActionsObject,
 	NavigatorProps,
 } from '@bluebase/components';
@@ -13,12 +14,7 @@ import queryString from 'query-string';
 export const historyToActionObject = (
 	router: RouteComponentProps,
 	mainNavigator: NavigatorProps
-	// BB: BlueBase
 ) => {
-	// const enableSource: boolean = BB.Configs.getValue(
-	// 	'plugin.react-router.enableSourceInNavigationActions'
-	// );
-
 	if (!router.match) {
 		throw Error('An error occurent in React Router Plugn. We did not find match object');
 	}
@@ -28,15 +24,15 @@ export const historyToActionObject = (
 	const obj = findRouteByKey(router.match.path, 'path', mainNavigator);
 
 	const actions: NavigationActionsObject = {
-		navigate: (routeName, _params?: NavigationActionParams) => {
+		navigate: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
 			return executeAction(mainNavigator, router.history.push, routeName, _params);
 		},
 
-		push: (routeName, _params?: NavigationActionParams) => {
+		push: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
 			return executeAction(mainNavigator, router.history.push, routeName, _params);
 		},
 
-		replace: (routeName, _params?: NavigationActionParams) => {
+		replace: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
 			return executeAction(mainNavigator, router.history.replace, routeName, _params);
 		},
 
@@ -61,7 +57,7 @@ export const historyToActionObject = (
 
 				// If items are objects, JSON.stringify them, otherwise use as is
 				Object.keys(_params).forEach(
-					key =>
+					(key: string) =>
 						(searchItems[key] =
 							typeof _params[key] === 'object' ? JSON.stringify(_params[key]) : _params[key])
 				);
@@ -84,7 +80,6 @@ export const historyToActionObject = (
 			return params[key] || defaultValue;
 		},
 
-		// source: enableSource ? router : undefined,
 		source: router,
 
 		state: {

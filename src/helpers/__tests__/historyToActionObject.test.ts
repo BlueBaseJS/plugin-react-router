@@ -1,8 +1,7 @@
-import { BlueBase } from '@bluebase/core';
 import { RouteComponentProps } from '../../lib';
 import { historyToActionObject } from '../historyToActionObject';
 
-const inputRoutes = {
+const mainNavigator = {
 	initialRouteName: 'Root',
 	routes: [
 		{
@@ -72,11 +71,7 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should convert a history object to action object', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', true);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		expect(result.state.key).toBe('u2vxal');
 		expect(result.state.search).toBe('?a=b');
@@ -87,14 +82,10 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should throw an error if match is undefined', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', true);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		let message;
 
 		try {
-			historyToActionObject({ ...input, match: undefined } as any, BB);
+			historyToActionObject({ ...input, match: undefined } as any, mainNavigator);
 		} catch (error) {
 			message = error.message;
 		}
@@ -103,11 +94,10 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should set the routeName prop to empty string, if a route object is not found', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', true);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
-		const result = historyToActionObject({ ...input, match: { ...input.match, path: '//!!' } }, BB);
+		const result = historyToActionObject(
+			{ ...input, match: { ...input.match, path: '//!!' } },
+			mainNavigator
+		);
 
 		expect(result.state.key).toBe('u2vxal');
 		expect(result.state.search).toBe('?a=b');
@@ -115,24 +105,10 @@ describe('historyToActionObject', () => {
 		expect(result.state.routeName).toBe('');
 	});
 
-	it('should not set source prop if "enableSourceInNavigationActions" is false', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
-		const result = historyToActionObject({ ...input, match: { ...input.match, path: '//!!' } }, BB);
-
-		expect(result.source).toBeUndefined();
-	});
-
 	it('should call historys push method from navigation push', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.push = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.push('Settings', { foo: 'bar' });
 
@@ -141,13 +117,9 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys push method from navigation navigate', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.push = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.navigate('Settings', { foo: 'bar' });
 
@@ -156,13 +128,9 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys replace method from navigation replace', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.replace = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.replace('Settings', { foo: 'bar' });
 
@@ -171,13 +139,9 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys goBack method from navigation goBack', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.goBack = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.goBack();
 
@@ -186,13 +150,9 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys go method from navigation pop with param as 0', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.go = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.pop();
 
@@ -201,13 +161,9 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys go method from navigation pop with param as -5', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.go = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.pop(5);
 
@@ -216,26 +172,22 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should call historys replace method from navigation setParams', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
 		input.history.replace = jest.fn();
 
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.setParams({ bar: 'bax' });
 
 		expect(input.history.replace).toBeCalledTimes(1);
-		expect(input.history.replace).toBeCalledWith('/p/settings/:id', { id: 'foo', bar: 'bax' });
+		expect(input.history.replace).toBeCalledWith({
+			pathname: '/p/settings/foo',
+			search: '?a=b',
+			state: { bar: 'bax', id: 'foo', name: 'General', title: 'Bar' },
+		});
 	});
 
 	it('should get param value from state through getParam method', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.getParam('id', 'hello');
 
@@ -243,11 +195,7 @@ describe('historyToActionObject', () => {
 	});
 
 	it('should get default param value from  getParam method if certain key does not exist in state', () => {
-		const BB = new BlueBase();
-		BB.Configs.setValue('plugin.react-router.enableSourceInNavigationActions', false);
-		BB.Configs.setValue('plugin.react-router.navigationConfigs', inputRoutes);
-
-		const result = historyToActionObject(input, BB);
+		const result = historyToActionObject(input, mainNavigator);
 
 		result.getParam('getting', 'hello');
 
