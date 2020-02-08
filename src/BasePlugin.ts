@@ -7,14 +7,6 @@ export const BasePlugin = {
 	name: 'BlueBase React Router Plugin',
 	version: '1.0.0',
 
-	defaultConfigs: {
-		/**
-		 * If enabled, navigation.source value is set with router value
-		 * from react-router's context.
-		 */
-		'plugin.react-router.enableSourceInNavigationActions': true,
-	},
-
 	components: {
 		DrawerView,
 		Header,

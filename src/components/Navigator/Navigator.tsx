@@ -1,61 +1,30 @@
-import { DrawerNavigator, StackNavigator, SwitchNavigator, TabNavigator } from '../../navigators';
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import { ScreenProps, withScreenProps } from '../../helpers/withScreenProps';
+import { RouteConfigWithResolveSubRoutes, ScreenProps } from '../../types';
+import { resolveThunk, useBlueBase, useIntl, useTheme } from '@bluebase/core';
 
 import { NavigatorProps } from '@bluebase/components';
 import React from 'react';
-import { resolveThunk } from '@bluebase/core';
-import { withRouter } from '../../lib';
+import { getNavigator } from '../../navigators';
 
-export interface RRNavigatorProps {
-	navigator: NavigatorProps;
-	screenProps: ScreenProps;
-}
-
-const NavigatorComponent = (props: RRNavigatorProps) => {
-	const { navigator, screenProps } = props;
+export const Navigator = (props: NavigatorProps) => {
+	const { navigator } = props;
 	const { type, routes } = navigator;
 
-	// If routes is a thunk, resolve it
-	const resolvedRoutes = resolveThunk<RouteConfigWithResolveSubRoutes[]>(
-		routes as any,
-		screenProps.BB
-	);
+	const BB = useBlueBase();
+	const themes = useTheme();
+	const intl = useIntl();
+	const screenProps: ScreenProps = { BB, intl, themes, theme: themes.theme };
 
-	let NavigatorComponent: React.ComponentType<NavigatorPropsWithResolvedRoutes>;
-
-	switch (type) {
-		case 'switch':
-			NavigatorComponent = SwitchNavigator;
-			break;
-
-		case 'stack':
-			NavigatorComponent = StackNavigator;
-			break;
-
-		case 'tab':
-		case 'tabs':
-		case 'top-navigation':
-		case 'bottom-navigation':
-			NavigatorComponent = TabNavigator;
-			break;
-
-		case 'drawer':
-			NavigatorComponent = DrawerNavigator;
-			break;
-
-		default:
-			NavigatorComponent = SwitchNavigator;
-			break;
-	}
+	const NavigatorComponent = getNavigator(type);
 
 	if (!NavigatorComponent) {
 		return null;
 	}
 
+	// If routes is a thunk, resolve it
+	const resolvedRoutes = resolveThunk<RouteConfigWithResolveSubRoutes[]>(
+		routes as any,
+		screenProps
+	);
+
 	return <NavigatorComponent {...navigator} screenProps={screenProps} routes={resolvedRoutes} />;
 };
-
-export const Navigator = withScreenProps(
-	withRouter(NavigatorComponent as any)
-) as React.ComponentType<NavigatorProps>;
