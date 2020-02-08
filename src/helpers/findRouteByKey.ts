@@ -1,8 +1,9 @@
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
+
 import { resolveThunk } from '@bluebase/core';
 
 /**
- * This funtion is this plugin's dog 🐶. Give it a bone and it will find it from
+ * This function is this plugin's dog 🐶. Give it a bone and it will find it from
  * the depths of hell.
  *
  * Translation: Finds a route object by a key and value search, from a
@@ -23,7 +24,7 @@ export function findRouteByKey(
 	// If routes prop is a thunk, resolve it
 	const routes = resolveThunk(configs.routes);
 
-	// Iterate of the routes array to commence 🧙‍♀️ witch hunt!
+	// Iterate the routes array to commence 🧙‍♀️ witch hunt!
 	for (const route of routes) {
 		// If key and value match, call off the search and get yourself a drink 🥤!
 		if (route[key] === search) {

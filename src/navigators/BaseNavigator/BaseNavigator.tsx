@@ -55,7 +55,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 			}
 
 			// If screen prop is a string resolve that component from BlueBase, otherwisen use as is
-			const screen = BB.Components.resolve(route.screen);
+			const screen = BB.Components.resolveFromCache(route.screen);
 
 			return { ...route, screen };
 		});
