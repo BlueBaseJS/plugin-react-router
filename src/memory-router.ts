@@ -8,6 +8,10 @@ export default createPlugin({
 
 	components: {
 		...BasePlugin.components,
-		Navigation: createNavigation(MemoryRouter),
+
+		Navigation: {
+			applyStyles: false,
+			value: createNavigation(MemoryRouter),
+		},
 	},
 });

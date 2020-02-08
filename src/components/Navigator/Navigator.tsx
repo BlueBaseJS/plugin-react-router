@@ -7,13 +7,12 @@ import React from 'react';
 import { resolveThunk } from '@bluebase/core';
 import { withRouter } from '../../lib';
 
-export interface InternalNavigatorProps {
+export interface RRNavigatorProps {
 	navigator: NavigatorProps;
+	screenProps: ScreenProps;
 }
 
-const InternalNavigatorComponent = (
-	props: InternalNavigatorProps & { screenProps: ScreenProps }
-) => {
+const NavigatorComponent = (props: RRNavigatorProps) => {
 	const { navigator, screenProps } = props;
 	const { type, routes } = navigator;
 
@@ -57,6 +56,6 @@ const InternalNavigatorComponent = (
 	return <NavigatorComponent {...navigator} screenProps={screenProps} routes={resolvedRoutes} />;
 };
 
-export const InternalNavigator = withScreenProps(
-	withRouter(InternalNavigatorComponent as any)
-) as React.ComponentType<InternalNavigatorProps>;
+export const Navigator = withScreenProps(
+	withRouter(NavigatorComponent as any)
+) as React.ComponentType<NavigatorProps>;

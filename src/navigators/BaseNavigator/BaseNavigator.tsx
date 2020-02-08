@@ -4,8 +4,8 @@ import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } fro
 import { Route, Switch } from '../../lib';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router';
 
-import { InternalNavigator } from '../../components/InternalNavigator';
 import { MainNavigatorContext } from '../../components';
+import { Navigator } from '../../components/Navigator';
 import React from 'react';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 
@@ -119,7 +119,7 @@ export class BaseNavigator extends React.Component<BaseNavigatorProps> {
 								navigationOptions={this.getNavigationOptions(route, navigation)}
 								navigator={navigator}
 							>
-								{subNavigator ? <InternalNavigator navigator={subNavigator} /> : null}
+								{subNavigator ? <Navigator navigator={subNavigator} /> : null}
 							</RouteView>
 						</NavigationContext.Provider>
 					);

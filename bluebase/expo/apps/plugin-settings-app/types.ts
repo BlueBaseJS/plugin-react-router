@@ -47,6 +47,10 @@
 
 // // }
 
+
+
+
+
 // // Router Component: createApp
 
 // /**
@@ -81,6 +85,9 @@
 //     path?: string;
 // 	}>,
 
+
+
+
 // 	initialRouteName?: string;
 //   initialRouteParams?: NavigationParams;
 //   paths?: NavigationPathsConfig;
@@ -88,6 +95,24 @@
 //   navigationOptions?: NavigationScreenConfig<NavigationScreenOptions>;
 //   initialRouteKey?: string;
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export interface NavigationStackScreenOptions {
 //   title?: string;
@@ -118,6 +143,14 @@
 //   gestureDirection?: 'default' | 'inverted';
 // }
 
+
+
+
+
+
+
+
+
 // // tslint:disable: object-literal-sort-keys
 
 // const navigator = {
@@ -135,6 +168,7 @@
 // 	}]
 // }
 
+
 // export interface RouteConfig {
 // 	navigator?: 'switch' | 'stack' | string,
 // 	name: string,
@@ -147,11 +181,13 @@
 // 	[key: string]: any,
 // }
 
+
 // export interface RouterProps {
 // 	routes: RouteConfig,
 // 	initialRoute?: string,
 
 // 	[key: string]: any,
 // }
+
 
 // <Router routes={} />

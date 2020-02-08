@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-no-bind */
 import { Button, Text, View } from 'react-native';
+
 // import { DrawerActions } from '../../components';
 import { NavigationActions } from '@bluebase/components';
 import React from 'react';
@@ -6,18 +8,12 @@ import React from 'react';
 export class Tab1Screen extends React.Component {
 	render() {
 		return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Tab 1 Content</Text>
-        <NavigationActions>
-          {({ navigate }: any) => (
-            <Button
-              title="Home"
-              // tslint:disable-next-line: jsx-no-lambda
-              onPress={() => navigate('Home')}
-            />
-          )}
-        </NavigationActions>
-        {/* <DrawerActions>
+			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+				<Text>Tab 1 Content</Text>
+				<NavigationActions>
+					{({ navigate }: any) => <Button title="Home" onPress={() => navigate('Home')} />}
+				</NavigationActions>
+				{/* <DrawerActions>
           {({ toggleDrawer }: any) => (
             <Button
               title="Toggle Drawer"
@@ -25,7 +21,7 @@ export class Tab1Screen extends React.Component {
             />
           )}
         </DrawerActions> */}
-      </View>
+			</View>
 		);
 	}
 }
