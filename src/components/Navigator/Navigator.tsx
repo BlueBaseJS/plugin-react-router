@@ -1,4 +1,9 @@
-import { NavigationActionsObject, NavigatorProps, Redirect } from '@bluebase/components';
+import {
+	NavigationActionsObject,
+	NavigatorProps,
+	Redirect,
+	RouteConfig,
+} from '@bluebase/components';
 import {
 	NavigationContext,
 	resolveThunk,
@@ -61,6 +66,10 @@ export const Navigator = (props: NavigatorProps) => {
 								navigator={subNavigator}
 								route={route}
 								navigation={navigation}
+								options={resolveRouteOptions(route, props, mainNavigator, {
+									navigation,
+									screenProps,
+								})}
 							>
 								{subNavigator ? <Navigator {...subNavigator} /> : null}
 							</ScreenView>
@@ -102,4 +111,47 @@ export const Navigator = (props: NavigatorProps) => {
 			</Switch>
 		</NavigatorImpl.Navigator>
 	);
+};
+
+const resolveRouteOptions = (
+	route: RouteConfig,
+	navigator: NavigatorProps,
+	mainNavigator: NavigatorProps,
+	ctx: {
+		navigation: NavigationActionsObject;
+		screenProps: ScreenProps;
+	}
+) => {
+	// // Extract screenProps
+	// const screenProps: ScreenProps = {
+	// 	...mainNavigator.screenProps,
+	// 	...params.screenProps
+	// };
+
+	// Create navigationOptions from main navigation configs
+	let navigationOptions = resolveThunk(mainNavigator.defaultNavigationOptions || {}, {
+		...ctx,
+		navigationOptions: {},
+	});
+
+	// Create navigationOptions from navigatior defaultNavigationOptions
+	navigationOptions = resolveThunk(navigator.defaultNavigationOptions || navigationOptions, {
+		...ctx,
+		navigationOptions,
+	});
+
+	// Now, create navigationOptions from route's navigationOptions object
+	navigationOptions = resolveThunk(route.navigationOptions || navigationOptions, {
+		...ctx,
+		navigationOptions,
+	});
+
+	// And finally, create navigationOptions from route.screen NavigationOptions
+	navigationOptions = resolveThunk(
+		(route.screen && (route.screen as any).navigationOptions) || navigationOptions,
+		{ ...ctx, navigationOptions }
+	);
+
+	// Phew...
+	return navigationOptions;
 };
