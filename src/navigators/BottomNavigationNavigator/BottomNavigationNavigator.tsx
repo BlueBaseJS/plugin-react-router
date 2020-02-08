@@ -1,22 +1,13 @@
+import { BottomNavigation, BottomNavigationAction, View } from '@bluebase/components';
 import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 import React, { useContext } from 'react';
-import { Tab, Tabs, View } from '@bluebase/components';
 import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../helpers';
 import { merge, useNavigation, useTheme } from '@bluebase/core';
 
 import { MainNavigatorContext } from '../../components';
 import { useLocation } from 'react-router-dom';
 
-const baseOptions: any = {
-	showIcon: true,
-	showLabel: true,
-
-	labelStyle: {},
-	style: {},
-	tabStyle: {},
-};
-
-export const TabNavigator = (
+export const BottomNavigationNavigator = (
 	props: NavigatorPropsWithResolvedRoutes & { chidlren: React.ReactNode }
 ) => {
 	const { children, routes } = props;
@@ -32,6 +23,21 @@ export const TabNavigator = (
 	const routeCtx = { navigation, screenProps };
 
 	// Options
+
+	const baseOptions: any = {
+		activeBackgroundColor: theme.palette.background.card,
+		activeTintColor: theme.palette.primary.main,
+		inactiveBackgroundColor: theme.palette.background.card,
+		inactiveTintColor: theme.palette.text.secondary,
+
+		showIcon: true,
+		showLabel: true,
+
+		labelStyle: {},
+
+		tabStyle: {},
+	};
+
 	const tabBarOptions: any = merge(baseOptions, props.tabBarOptions || {});
 
 	// Resolve active tab index
@@ -57,7 +63,7 @@ export const TabNavigator = (
 			index === currentIndex
 		);
 
-		return <Tab icon={icon} label={title} value={index as any} key={index} />;
+		return <BottomNavigationAction icon={icon} label={title} value={index as any} key={index} />;
 	};
 
 	return (
@@ -67,10 +73,14 @@ export const TabNavigator = (
 				flex: 1,
 			}}
 		>
-			<Tabs value={currentIndex} onChange={onChange}>
-				{routes.map(renderTab)}
-			</Tabs>
 			<View style={{ flex: 1 }}>{children}</View>
+			<BottomNavigation
+				value={currentIndex}
+				onChange={onChange}
+				style={{ zIndex: 1100, ...tabBarOptions.style } as any}
+			>
+				{routes.map(renderTab)}
+			</BottomNavigation>
 		</View>
 	);
 };

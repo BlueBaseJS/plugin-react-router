@@ -56,8 +56,8 @@ const plugin = createPlugin({
 
 				routes: [
 					{
-						name: 'Tab1',
-						path: 't1',
+						name: 'WrappedScreen',
+						path: '/w',
 						exact: true,
 
 						// eslint-disable-next-line react/display-name
@@ -192,32 +192,29 @@ const plugin = createPlugin({
 				};
 			},
 		},
-		{
-			name: 'SettingsTabs',
-			path: 'tabs',
-			screen: Noop,
 
-			// TODO: test initial route here
+		{
+			name: 'TabsDemo',
+			path: 'tabs-demo',
 			navigator: {
-				headerMode: 'none',
 				type: 'tab',
 				routes: [
 					{
 						name: 'Tab1',
-						path: 't1',
+						path: 'tab1',
 						exact: true,
 						screen: Tab1Screen,
 						navigationOptions: {
-							title: 'Tab A',
+							title: 'Overview',
 						},
 					},
 					{
 						name: 'Tab2',
-						path: 't2',
+						path: 'tab2',
 						exact: true,
 						screen: Tab2Screen,
 						navigationOptions: {
-							title: 'Tab B',
+							title: 'Reports',
 						},
 					},
 				],
@@ -226,6 +223,7 @@ const plugin = createPlugin({
 				title: 'Settings Tabs',
 			},
 		},
+
 		{
 			name: 'SettingsBottomTabs',
 			path: 'btabs',
@@ -238,7 +236,7 @@ const plugin = createPlugin({
 						exact: true,
 						screen: Tab1Screen,
 						navigationOptions: {
-							title: 'BTab A',
+							title: 'Home',
 						},
 					},
 					{
@@ -247,7 +245,7 @@ const plugin = createPlugin({
 						exact: true,
 						screen: Tab2Screen,
 						navigationOptions: {
-							title: 'BTab B',
+							title: 'Settings',
 						},
 					},
 				],

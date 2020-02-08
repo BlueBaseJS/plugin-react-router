@@ -5,7 +5,7 @@ import {
 	Tab,
 	Tabs,
 } from '@bluebase/components';
-import { getIcon, getTitle } from './helpers';
+import { getIcon, getTitle } from '../../helpers';
 import { merge, useTheme } from '@bluebase/core';
 
 import React from 'react';

@@ -5,14 +5,14 @@ import {
 	NavigatorProps,
 } from '@bluebase/components';
 
-import { RouteComponentProps } from '../lib';
+import { RouteChildrenProps } from 'react-router-dom';
 import { compile } from 'path-to-regexp';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
 import queryString from 'query-string';
 
 export const historyToActionObject = (
-	router: RouteComponentProps,
+	router: RouteChildrenProps,
 	mainNavigator: NavigatorProps
 ) => {
 	if (!router.match) {
@@ -66,7 +66,7 @@ export const historyToActionObject = (
 			}
 
 			const fn = search ? router.history.push : router.history.replace;
-			const toPath = compile(router.match.path);
+			const toPath = compile(router.match!.path);
 			const state = { ...currentState, ...params, ..._params };
 
 			fn({

@@ -1,17 +1,17 @@
-import { Stack, Switch } from './';
+import { BottomNavigation, Stack, Switch, Tab } from './';
 
 const NavigatorMap: { [key: string]: any } = {
-	'bottom-tab': Stack,
-	'bottom-tabs': Stack,
+	'bottom-tab': BottomNavigation,
+	'bottom-tabs': BottomNavigation,
 
 	drawer: Stack,
 
-	'bottom-navigation': Stack,
-	'material-bottom-tab': Stack,
-	'material-bottom-tabs': Stack,
+	'bottom-navigation': BottomNavigation,
+	'material-bottom-tab': BottomNavigation,
+	'material-bottom-tabs': BottomNavigation,
 
-	tab: Stack,
-	tabs: Stack,
+	tab: Tab,
+	tabs: Tab,
 
 	'native-stack': Stack,
 

@@ -50,7 +50,7 @@ export const HomeScreen = (props: any) => {
 				<Divider />
 				<List.Item title="Push" description="Push to Screen" onPress={push('SettingsTabs')} />
 				<Divider />
-				<List.Item title="Tabs" onPress={navigate('SettingsTabs')} />
+				<List.Item title="Tabs" onPress={navigate('TabsDemo')} />
 				<Divider />
 				<List.Item title="Bottom Tabs" onPress={navigate('SettingsBottomTabs')} />
 				<Divider />

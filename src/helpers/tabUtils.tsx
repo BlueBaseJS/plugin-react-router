@@ -1,13 +1,10 @@
-import { NavigationOptions, Text } from '@bluebase/components';
-
 import React from 'react';
+import { Text } from '@bluebase/components';
 import { isMobile } from '@bluebase/core';
 
-export function getTitle(
-	options: NavigationOptions = {},
-	tabBarOptions: any = {},
-	focused: boolean
-) {
+export const getTitle = (options: any = {}, focused: boolean) => {
+	const { tabBarOptions } = options as any;
+
 	const label = (options as any).tabBarLabel || options.title || options.headerTitle;
 
 	if (!tabBarOptions.showLabel || !label) {
@@ -21,13 +18,10 @@ export function getTitle(
 	}
 
 	return <Text style={{ color: tintColor, ...tabBarOptions.labelStyle }}>{label}</Text>;
-}
+};
 
-export function getIcon(
-	options: NavigationOptions = {},
-	tabBarOptions: any = {},
-	focused: boolean
-) {
+export const getIcon = (options: any = {}, focused: boolean) => {
+	const { tabBarOptions } = options as any;
 	const icon = (options as any).tabBarIcon;
 
 	if (!tabBarOptions.showIcon || !icon) {
@@ -45,4 +39,4 @@ export function getIcon(
 	if (icon && typeof icon.type === 'string') {
 		return icon;
 	}
-}
+};
