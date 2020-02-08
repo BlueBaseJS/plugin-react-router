@@ -67,7 +67,7 @@ export const TabNavigator = (
 				flex: 1,
 			}}
 		>
-			<Tabs value={currentIndex} onChange={onChange}>
+			<Tabs value={currentIndex > -1 ? currentIndex : 0} onChange={onChange}>
 				{routes.map(renderTab)}
 			</Tabs>
 			<View style={{ flex: 1 }}>{children}</View>

@@ -31,7 +31,7 @@ export const resolveRouteOptions = (
 	});
 
 	// Now, create navigationOptions from route's navigationOptions object
-	navigationOptions = resolveThunk(route.navigationOptions || navigationOptions, {
+	navigationOptions = resolveThunk(route.options || route.navigationOptions || navigationOptions, {
 		...ctx,
 		navigationOptions,
 	});
