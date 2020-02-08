@@ -16,6 +16,8 @@ export class Tab2Screen extends React.Component {
 		// 		size={25}
 		// 	/>
 		// ),
+		title: 'Reports',
+
 		tabBarOptions: {
 			labelStyle: {
 				fontSize: 20,

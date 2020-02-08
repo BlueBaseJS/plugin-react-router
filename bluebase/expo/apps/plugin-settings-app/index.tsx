@@ -213,9 +213,6 @@ const plugin = createPlugin({
 						path: 'tab2',
 						exact: true,
 						screen: Tab2Screen,
-						navigationOptions: {
-							title: 'Reports',
-						},
 					},
 				],
 			},
@@ -244,9 +241,6 @@ const plugin = createPlugin({
 						path: 'bt2',
 						exact: true,
 						screen: Tab2Screen,
-						navigationOptions: {
-							title: 'Settings',
-						},
 					},
 				],
 			},

@@ -47,7 +47,7 @@ export const TabNavigator = (
 	// Render single tab
 	const renderTab = (route: RouteConfigWithResolveSubRoutes, index: number) => {
 		const options = resolveRouteOptions(route, props, mainNavigator, routeCtx);
-
+		console.log('options', options);
 		const icon = getIcon(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
 			index === currentIndex
