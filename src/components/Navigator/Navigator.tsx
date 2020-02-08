@@ -93,7 +93,7 @@ export const Navigator = (props: NavigatorProps) => {
 	};
 
 	return (
-		<NavigatorImpl.Navigator {...props}>
+		<NavigatorImpl.Navigator {...props} routes={resolvedRoutes}>
 			<Switch {...rest}>
 				{resolvedRoutes.map(renderRoute)}
 				{renderInitialRoute()}

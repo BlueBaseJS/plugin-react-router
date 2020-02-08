@@ -17,7 +17,7 @@ const baseOptions: any = {
 };
 
 export const TabNavigator = (
-	props: NavigatorPropsWithResolvedRoutes & { chidlren: React.ReactNode }
+	props: NavigatorPropsWithResolvedRoutes & { children: React.ReactNode }
 ) => {
 	const { children, routes } = props;
 

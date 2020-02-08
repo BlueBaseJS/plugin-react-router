@@ -1,7 +1,7 @@
-import { Noop } from '@bluebase/components';
+import { StackNavigator } from './StackNavigator';
 import { StackScreen } from './StackScreen';
 
 export const Stack = {
-	Navigator: Noop,
+	Navigator: StackNavigator,
 	Screen: StackScreen,
 };

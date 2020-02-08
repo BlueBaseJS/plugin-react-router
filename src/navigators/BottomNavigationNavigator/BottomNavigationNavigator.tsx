@@ -8,7 +8,7 @@ import { MainNavigatorContext } from '../../components';
 import { useLocation } from 'react-router-dom';
 
 export const BottomNavigationNavigator = (
-	props: NavigatorPropsWithResolvedRoutes & { chidlren: React.ReactNode }
+	props: NavigatorPropsWithResolvedRoutes & { children: React.ReactNode }
 ) => {
 	const { children, routes } = props;
 

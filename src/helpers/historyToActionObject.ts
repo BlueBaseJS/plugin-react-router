@@ -25,7 +25,10 @@ export const historyToActionObject = (
 
 	const actions: NavigationActionsObject = {
 		navigate: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
-			return executeAction(mainNavigator, router.history.push, routeName, _params);
+			return executeAction(mainNavigator, router.history.push, routeName, {
+				__referrer: router.location,
+				..._params,
+			});
 		},
 
 		push: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
