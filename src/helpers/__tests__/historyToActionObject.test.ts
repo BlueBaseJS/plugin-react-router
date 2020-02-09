@@ -124,7 +124,19 @@ describe('historyToActionObject', () => {
 		result.navigate('Settings', { foo: 'bar' });
 
 		expect(input.history.push).toBeCalledTimes(1);
-		expect(input.history.push).toBeCalledWith('/p/settings', { foo: 'bar' });
+		expect(input.history.push).toBeCalledWith('/p/settings', {
+			__referrer: {
+				hash: '',
+				key: 'u2vxal',
+				pathname: '/p/settings/foo',
+				search: '?a=b',
+				state: {
+					name: 'General',
+					title: 'Bar',
+				},
+			},
+			foo: 'bar',
+		});
 	});
 
 	it('should call historys replace method from navigation replace', () => {

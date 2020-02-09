@@ -11,7 +11,7 @@ import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
 export interface StackScreenProps {
-	Screen: React.ComponentType<any>;
+	Screen?: React.ComponentType<any>;
 
 	/**
 	 * Navigation Options
@@ -61,3 +61,5 @@ export const StackScreen = (props: StackScreenProps) => {
 		</View>
 	);
 };
+
+StackScreen.displayName = 'StackScreen';
