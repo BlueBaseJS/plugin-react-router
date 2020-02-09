@@ -7,10 +7,6 @@ export const getTitle = (options: NavigationOptions = {}) => {
 export const getIcon = (options: NavigationOptions = {}) => {
 	const icon = (options as any).drawerIcon;
 
-	if (!icon) {
-		return;
-	}
-
 	if (typeof icon === 'function') {
 		return icon();
 	}

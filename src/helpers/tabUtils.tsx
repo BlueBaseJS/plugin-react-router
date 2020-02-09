@@ -2,8 +2,8 @@ import React from 'react';
 import { Text } from '@bluebase/components';
 import { isMobile } from '@bluebase/core';
 
-export const getTitle = (options: any = {}, focused: boolean) => {
-	const { tabBarOptions } = options as any;
+export const getTitle = (options: any = {}, focused: boolean = false) => {
+	const { tabBarOptions = {} } = options as any;
 
 	const label = (options as any).tabBarLabel || options.title || options.headerTitle;
 
@@ -17,22 +17,28 @@ export const getTitle = (options: any = {}, focused: boolean) => {
 		return label({ focused, tintColor });
 	}
 
-	return <Text style={{ color: tintColor, ...tabBarOptions.labelStyle }}>{label}</Text>;
+	return (
+		<Text testID="tab-title" style={{ color: tintColor, ...tabBarOptions.labelStyle }}>
+			{label}
+		</Text>
+	);
 };
 
-export const getIcon = (options: any = {}, focused: boolean) => {
-	const { tabBarOptions } = options as any;
+export const getIcon = (options: any = {}, focused: boolean = false) => {
+	const { tabBarOptions = {} } = options as any;
 	const icon = (options as any).tabBarIcon;
 
-	if (!tabBarOptions.showIcon || !icon) {
+	if (!tabBarOptions.showIcon) {
 		return;
 	}
+
+	const tintColor = focused ? tabBarOptions.activeTintColor : tabBarOptions.inactiveTintColor;
 
 	if (typeof icon === 'function') {
 		return icon({
 			focused,
 			horizontal: !isMobile(),
-			tintColor: focused ? tabBarOptions.activeTintColor : tabBarOptions.inactiveTintColor,
+			tintColor,
 		});
 	}
 
