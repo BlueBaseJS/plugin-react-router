@@ -34,7 +34,6 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 		state: {},
 	};
 
-	debugger;
 	if (isInitialRoute || location.pathname.startsWith(initialRouteLocation.pathname)) {
 		return children as any;
 	}

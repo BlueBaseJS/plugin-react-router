@@ -1,7 +1,7 @@
 import { NavigationActionsObject, NavigatorProps, Redirect } from '@bluebase/components';
 import { NavigationContext, resolveThunk, useComponent } from '@bluebase/core';
 import React, { useContext } from 'react';
-import { Route, Switch } from '../../lib';
+import { Route, Switch } from 'react-router';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router-dom';
 import { historyToActionObject, resolveRouteOptions, useScreenProps } from '../../helpers';
 
