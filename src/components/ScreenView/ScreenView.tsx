@@ -1,4 +1,4 @@
-import { NavigationActionsObject, RouteConfig } from '@bluebase/components';
+import { NavigationActionsObject, Noop, RouteConfig } from '@bluebase/components';
 
 import React from 'react';
 import { resolveScreenComponent } from '../../helpers';
@@ -25,4 +25,8 @@ export const ScreenView: React.ComponentType<ScreenViewProps> = ({
 			{children}
 		</Layout>
 	);
+};
+
+ScreenView.defaultProps = {
+	Layout: Noop,
 };
