@@ -1,10 +1,78 @@
 import { BlueBaseApp } from '@bluebase/core';
-import Plugin from '../../..';
+import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
+import { MainNavigatorContext } from '../../../components';
+import { MemoryRouter } from 'react-router';
+import { ModalNavigator } from '../ModalNavigator';
+import Plugin from '../../../';
 import React from 'react';
 import { StackNavigator } from '../StackNavigator';
 import { Text } from 'react-native';
 import { mount } from 'enzyme';
+import { useLocation } from '../../../lib';
 import { waitForElement } from 'enzyme-async-helpers';
+
+jest.mock('../../../lib');
+
+// const createRouterContext = require('react-router-test-context').default;
+
+const mainNavigator = {
+	initialRouteName: 'Root',
+	routes: [
+		{
+			name: 'Root',
+			navigationOptions: { header: null },
+			navigator: {
+				initialRouteName: 'Settings',
+				type: 'stack',
+				mode: 'modal',
+
+				routes: [
+					{
+						name: 'Main',
+						path: '/main',
+						navigationOptions: {},
+
+						navigator: {
+							type: 'stack',
+
+							routes: [
+								{
+									name: 'Home',
+									path: '/',
+									exact: true,
+									screen: 'HomeScreen',
+									navigationOptions: {},
+								},
+								{
+									name: 'About',
+									path: '/about',
+									exact: true,
+									screen: 'EmptyState',
+									navigationOptions: {},
+								},
+							],
+						},
+					},
+					{
+						exact: true,
+						name: 'Settings',
+						navigationOptions: {},
+						path: '/p/settings',
+						screen: 'SettingsScreen',
+					},
+					{
+						name: 'SettingsDetail',
+						navigationOptions: {},
+						path: '/p/settings/:id',
+						screen: 'SettingsDetail',
+					},
+				],
+			},
+			path: '/', //
+		},
+	],
+	type: 'stack',
+};
 
 describe('StackNavigator', () => {
 	it('should render StackNavigator with given children', async () => {
@@ -28,19 +96,29 @@ describe('StackNavigator', () => {
 		).toBe('Hello there');
 	});
 
-	it('should render StackNavigator with given screen component', async () => {
+	it('should render a ModalNavigator', async () => {
+		(useLocation as jest.Mock).mockImplementation(() => ({
+			hash: '',
+			key: 'u2vxal',
+			pathname: '/p/settings/foo',
+			search: '',
+			state: {},
+		}));
+
 		const wrapper = mount(
-			<BlueBaseApp plugins={[Plugin]}>
-				<StackNavigator {...({ mode: 'modal' } as any)}>
-					<Text testID="StackNavigatorChild">Hello there</Text>
-				</StackNavigator>
-			</BlueBaseApp>
+			<MemoryRouter>
+				<BlueBaseApp plugins={[BlueBasePluginMaterialUI, Plugin]}>
+					<MainNavigatorContext.Provider value={mainNavigator as any}>
+						<StackNavigator {...(mainNavigator.routes[0].navigator as any)} screenProps={{} as any}>
+							<Text testID="modal-children">Modal Child</Text>
+						</StackNavigator>
+					</MainNavigatorContext.Provider>
+				</BlueBaseApp>
+			</MemoryRouter>
 		);
 
-		// Wait for render
-		await waitForElement(wrapper as any, StackNavigator);
+		await waitForElement(wrapper, ModalNavigator);
 
-		// expect(wrapper).toMatchSnapshot();
 		expect(wrapper.find('ModalNavigator').exists()).toBe(true);
 	});
 });

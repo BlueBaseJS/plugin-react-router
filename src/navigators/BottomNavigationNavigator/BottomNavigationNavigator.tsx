@@ -76,7 +76,7 @@ export const BottomNavigationNavigator = (
 		>
 			<View style={{ flex: 1 }}>{children}</View>
 			<BottomNavigation
-				value={currentIndex}
+				value={currentIndex > -1 ? currentIndex : 0}
 				onChange={onChange}
 				style={{ zIndex: 1100, ...tabBarOptions.style } as any}
 			>
