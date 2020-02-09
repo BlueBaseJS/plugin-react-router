@@ -13,7 +13,7 @@ export const StackNavigator = (props: StackNavigatorProps) => {
 		return <ModalNavigator {...props} />;
 	}
 
-	return children;
+	return children as any;
 };
 
 StackNavigator.displayName = 'StackNavigator';

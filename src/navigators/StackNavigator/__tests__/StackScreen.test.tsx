@@ -12,14 +12,7 @@ const HomeScreen = getComponent('HomeScreen');
 describe('StackScreen', () => {
 	it('should render StackScreen with given children', async () => {
 		const wrapper = mount(
-			<BlueBaseApp
-				plugins={[Plugin]}
-				components={{
-					HeaderBackButton: () => {
-						return null;
-					},
-				}}
-			>
+			<BlueBaseApp plugins={[Plugin]}>
 				<StackScreen navigation={null as any} navigator={null as any} route={null as any}>
 					<Text testID="StackScreenChild">Hello there</Text>
 				</StackScreen>
@@ -40,14 +33,7 @@ describe('StackScreen', () => {
 
 	it('should render StackScreen with given screen component', async () => {
 		const wrapper = mount(
-			<BlueBaseApp
-				plugins={[Plugin]}
-				components={{
-					HeaderBackButton: () => {
-						return null;
-					},
-				}}
-			>
+			<BlueBaseApp plugins={[Plugin]}>
 				<StackScreen
 					navigation={null as any}
 					navigator={null as any}

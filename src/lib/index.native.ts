@@ -8,5 +8,6 @@ export {
 	Link,
 	withRouter,
 	RouteComponentProps,
+	useLocation,
 } from 'react-router-native';
 // export { default as Stack } from 'react-router-native-stack';

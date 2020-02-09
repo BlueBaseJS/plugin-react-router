@@ -101,3 +101,5 @@ export const Navigator = (props: NavigatorProps) => {
 		</NavigatorImpl.Navigator>
 	);
 };
+
+Navigator.displayName = 'Navigator';

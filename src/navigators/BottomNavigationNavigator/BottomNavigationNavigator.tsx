@@ -58,6 +58,7 @@ export const BottomNavigationNavigator = (
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
 			index === currentIndex
 		);
+
 		const title = getTitle(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
 			index === currentIndex

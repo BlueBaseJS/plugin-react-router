@@ -1,4 +1,4 @@
-import { Switch, useLocation } from 'react-router-dom';
+import { Switch, useLocation } from '../../lib';
 
 import { Dialog } from '@bluebase/components';
 import React from 'react';
@@ -32,10 +32,10 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 		search: '',
 		hash: '',
 		state: {},
-		// key: 'v8ge9s',
 	};
 
-	if (isInitialRoute) {
+	debugger;
+	if (isInitialRoute || location.pathname.startsWith(initialRouteLocation.pathname)) {
 		return children as any;
 	}
 

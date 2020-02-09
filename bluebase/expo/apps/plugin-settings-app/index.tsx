@@ -2,6 +2,7 @@
 // https://github.com/kmagiera/react-native-gesture-handler/issues/320#issuecomment-443815828
 import 'react-native-gesture-handler';
 
+import { Button, Text, View } from 'react-native';
 import { ComponentState, Noop } from '@bluebase/components';
 // tslint:disable: object-literal-sort-keys
 import {
@@ -11,7 +12,6 @@ import {
 	Tab1Screen,
 	Tab2Screen,
 } from './Screens';
-import { Text, View } from 'react-native';
 
 import { DrawerTab1Screen } from './Screens/DrawerTab1';
 import { DrawerTab2Screen } from './Screens/DrawerTab2';
@@ -145,21 +145,64 @@ const plugin = createPlugin({
 					{
 						name: 'Modal1',
 						path: 'modal1',
-						exact: true,
-
-						// eslint-disable-next-line react/display-name
-						screen: (props: any) => (
-							<ComponentState
-								title="Title 1"
-								description="This screen is in a modal"
-								actionTitle="Modal 2"
-								actionOnPress={() => props.navigation.navigate('Modal2')}
-							/>
-						),
+						// exact: true,
 
 						navigationOptions: {
 							// stackPresentation: 'modal',
-							title: 'Modal 1 Screen',
+							header: null,
+						},
+
+						navigator: {
+							type: 'stack',
+
+							routes: [
+								{
+									name: 'Home',
+									path: '/',
+									exact: true,
+
+									// eslint-disable-next-line react/display-name
+									screen: (props: any) => (
+										<>
+											<ComponentState
+												title="Title 1"
+												description="This screen should be outside modal"
+												actionTitle="Modal 2"
+												actionOnPress={() => props.navigation.navigate('Modal2')}
+											/>
+											<Button
+												title="Nested route"
+												onPress={() => props.navigation.navigate('NestedModalStack')}
+											/>
+										</>
+									),
+
+									navigationOptions: {
+										// stackPresentation: 'modal',
+										title: 'Modal 1 Screen',
+									},
+								},
+								{
+									name: 'NestedModalStack',
+									path: '/nested-modal-stack',
+									exact: true,
+
+									// eslint-disable-next-line react/display-name
+									screen: (props: any) => (
+										<ComponentState
+											title="Nested Modal Stack"
+											description="This screen should be outside modal"
+											actionTitle="Modal 2"
+											actionOnPress={() => props.navigation.navigate('Modal2')}
+										/>
+									),
+
+									navigationOptions: {
+										// stackPresentation: 'modal',
+										title: 'Nested Modal Stack',
+									},
+								},
+							],
 						},
 					},
 					{
