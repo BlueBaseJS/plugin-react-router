@@ -68,7 +68,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@bluebase/components": "^5.22.0",
+    "@bluebase/components": "^5.23.0",
     "expo": "^36.0.2",
     "lodash.get": "^4.4.2",
     "path-to-regexp": "^3.0.0",
@@ -82,7 +82,7 @@
     "@babel/core": "^7.8.4",
     "@bluebase/code-standards": "^2.4.2",
     "@bluebase/core": "^5.11.0",
-    "@bluebase/plugin-material-ui": "^2.11.3",
+    "@bluebase/plugin-material-ui": "^2.13.0",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
     "@types/compression": "^0.0.36",

@@ -1031,6 +1031,14 @@
     deepmerge "^3.2.0"
     tslib "^1.9.3"
 
+"@bluebase/components@^5.23.0":
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/@bluebase/components/-/components-5.23.0.tgz#1f74e6e5d4fc2af8c1c5e8a35ae88fa29ba25916"
+  integrity sha512-YDg6arKSBJ85b4HnGx+RKAFkE5FBRvSd9FhET2o8yKUhQCxuCBRJJEWF1H+L2sAus7yEjUJxfVcq8V1q/I0wZA==
+  dependencies:
+    deepmerge "^3.2.0"
+    tslib "^1.9.3"
+
 "@bluebase/core@^5.11.0":
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/@bluebase/core/-/core-5.11.0.tgz#25107642bf0cc75db2ec7b7bcbd5ddf191f85bf3"
@@ -1049,10 +1057,10 @@
     rtl-detect "^1.0.2"
     tslib "^1.10.0"
 
-"@bluebase/plugin-material-ui@^2.11.3":
-  version "2.11.3"
-  resolved "https://registry.yarnpkg.com/@bluebase/plugin-material-ui/-/plugin-material-ui-2.11.3.tgz#f77cf46edc23ef409da3d011405babbc909f397e"
-  integrity sha512-+KNyxAdREF9oLKzLpep2L+u7iixY0MrkSFPqU4tvuz3JEGvQUToGUTqo6Th99WD+l+czNlUblEOh5yxEbMsiuQ==
+"@bluebase/plugin-material-ui@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@bluebase/plugin-material-ui/-/plugin-material-ui-2.13.0.tgz#339cd73bea3f990190dcafcd880e4e7698f668c7"
+  integrity sha512-hx7n6IgrOOYYkpaXT5HHldEmkWpPDicWaFKrzevLEm0h8/fJlwAwBlhGeVgupJ80NLA3mk7klGhOkwORd4aEwQ==
   dependencies:
     "@bluebase/component-mapper" "^1.4.0"
     "@bluebase/components" "^5.22.0"

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { RouteComponentProps, withRouter } from '../../lib';
 
-import { MainNavigatorContext } from '../Navigation/createNavigation';
+import { MainNavigatorContext } from '../Navigation';
 import { NavigationActionsProps } from '@bluebase/components';
 import { historyToActionObject } from '../../helpers/historyToActionObject';
 

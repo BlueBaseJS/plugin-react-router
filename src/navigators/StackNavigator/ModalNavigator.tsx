@@ -1,19 +1,18 @@
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import React, { useState } from 'react';
 import { Switch, useLocation } from 'react-router-dom';
 
 import { Dialog } from '@bluebase/components';
+import React from 'react';
+import { RouteConfigWithResolveSubRoutes } from '../../types';
+import { StackNavigatorProps } from './StackNavigator';
 import get from 'lodash.get';
 import { useNavigation } from '@bluebase/core';
 
-export const ModalNavigator = (
-	props: NavigatorPropsWithResolvedRoutes & { children: React.ReactNode }
-) => {
+export interface ModalNavigatorProps extends StackNavigatorProps {}
+
+export const ModalNavigator = (props: ModalNavigatorProps) => {
 	const { children, initialRouteName, routes } = props;
 	const location = useLocation();
 	const { navigate } = useNavigation();
-
-	const [visible, setVisible] = useState(true);
 
 	// Find initial route
 	const currentIndex = routes.findIndex(
@@ -37,7 +36,7 @@ export const ModalNavigator = (
 	};
 
 	if (isInitialRoute) {
-		return children;
+		return children as any;
 	}
 
 	// Find refferer
@@ -53,7 +52,7 @@ export const ModalNavigator = (
 	return (
 		<React.Fragment>
 			<Switch location={background}>{children}</Switch>
-			<Dialog visible={visible} onDismiss={onDismiss} dismissable fullWidth>
+			<Dialog visible dismissable onDismiss={onDismiss}>
 				{children}
 			</Dialog>
 		</React.Fragment>
