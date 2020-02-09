@@ -84,3 +84,5 @@ export const BottomNavigationNavigator = (
 		</View>
 	);
 };
+
+BottomNavigationNavigator.displayName = 'BottomNavigationNavigator';

@@ -58,3 +58,5 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 		</React.Fragment>
 	);
 };
+
+ModalNavigator.displayName = 'ModalNavigator';

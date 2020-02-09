@@ -74,3 +74,5 @@ export const TabNavigator = (
 		</View>
 	);
 };
+
+TabNavigator.displayName = 'TabNavigator';

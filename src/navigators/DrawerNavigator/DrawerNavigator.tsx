@@ -87,3 +87,5 @@ export const DrawerNavigator = (
 		</View>
 	);
 };
+
+DrawerNavigator.displayName = 'DrawerNavigator';

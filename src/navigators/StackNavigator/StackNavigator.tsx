@@ -15,3 +15,5 @@ export const StackNavigator = (props: StackNavigatorProps) => {
 
 	return children;
 };
+
+StackNavigator.displayName = 'StackNavigator';

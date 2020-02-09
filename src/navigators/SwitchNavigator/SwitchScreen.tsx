@@ -5,7 +5,7 @@ import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
 
 export interface SwitchScreenProps {
-	Screen: React.ComponentType<any>;
+	Screen?: React.ComponentType<any>;
 
 	/**
 	 * Navigation Options
@@ -39,5 +39,7 @@ export interface SwitchScreenProps {
  */
 export const SwitchScreen = (props: SwitchScreenProps) => {
 	const { Screen, route, options, navigator, ...rest } = props;
-	return Screen ? <Screen {...rest} /> : rest.children;
+	return Screen ? <Screen {...rest} /> : (rest.children as any);
 };
+
+SwitchScreen.displayName = 'SwitchScreen';
