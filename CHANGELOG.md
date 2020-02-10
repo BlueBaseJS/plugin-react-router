@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.0.0...v1.1.0) (2020-02-10)
+
+### Features
+
+-   Use dynamic version ([623a21f](https://github.com/BlueBaseJS/plugin-react-router/commit/623a21fc79e9c6774017c567a2733749ff240f0c))
+
 # 1.0.0 (2020-02-10)
 
 ### Features
