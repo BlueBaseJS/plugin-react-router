@@ -1,3 +1,5 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable @typescript-eslint/typedef */
 import {
 	HeaderBackButtonProps,
 	HeaderBackButtonStyles,

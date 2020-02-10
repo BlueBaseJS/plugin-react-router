@@ -22,7 +22,7 @@
     "watch:test": "jest --watch",
     "lint": "eslint src bluebase --ext=ts,tsx",
     "info": "npm-scripts-info",
-    "build": "run-s clean && run-p build:* && cp -r ./dist/src/* ./dist && rm -r ./dist/src && rm -r ./dist/demo",
+    "build": "run-s clean && run-p build:* && cp -r ./dist/src/* ./dist && rm -r ./dist/src",
     "build:main": "tsc -p tsconfig.json && babel ./src --out-dir dist --ignore \"**/__tests__\",\"**/__stories__\" --extensions \".ts,.tsx,.js,.jsx\"",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",

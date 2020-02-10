@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/typedef */
 import {
 	I18nManager,
 	Image,
@@ -173,7 +174,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 		const onLayout =
 			layoutPreset === 'center'
 				? (e: any) => {
-						this.setState({ initWidth: e.nativeEvent.layout.width });
+					this.setState({ initWidth: e.nativeEvent.layout.width });
 				  }
 				: undefined;
 
@@ -247,7 +248,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 		const onLayout =
 			layoutPreset === 'center'
 				? (e: any) => {
-						this.setState({ titleWidth: e.nativeEvent.layout.width });
+					this.setState({ titleWidth: e.nativeEvent.layout.width });
 				  }
 				: undefined;
 
@@ -260,9 +261,9 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			headerTitleContainerStyle,
 			layoutPreset === 'center'
 				? {
-						left: 0,
-						position: 'absolute',
-						right: 0,
+					left: 0,
+					position: 'absolute',
+					right: 0,
 				  }
 				: {},
 		];

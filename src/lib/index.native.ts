@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 export {
 	NativeRouter as Router,
 	MemoryRouter,
