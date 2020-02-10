@@ -22,5 +22,14 @@
 		}
 	],
 	"eslint.enable": true,
-	"eslint.workingDirectories": ["./src", "./bluebase"]
+	"eslint.workingDirectories": [
+		"./src",
+		"./bluebase"
+	],
+	"gitflow4code.features": [
+		{
+			"name": "feature/refactor",
+			"base": "develop"
+		}
+	]
 }

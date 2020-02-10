@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 export {
 	NativeRouter as Router,
 	MemoryRouter,
@@ -8,5 +9,6 @@ export {
 	Link,
 	withRouter,
 	RouteComponentProps,
+	useLocation,
 } from 'react-router-native';
 // export { default as Stack } from 'react-router-native-stack';

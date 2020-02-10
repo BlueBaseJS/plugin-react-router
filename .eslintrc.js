@@ -6,4 +6,9 @@ module.exports = {
 		...configs.env,
 		jest: true,
 	},
+	rules: {
+		...configs.rules,
+		'@typescript-eslint/no-inferrable-types': 0,
+		'react/jsx-no-bind': 0,
+	},
 };

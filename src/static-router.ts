@@ -8,6 +8,10 @@ export default createPlugin({
 
 	components: {
 		...BasePlugin.components,
-		Navigation: createNavigation(StaticRouter),
+
+		Navigation: {
+			applyStyles: false,
+			value: createNavigation(StaticRouter),
+		},
 	},
 });

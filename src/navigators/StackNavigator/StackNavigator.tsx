@@ -1,15 +1,19 @@
-import { BaseNavigator } from '../BaseNavigator';
-import { getComponent } from '@bluebase/core';
+import { ModalNavigator } from './ModalNavigator';
+import { NavigatorPropsWithResolvedRoutes } from '../../types';
+import React from 'react';
 
-const ScreenView = getComponent('ScreenView');
-
-/**
- * Provides a way for your app to transition between screens where each new
- * screen is placed on top of a stack.
- */
-export class StackNavigator extends BaseNavigator {
-
-	static defaultProps = {
-		RouteView: ScreenView
-	};
+export interface StackNavigatorProps extends NavigatorPropsWithResolvedRoutes {
+	children: React.ReactNode;
 }
+
+export const StackNavigator = (props: StackNavigatorProps) => {
+	const { mode, children } = props;
+
+	if (mode === 'modal') {
+		return <ModalNavigator {...props} />;
+	}
+
+	return children as any;
+};
+
+StackNavigator.displayName = 'StackNavigator';

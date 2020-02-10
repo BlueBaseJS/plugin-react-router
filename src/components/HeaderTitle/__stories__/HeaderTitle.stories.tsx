@@ -7,6 +7,6 @@ const HeaderTitle = getComponent('HeaderTitle');
 
 storiesOf('HeaderTitle', module)
 
-.add('Basic Example', () => (
-	<HeaderTitle>A very long heading title sentence.</HeaderTitle>
-));
+	.add('Basic Example', () => (
+		<HeaderTitle>A very long heading title sentence.</HeaderTitle>
+	));

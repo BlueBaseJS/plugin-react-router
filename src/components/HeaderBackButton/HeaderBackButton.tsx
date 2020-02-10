@@ -1,3 +1,5 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable @typescript-eslint/typedef */
 import {
 	HeaderBackButtonProps,
 	HeaderBackButtonStyles,
@@ -5,13 +7,8 @@ import {
 	NavigationActionsObject,
 	TouchableItem,
 } from '@bluebase/components';
-import {
-	I18nManager,
-  Image,
-  Platform,
-  Text,
-  View,
-} from 'react-native';
+import { I18nManager, Image, Platform, Text, View } from 'react-native';
+
 import React from 'react';
 import { Theme } from '@bluebase/core';
 
@@ -20,7 +17,7 @@ import { Theme } from '@bluebase/core';
 const defaultBackImage = require('../../../assets/common/back-icon.png');
 
 export interface HeaderBackButtonState {
-	initialTextWidth?: number,
+	initialTextWidth?: number;
 }
 
 class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, HeaderBackButtonState> {
@@ -33,7 +30,6 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 	state: HeaderBackButtonState = {};
 
 	static defaultStyles = (theme: Theme) => {
-
 		const iconIosStyles = {
 			backgroundColor: 'transparent',
 			height: 21,
@@ -60,9 +56,10 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 				margin: 13,
 			},
 			icon: Platform.OS === 'ios' ? iconIosStyles : iconDefaultStyles,
-			iconWithTitle: Platform.OS === 'ios' ? { marginRight: 6, } : {},
+			iconWithTitle: Platform.OS === 'ios' ? { marginRight: 6 } : {},
 			title: {
-				color: theme.palette.primary.contrastText,// || Platform.select({ ios: '#037aff' })
+				// color: theme.palette.primary.contrastText,// || Platform.select({ ios: '#037aff' })
+				color: theme.palette.text.secondary, // || Platform.select({ ios: '#037aff' })
 				fontSize: 17,
 				paddingRight: 10,
 			},
@@ -72,7 +69,7 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 				flexDirection: 'row',
 			},
 		};
-	}
+	};
 
 	_onTextLayout = (e: any) => {
 		if (this.state.initialTextWidth) {
@@ -81,7 +78,7 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 		this.setState({
 			initialTextWidth: e.nativeEvent.layout.x + e.nativeEvent.layout.width,
 		});
-	}
+	};
 
 	_renderBackImage() {
 		const { backImage, backTitleVisible } = this.props;
@@ -116,7 +113,7 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 		} else {
 			return title;
 		}
-	}
+	};
 
 	_maybeRenderTitle() {
 		const { allowFontScaling, backTitleVisible, titleStyle, tintColor } = this.props;
@@ -129,16 +126,16 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 		}
 
 		return (
-      <Text
-        accessible={false}
-        onLayout={this._onTextLayout}
-        style={[styles.title, !!tintColor && { color: tintColor }, titleStyle]}
-        numberOfLines={1}
+			<Text
+				accessible={false}
+				onLayout={this._onTextLayout}
+				style={[styles.title, !!tintColor && { color: tintColor }, titleStyle]}
+				numberOfLines={1}
 				allowFontScaling={!!allowFontScaling}
 				testID="header-back-title"
-      >
-        {this._getTitleText()}
-      </Text>
+			>
+				{this._getTitleText()}
+			</Text>
 		);
 	}
 
@@ -156,30 +153,36 @@ class HeaderBackButton extends React.PureComponent<HeaderBackButtonProps, Header
 		// }
 
 		const button = (
-			<NavigationActions children={({ goBack }: NavigationActionsObject) => (
-				<TouchableItem
-					accessible={true}
-					accessibilityRole="button"
-					accessibilityComponentType="button"
-					accessibilityLabel={title ? `${title}, back` : 'Go back'}
-					accessibilityTraits="button"
-					testID="header-back"
-					delayPressIn={0}
-					onPress={onPress || goBack}
-					pressColor={pressColorAndroid}
-					borderless={true}
-					style={style}
-				>
-					<View testID="header-back-wrapper" style={styles.wrapper}>
-						{this._renderBackImage()}
-						{this._maybeRenderTitle()}
-					</View>
-				</TouchableItem>
-			)} />
-    );
+			<NavigationActions
+				children={({ goBack }: NavigationActionsObject) => (
+					<TouchableItem
+						accessible={true}
+						accessibilityRole="button"
+						accessibilityComponentType="button"
+						accessibilityLabel={title ? `${title}, back` : 'Go back'}
+						accessibilityTraits="button"
+						testID="header-back"
+						delayPressIn={0}
+						onPress={onPress || goBack}
+						pressColor={pressColorAndroid}
+						borderless={true}
+						style={style}
+					>
+						<View testID="header-back-wrapper" style={styles.wrapper}>
+							{this._renderBackImage()}
+							{this._maybeRenderTitle()}
+						</View>
+					</TouchableItem>
+				)}
+			/>
+		);
 
 		if (Platform.OS === 'android') {
-			return <View testID="header-android-wrapper" style={styles.androidButtonWrapper}>{button}</View>;
+			return (
+				<View testID="header-android-wrapper" style={styles.androidButtonWrapper}>
+					{button}
+				</View>
+			);
 		} else {
 			return button;
 		}
