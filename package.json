@@ -85,7 +85,7 @@
     "@bluebase/plugin-material-ui": "^2.13.0",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
-    "@types/compression": "^0.0.36",
+    "@types/compression": "^1.7.0",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/enzyme-async-helpers": "^0.9.1",
