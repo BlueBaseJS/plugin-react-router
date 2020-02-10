@@ -87,4 +87,21 @@ describe('Navigator', () => {
 
 		expect(wrapper.find('Redirect[routeName="Home"]').exists()).toBe(true);
 	});
+
+	it('should handle empty routes gracefully', async () => {
+		const wrapper = mount(
+			<MemoryRouter>
+				<BlueBaseApp plugins={[BlueBasePluginMaterialUI, Plugin]}>
+					<MainNavigatorContext.Provider value={mainNavigator as any}>
+						<Navigator {...({ type: 'stack' } as any)} />
+					</MainNavigatorContext.Provider>
+				</BlueBaseApp>
+			</MemoryRouter>
+		);
+
+		await waitForElement(wrapper, Navigator);
+
+		expect(wrapper.find(Navigator).exists()).toBe(true);
+		expect(wrapper.find('Route').exists()).toBe(false);
+	});
 });

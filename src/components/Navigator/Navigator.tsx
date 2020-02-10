@@ -23,10 +23,8 @@ export const Navigator = (props: NavigatorProps) => {
 	}
 
 	// If routes is a thunk, resolve it
-	const resolvedRoutes = resolveThunk<RouteConfigWithResolveSubRoutes[]>(
-		routes as any,
-		screenProps
-	);
+	const resolvedRoutes =
+		resolveThunk<RouteConfigWithResolveSubRoutes[]>(routes as any, screenProps) || [];
 
 	/**
 	 * Render each indivitual route
