@@ -68,21 +68,21 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@bluebase/components": "^5.23.0",
+    "@bluebase/components": "^5.24.1",
     "expo": "^36.0.2",
     "lodash.get": "^4.4.2",
     "path-to-regexp": "^3.0.0",
     "react-native": "^0.61.5",
-    "react-router-dom": "^5.1.2",
-    "react-router-native": "^5.1.2",
+    "react-router-dom": "^5.2.0",
+    "react-router-native": "^5.2.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@bluebase/code-standards": "^2.4.2",
-    "@bluebase/core": "^5.11.0",
-    "@bluebase/plugin-material-ui": "^2.13.0",
+    "@bluebase/core": "^5.11.1",
+    "@bluebase/plugin-material-ui": "^3.1.1",
     "@bluebase/storybook-addon": "^3.0.0",
     "@blueeast/tslint-config-blueeast": "^0.7.0",
     "@types/compression": "^0.0.36",
