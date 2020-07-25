@@ -1,20 +1,36 @@
-import { NavigationActionsObject, NavigatorProps, Redirect } from '@bluebase/components';
+import {
+	NavigatorProps as BBNavigatorProps,
+	NavigationActionsObject,
+	Redirect,
+} from '@bluebase/components';
 import { NavigationContext, resolveThunk, useComponent } from '@bluebase/core';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Route, Switch } from 'react-router';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router-dom';
-import { historyToActionObject, resolveRouteOptions, useScreenProps } from '../../helpers';
+import {
+	historyToActionObject,
+	preparePaths,
+	resolveRouteOptions,
+	useScreenProps,
+} from '../../helpers';
 
 import { MainNavigatorContext } from '../Navigation';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { getNavigator } from '../../navigators';
 
-export const Navigator = (props: NavigatorProps) => {
+export interface NavigatorProps extends BBNavigatorProps {
+	standalone: boolean;
+}
+
+export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
+	const [props] = useState(standalone === false ? inputProps : preparePaths(inputProps));
+
+	// eslint-disable-next-line react/prop-types
 	const { type, initialRouteName, routes, ...rest } = props;
-	const mainNavigator = useContext(MainNavigatorContext);
 
 	const ScreenView = useComponent('ScreenView');
 	const screenProps = useScreenProps();
+	const mainNavigator = useContext(MainNavigatorContext);
 
 	const NavigatorImpl = getNavigator(type);
 
@@ -53,7 +69,7 @@ export const Navigator = (props: NavigatorProps) => {
 									screenProps,
 								})}
 							>
-								{route.navigator ? <Navigator {...route.navigator} /> : null}
+								{route.navigator ? <Navigator {...route.navigator} standalone={false} /> : null}
 							</ScreenView>
 						</NavigationContext.Provider>
 					);
@@ -101,3 +117,7 @@ export const Navigator = (props: NavigatorProps) => {
 };
 
 Navigator.displayName = 'Navigator';
+
+Navigator.displayProps = {
+	standalone: true,
+};
