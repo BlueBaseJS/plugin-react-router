@@ -19,13 +19,12 @@ export const Navigation = (props: RRNavigationProps) => {
 	const Navigator = useComponent('Navigator');
 	const [routerProps] = useConfig('plugin.react-router.router-props');
 
-	// Make sure paths are in correct format.
 	const navigatorObject = preparePaths(navigator);
 
 	return (
 		<MainNavigatorContext.Provider value={navigatorObject}>
 			<Router {...rest} {...routerProps}>
-				<Navigator {...navigatorObject} />
+				<Navigator {...navigatorObject} standalone={false} />
 			</Router>
 		</MainNavigatorContext.Provider>
 	);
