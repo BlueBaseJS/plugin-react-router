@@ -37,6 +37,8 @@ export interface HeaderProps extends NavigationOptions {
 	backTitleVisible?: boolean;
 	headerBackAllowFontScaling?: boolean;
 
+	headerShown: boolean;
+
 	styles?: Partial<HeaderStyles>;
 }
 
@@ -164,17 +166,17 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 	};
 
 	render() {
-		const { header, headerStyle, headerTransparent, layoutPreset } = this.props;
+		const { header, headerStyle, headerTransparent, layoutPreset, headerShown } = this.props;
 		const styles = this.props.styles as HeaderStyles;
 
-		if (header === null) {
+		if (header === null || headerShown === false) {
 			return null;
 		}
 
 		const onLayout =
 			layoutPreset === 'center'
 				? (e: any) => {
-					this.setState({ initWidth: e.nativeEvent.layout.width });
+						this.setState({ initWidth: e.nativeEvent.layout.width });
 				  }
 				: undefined;
 
@@ -192,7 +194,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			<SafeAreaView onLayout={onLayout} style={rootStyles}>
 				<View style={wrapperStyles}>
 					{background}
-					<View style={styles.flexOne}>{appBar}</View>
+					{<View style={styles.flexOne}>{appBar}</View>}
 				</View>
 			</SafeAreaView>
 		);
@@ -248,7 +250,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 		const onLayout =
 			layoutPreset === 'center'
 				? (e: any) => {
-					this.setState({ titleWidth: e.nativeEvent.layout.width });
+						this.setState({ titleWidth: e.nativeEvent.layout.width });
 				  }
 				: undefined;
 
@@ -261,9 +263,9 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			headerTitleContainerStyle,
 			layoutPreset === 'center'
 				? {
-					left: 0,
-					position: 'absolute',
-					right: 0,
+						left: 0,
+						position: 'absolute',
+						right: 0,
 				  }
 				: {},
 		];
