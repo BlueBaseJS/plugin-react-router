@@ -5,7 +5,6 @@ import React from 'react';
 
 export class SettingsDetailScreen extends React.Component {
 	render() {
-		console.log('settings details screen props', this.props);
 		return (
 			<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 				<Text>Settings Details Screen</Text>

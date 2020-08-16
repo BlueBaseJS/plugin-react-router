@@ -4,6 +4,7 @@ import { Dialog } from '@bluebase/components';
 import React from 'react';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { StackNavigatorProps } from './StackNavigator';
+import { compile } from 'path-to-regexp';
 import get from 'lodash.get';
 import { useNavigation } from '@bluebase/core';
 
@@ -15,9 +16,10 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 	const { navigate } = useNavigation();
 
 	// Find initial route
-	const currentIndex = routes.findIndex(
-		(route: RouteConfigWithResolveSubRoutes) => route.path === location.pathname
-	);
+	const currentIndex = routes.findIndex((route: RouteConfigWithResolveSubRoutes) => {
+		const toPath = compile(route.path);
+		return toPath(get(location, 'state', {})!) === location.pathname;
+	});
 
 	const initialRouteIndex = initialRouteName
 		? routes.findIndex((route: RouteConfigWithResolveSubRoutes) => route.name === initialRouteName)
@@ -34,7 +36,10 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 		state: {},
 	};
 
-	if (isInitialRoute || location.pathname.startsWith(initialRouteLocation.pathname)) {
+	if (
+		isInitialRoute ||
+		location.pathname.startsWith(compile(initialRouteLocation.pathname)(location.state!))
+	) {
 		return children as any;
 	}
 

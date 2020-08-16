@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
 
 import { resolveThunk } from '@bluebase/core';

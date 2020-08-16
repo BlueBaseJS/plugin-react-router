@@ -136,6 +136,8 @@ describe('historyToActionObject', () => {
 				},
 			},
 			foo: 'bar',
+			name: 'General',
+			title: 'Bar',
 		});
 	});
 
