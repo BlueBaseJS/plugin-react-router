@@ -80,7 +80,9 @@ describe('ModalNavigator', () => {
 			key: 'u2vxal',
 			pathname: '/p/settings/foo',
 			search: '',
-			state: {},
+			state: {
+				id: 'foo',
+			},
 		}));
 
 		const wrapper = mount(
@@ -110,6 +112,7 @@ describe('ModalNavigator', () => {
 			pathname: '/p/settings/foo',
 			search: '',
 			state: {
+				id: 'foo',
 				__referrer: {
 					hash: '',
 					key: 'u2vfsl',

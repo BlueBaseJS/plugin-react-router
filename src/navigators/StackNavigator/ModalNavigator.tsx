@@ -36,7 +36,10 @@ export const ModalNavigator = (props: ModalNavigatorProps) => {
 		state: {},
 	};
 
-	if (isInitialRoute || location.pathname.startsWith(initialRouteLocation.pathname)) {
+	if (
+		isInitialRoute ||
+		location.pathname.startsWith(compile(initialRouteLocation.pathname)(location.state!))
+	) {
 		return children as any;
 	}
 

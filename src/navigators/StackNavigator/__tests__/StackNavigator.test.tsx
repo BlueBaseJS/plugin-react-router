@@ -63,7 +63,7 @@ const mainNavigator = {
 					{
 						name: 'SettingsDetail',
 						navigationOptions: {},
-						path: '/p/settings/:id',
+						path: '/p/settings/:pageId',
 						screen: 'SettingsDetail',
 					},
 				],
@@ -102,7 +102,9 @@ describe('StackNavigator', () => {
 			key: 'u2vxal',
 			pathname: '/p/settings/foo',
 			search: '',
-			state: {},
+			state: {
+				pageId: 'foo',
+			},
 		}));
 
 		const wrapper = mount(
