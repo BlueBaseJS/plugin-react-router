@@ -35,11 +35,17 @@ export const historyToActionObject = (
 		},
 
 		push: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
-			return executeAction(mainNavigator, router.history.push, routeName, _params);
+			return executeAction(mainNavigator, router.history.push, routeName, {
+				__referrer: router.location,
+				..._params,
+			});
 		},
 
 		replace: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
-			return executeAction(mainNavigator, router.history.replace, routeName, _params);
+			return executeAction(mainNavigator, router.history.replace, routeName, {
+				__referrer: router.location,
+				..._params,
+			});
 		},
 
 		pop: (steps: number = 0) => {
