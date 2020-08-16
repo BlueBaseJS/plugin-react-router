@@ -37,6 +37,8 @@ export interface HeaderProps extends NavigationOptions {
 	backTitleVisible?: boolean;
 	headerBackAllowFontScaling?: boolean;
 
+	headerShown: boolean;
+
 	styles?: Partial<HeaderStyles>;
 }
 
@@ -164,10 +166,10 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 	};
 
 	render() {
-		const { header, headerStyle, headerTransparent, layoutPreset } = this.props;
+		const { header, headerStyle, headerTransparent, layoutPreset, headerShown } = this.props;
 		const styles = this.props.styles as HeaderStyles;
 
-		if (header === null) {
+		if (header === null || headerShown === false) {
 			return null;
 		}
 
@@ -192,7 +194,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			<SafeAreaView onLayout={onLayout} style={rootStyles}>
 				<View style={wrapperStyles}>
 					{background}
-					<View style={styles.flexOne}>{appBar}</View>
+					{<View style={styles.flexOne}>{appBar}</View>}
 				</View>
 			</SafeAreaView>
 		);

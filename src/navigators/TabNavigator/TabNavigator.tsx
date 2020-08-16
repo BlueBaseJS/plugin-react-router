@@ -5,6 +5,8 @@ import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../he
 import { merge, useNavigation, useTheme } from '@bluebase/core';
 
 import { MainNavigatorContext } from '../../components';
+import { compile } from 'path-to-regexp';
+import get from 'lodash.get';
 import { useLocation } from 'react-router-dom';
 
 const baseOptions: any = {
@@ -35,9 +37,10 @@ export const TabNavigator = (
 	const tabBarOptions: any = merge(baseOptions, props.tabBarOptions || {});
 
 	// Resolve active tab index
-	const currentIndex = routes.findIndex(
-		(route: RouteConfigWithResolveSubRoutes) => route.path === location.pathname
-	);
+	const currentIndex = routes.findIndex((route: RouteConfigWithResolveSubRoutes) => {
+		const toPath = compile(route.path);
+		return toPath(get(location, 'state', {})!) === location.pathname;
+	});
 
 	// onChange listener
 	const onChange = (_e: any, i: number) => {
@@ -67,9 +70,18 @@ export const TabNavigator = (
 				flex: 1,
 			}}
 		>
-			<Tabs value={currentIndex > -1 ? currentIndex : 0} onChange={onChange}>
-				{routes.map(renderTab)}
-			</Tabs>
+			<View
+				style={[
+					{
+						backgroundColor: theme.palette.background.card,
+					},
+					tabBarOptions.style,
+				]}
+			>
+				<Tabs value={currentIndex > -1 ? currentIndex : 0} onChange={onChange}>
+					{routes.map(renderTab)}
+				</Tabs>
+			</View>
 			<View style={{ flex: 1 }}>{children}</View>
 		</View>
 	);

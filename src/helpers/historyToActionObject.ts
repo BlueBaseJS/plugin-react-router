@@ -9,6 +9,7 @@ import { RouteChildrenProps } from 'react-router-dom';
 import { compile } from 'path-to-regexp';
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
+import get from 'lodash.get';
 import queryString from 'query-string';
 
 export const historyToActionObject = (
@@ -25,10 +26,12 @@ export const historyToActionObject = (
 
 	const actions: NavigationActionsObject = {
 		navigate: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
-			return executeAction(mainNavigator, router.history.push, routeName, {
-				__referrer: router.location,
+			const params = {
+				...get(router, 'location.state', {}),
 				..._params,
-			});
+				__referrer: router.location,
+			};
+			return executeAction(mainNavigator, router.history.push, routeName, params);
 		},
 
 		push: (routeName: NavigationActionPayload, _params?: NavigationActionParams) => {
