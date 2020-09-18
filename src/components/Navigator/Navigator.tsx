@@ -67,6 +67,7 @@ export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
 								options={resolveRouteOptions(route, props, mainNavigator, {
 									navigation,
 									screenProps,
+									route: { ...route, params: navigation.state.params },
 								})}
 							>
 								{route.navigator ? <Navigator {...route.navigator} standalone={false} /> : null}

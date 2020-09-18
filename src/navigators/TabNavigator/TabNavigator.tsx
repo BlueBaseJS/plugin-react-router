@@ -31,7 +31,6 @@ export const TabNavigator = (
 
 	const navigation = useNavigation();
 	const screenProps = useScreenProps();
-	const routeCtx = { navigation, screenProps };
 
 	// Options
 	const tabBarOptions: any = merge(baseOptions, props.tabBarOptions || {});
@@ -49,7 +48,11 @@ export const TabNavigator = (
 
 	// Render single tab
 	const renderTab = (route: RouteConfigWithResolveSubRoutes, index: number) => {
-		const options = resolveRouteOptions(route, props, mainNavigator, routeCtx);
+		const options = resolveRouteOptions(route, props, mainNavigator, {
+			navigation,
+			screenProps,
+			route: { ...route, params: navigation.state.params },
+		});
 
 		const icon = getIcon(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
@@ -60,7 +63,28 @@ export const TabNavigator = (
 			index === currentIndex
 		);
 
-		return <Tab icon={icon} label={title} value={index as any} key={index} />;
+		return (
+			<Tab
+				icon={icon}
+				label={title}
+				value={index as any}
+				key={index}
+				styles={{
+					// hardcoded for material-ui
+					root: { minWidth: 'auto' },
+					wrapper: tabBarOptions.tabStyle,
+					labelIcon: {
+						minHeight: 48,
+						paddingTop: 6,
+
+						'& $wrapper > *:first-child': {
+							marginBottom: 0,
+							margin: '0 4px',
+						},
+					},
+				}}
+			/>
+		);
 	};
 
 	return (

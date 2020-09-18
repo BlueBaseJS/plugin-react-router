@@ -28,7 +28,6 @@ export const DrawerNavigator = (
 
 	const navigation = useNavigation();
 	const screenProps = useScreenProps();
-	const routeCtx = { navigation, screenProps };
 
 	// Resolve active tab index
 	const currentIndex = routes.findIndex(
@@ -39,7 +38,11 @@ export const DrawerNavigator = (
 	const navigationState = {
 		index: currentIndex,
 		routes: routes.map((route: RouteConfigWithResolveSubRoutes, index: number) => {
-			const options = resolveRouteOptions(route, props, mainNavigator, routeCtx);
+			const options = resolveRouteOptions(route, props, mainNavigator, {
+				navigation,
+				screenProps,
+				route: { ...route, params: navigation.state.params },
+			});
 
 			return {
 				index,

@@ -10,6 +10,7 @@ export const resolveRouteOptions = (
 	ctx: {
 		navigation: NavigationActionsObject;
 		screenProps: ScreenProps;
+		route: any;
 	}
 ) => {
 	// // Extract screenProps

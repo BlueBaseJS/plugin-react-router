@@ -20,7 +20,6 @@ export const BottomNavigationNavigator = (
 
 	const navigation = useNavigation();
 	const screenProps = useScreenProps();
-	const routeCtx = { navigation, screenProps };
 
 	// Options
 
@@ -52,7 +51,11 @@ export const BottomNavigationNavigator = (
 
 	// Render single tab
 	const renderTab = (route: RouteConfigWithResolveSubRoutes, index: number) => {
-		const options = resolveRouteOptions(route, props, mainNavigator, routeCtx);
+		const options = resolveRouteOptions(route, props, mainNavigator, {
+			navigation,
+			screenProps,
+			route: { ...route, params: navigation.state.params },
+		});
 
 		const icon = getIcon(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
