@@ -38,7 +38,7 @@ export const TabNavigator = (
 	// Resolve active tab index
 	const currentIndex = routes.findIndex((route: RouteConfigWithResolveSubRoutes) => {
 		const toPath = compile(route.path);
-		return toPath(get(location, 'state', {})!) === location.pathname;
+		return location.pathname.startsWith(toPath(get(location, 'state', {})!));
 	});
 
 	// onChange listener

@@ -68,7 +68,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
-    "@bluebase/components": "^5.23.0",
+    "@bluebase/components": "^6.4.0",
     "expo": "^36.0.2",
     "lodash.get": "^4.4.2",
     "path-to-regexp": "^3.0.0",

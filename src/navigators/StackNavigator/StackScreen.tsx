@@ -56,7 +56,7 @@ export const StackScreen = (props: StackScreenProps) => {
 			}}
 			testID="stack-screen-root"
 		>
-			<Header {...options} />
+			<Header {...(options as any)} />
 			<View style={{ flex: 1 }}>{Screen ? <Screen {...rest} /> : rest.children}</View>
 		</View>
 	);
