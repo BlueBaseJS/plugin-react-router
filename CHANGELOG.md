@@ -1,3 +1,13 @@
+# [1.4.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.3.0...v1.4.0) (2020-09-19)
+
+### Bug Fixes
+
+-   **TabNavigator:** Fixed wrong active tab in nested routes ([3994580](https://github.com/BlueBaseJS/plugin-react-router/commit/3994580676a06508c200c4e417027ed596436e98))
+
+### Features
+
+-   options prop now receives route param ([5d5868d](https://github.com/BlueBaseJS/plugin-react-router/commit/5d5868d08c998c4e39a7a5853fc4d56d8b7c159c))
+
 # [1.3.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.2.0...v1.3.0) (2020-08-16)
 
 ### Bug Fixes
