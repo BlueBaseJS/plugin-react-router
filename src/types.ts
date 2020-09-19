@@ -16,5 +16,5 @@ export interface RouteConfigWithResolveSubRoutes extends RouteConfig {
 
 export interface NavigatorPropsWithResolvedRoutes extends NavigatorProps {
 	routes: RouteConfigWithResolveSubRoutes[];
-	screenProps: ScreenProps;
+	// screenProps: ScreenProps;
 }

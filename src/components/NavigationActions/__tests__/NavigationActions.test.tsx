@@ -1,4 +1,4 @@
-import { MainNavigatorContext } from '../../Navigation';
+import { MainNavigatorContext } from '../../MainNavigatorContext';
 import { MemoryRouter } from 'react-router';
 import { NavigationActions } from '../NavigationActions';
 import React from 'react';

@@ -2,6 +2,7 @@ import {
 	NavigatorProps as BBNavigatorProps,
 	NavigationActionsObject,
 	Redirect,
+	RouteConfig,
 } from '@bluebase/components';
 import {
 	MainNavigatorContext,
@@ -25,25 +26,12 @@ import { getNavigator } from '../../navigators';
 
 export interface NavigatorProps extends BBNavigatorProps {
 	standalone: boolean;
-	// standaloneLocationRouteName: string;
 }
 
-export const NavigatorInternal = ({
-	standalone,
-	// standaloneLocationRouteName,
-	...props
-}: NavigatorProps) => {
+export const NavigatorInternal = ({ standalone, ...props }: NavigatorProps) => {
 	const ScreenView = useComponent('ScreenView');
 	const screenProps = useScreenProps();
-	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
-
-	// const [props] = useState(standalone === false ? inputProps : preparePaths(inputProps));
-
-	// useLayoutEffect(() => {
-	// 	if (standalone) {
-	// 		insertStandalone(inputProps, standaloneLocationRouteName);
-	// 	}
-	// }, [standalone, standaloneLocationRouteName, inputProps]);
+	const { navigator } = useContext(MainNavigatorContext);
 
 	// eslint-disable-next-line react/prop-types
 	const { type, initialRouteName, routes, ...rest } = props;
@@ -68,10 +56,7 @@ export const NavigatorInternal = ({
 		return (
 			<Route key={name} exact={exact} path={path}>
 				{(routerProps: RouteChildrenProps) => {
-					const navigation: NavigationActionsObject = historyToActionObject(
-						routerProps,
-						mainNavigator
-					);
+					const navigation: NavigationActionsObject = historyToActionObject(routerProps, navigator);
 
 					return (
 						<NavigationContext.Provider value={navigation}>
@@ -80,19 +65,13 @@ export const NavigatorInternal = ({
 								navigator={props}
 								route={route}
 								navigation={navigation}
-								options={resolveRouteOptions(route, props, mainNavigator, {
+								options={resolveRouteOptions(route, props, navigator, {
 									navigation,
 									screenProps,
 									route: { ...route, params: navigation.state.params },
 								})}
 							>
-								{route.navigator ? (
-									<Navigator
-										{...route.navigator}
-										standalone={false}
-										// standaloneLocationRouteName={standaloneLocationRouteName}
-									/>
-								) : null}
+								{route.navigator ? <Navigator {...route.navigator} standalone={false} /> : null}
 							</ScreenView>
 						</NavigationContext.Provider>
 					);
@@ -115,7 +94,7 @@ export const NavigatorInternal = ({
 				{(routerProps: RouteChildrenProps) => {
 					const navigation: NavigationActionsObject = historyToActionObject(
 						routerProps as RouteComponentProps,
-						mainNavigator
+						navigator
 					);
 
 					return (
@@ -146,23 +125,35 @@ export const Navigator = ({
 	standaloneLocationRouteName,
 	...inputProps
 }: NavigatorProps) => {
+	// If navigator is not standalone, we don't need to do anything special
 	if (!standalone) {
 		return <NavigatorInternal {...inputProps} standalone={false} />;
 	}
 
+	const { state } = useNavigation();
+
+	// Extract parent navigator/routes
 	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
 
-	const { state } = useNavigation();
+	// Merge standalone navigator into parent
 	const newNav = insertChildNavigator(mainNavigator, inputProps, state.routeName);
+
+	// Prepare paths
 	const navigatorObject = preparePaths(newNav);
 
+	// Find processed standalone navigator
 	const routeObj = findRouteByKey(state.routeName, 'name', navigatorObject);
 
-	console.log('routeObj', routeObj);
+	const key = (routeObj!.navigator!.routes as RouteConfig[])
+		.map((r: RouteConfig) => r.name)
+		.join(',');
+
+	// Need to re-create main navigation context with new merged configs
 	return (
-		<MainNavigatorContextProvider value={navigatorObject}>
+		<MainNavigatorContextProvider key={key} value={navigatorObject}>
 			<Route>
 				{(routerProps: RouteChildrenProps) => {
+					// Need to re-create navigation context with new merged configs
 					const navigation: NavigationActionsObject = historyToActionObject(
 						routerProps as RouteComponentProps,
 						navigatorObject
@@ -175,7 +166,6 @@ export const Navigator = ({
 					);
 				}}
 			</Route>
-			{/* <Text>Hello sstandalone</Text> */}
 		</MainNavigatorContextProvider>
 	);
 };
