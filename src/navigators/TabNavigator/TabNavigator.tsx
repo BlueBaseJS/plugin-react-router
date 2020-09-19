@@ -27,7 +27,7 @@ export const TabNavigator = (
 	const { theme } = useTheme();
 	const location = useLocation();
 
-	const mainNavigator = useContext(MainNavigatorContext);
+	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
 
 	const navigation = useNavigation();
 	const screenProps = useScreenProps();

@@ -3,34 +3,50 @@ import {
 	NavigationActionsObject,
 	Redirect,
 } from '@bluebase/components';
-import { NavigationContext, resolveThunk, useComponent } from '@bluebase/core';
-import React, { useContext, useState } from 'react';
+import {
+	MainNavigatorContext,
+	MainNavigatorContextProvider,
+	insertChildNavigator,
+} from '../MainNavigatorContext';
+import { NavigationContext, resolveThunk, useComponent, useNavigation } from '@bluebase/core';
+import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router-dom';
 import {
+	findRouteByKey,
 	historyToActionObject,
 	preparePaths,
 	resolveRouteOptions,
 	useScreenProps,
 } from '../../helpers';
 
-import { MainNavigatorContext } from '../Navigation';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { getNavigator } from '../../navigators';
 
 export interface NavigatorProps extends BBNavigatorProps {
 	standalone: boolean;
+	// standaloneLocationRouteName: string;
 }
 
-export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
-	const [props] = useState(standalone === false ? inputProps : preparePaths(inputProps));
+export const NavigatorInternal = ({
+	standalone,
+	// standaloneLocationRouteName,
+	...props
+}: NavigatorProps) => {
+	const ScreenView = useComponent('ScreenView');
+	const screenProps = useScreenProps();
+	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
+
+	// const [props] = useState(standalone === false ? inputProps : preparePaths(inputProps));
+
+	// useLayoutEffect(() => {
+	// 	if (standalone) {
+	// 		insertStandalone(inputProps, standaloneLocationRouteName);
+	// 	}
+	// }, [standalone, standaloneLocationRouteName, inputProps]);
 
 	// eslint-disable-next-line react/prop-types
 	const { type, initialRouteName, routes, ...rest } = props;
-
-	const ScreenView = useComponent('ScreenView');
-	const screenProps = useScreenProps();
-	const mainNavigator = useContext(MainNavigatorContext);
 
 	const NavigatorImpl = getNavigator(type);
 
@@ -70,7 +86,13 @@ export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
 									route: { ...route, params: navigation.state.params },
 								})}
 							>
-								{route.navigator ? <Navigator {...route.navigator} standalone={false} /> : null}
+								{route.navigator ? (
+									<Navigator
+										{...route.navigator}
+										standalone={false}
+										// standaloneLocationRouteName={standaloneLocationRouteName}
+									/>
+								) : null}
 							</ScreenView>
 						</NavigationContext.Provider>
 					);
@@ -97,10 +119,12 @@ export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
 					);
 
 					return (
-						<Redirect
-							routeName={initialRouteName || resolvedRoutes[0].name}
-							params={navigation.state.params}
-						/>
+						<NavigationContext.Provider value={navigation}>
+							<Redirect
+								routeName={initialRouteName || resolvedRoutes[0].name}
+								params={navigation.state.params}
+							/>
+						</NavigationContext.Provider>
 					);
 				}}
 			</Route>
@@ -117,8 +141,48 @@ export const Navigator = ({ standalone, ...inputProps }: NavigatorProps) => {
 	);
 };
 
+export const Navigator = ({
+	standalone,
+	standaloneLocationRouteName,
+	...inputProps
+}: NavigatorProps) => {
+	if (!standalone) {
+		return <NavigatorInternal {...inputProps} standalone={false} />;
+	}
+
+	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
+
+	const { state } = useNavigation();
+	const newNav = insertChildNavigator(mainNavigator, inputProps, state.routeName);
+	const navigatorObject = preparePaths(newNav);
+
+	const routeObj = findRouteByKey(state.routeName, 'name', navigatorObject);
+
+	console.log('routeObj', routeObj);
+	return (
+		<MainNavigatorContextProvider value={navigatorObject}>
+			<Route>
+				{(routerProps: RouteChildrenProps) => {
+					const navigation: NavigationActionsObject = historyToActionObject(
+						routerProps as RouteComponentProps,
+						navigatorObject
+					);
+
+					return (
+						<NavigationContext.Provider value={navigation}>
+							<NavigatorInternal {...routeObj!.navigator!} standalone={false} />
+						</NavigationContext.Provider>
+					);
+				}}
+			</Route>
+			{/* <Text>Hello sstandalone</Text> */}
+		</MainNavigatorContextProvider>
+	);
+};
+
 Navigator.displayName = 'Navigator';
 
 Navigator.displayProps = {
 	standalone: true,
+	// standaloneLocationRouteName: '',
 };
