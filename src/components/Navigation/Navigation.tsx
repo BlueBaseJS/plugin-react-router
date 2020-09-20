@@ -1,6 +1,6 @@
 import { useComponent, useConfig } from '@bluebase/core';
 
-import { MainNavigatorContextProvider } from '../MainNavigatorContext';
+import { MainNavigatorContext } from '../MainNavigatorContext';
 import { NavigationProps } from '@bluebase/components';
 import React from 'react';
 import { preparePaths } from '../../helpers';
@@ -13,18 +13,18 @@ export interface RRNavigationProps extends NavigationProps {}
  * configs to this component.
  */
 export const Navigation = (props: RRNavigationProps) => {
-	const { Router, navigator, ...rest } = props;
+	const { Router, navigator: rawNavigator, ...rest } = props;
 
 	const Navigator = useComponent('Navigator');
 	const [routerProps] = useConfig('plugin.react-router.router-props');
 
-	const navigatorObject = preparePaths(navigator);
+	const navigatorObject = preparePaths(rawNavigator);
 
 	return (
-		<MainNavigatorContextProvider value={navigatorObject}>
+		<MainNavigatorContext.Provider value={{ navigator: navigatorObject, rawNavigator }}>
 			<Router {...rest} {...routerProps}>
 				<Navigator {...navigatorObject} standalone={false} />
 			</Router>
-		</MainNavigatorContextProvider>
+		</MainNavigatorContext.Provider>
 	);
 };

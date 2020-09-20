@@ -1,6 +1,15 @@
 import { NavigatorProps } from '@bluebase/components';
 import { createContext } from 'react';
 
-export const MainNavigatorContext = createContext<NavigatorProps>({ routes: [] });
+export interface MainNavigatorContextData {
+	// navigator with prepare paths
+	navigator: NavigatorProps;
 
-export const MainNavigatorContextProvider = MainNavigatorContext.Provider;
+	// navigator without prepare paths
+	rawNavigator: NavigatorProps;
+}
+
+export const MainNavigatorContext = createContext<MainNavigatorContextData>({
+	navigator: { routes: [] },
+	rawNavigator: { routes: [] },
+});

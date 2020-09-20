@@ -4,7 +4,6 @@ import {
 	Redirect,
 	RouteConfig,
 } from '@bluebase/components';
-import { MainNavigatorContext, MainNavigatorContextProvider } from '../MainNavigatorContext';
 import { NavigationContext, resolveThunk, useComponent, useNavigation } from '@bluebase/core';
 import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router';
@@ -17,6 +16,7 @@ import {
 	useScreenProps,
 } from '../../helpers';
 
+import { MainNavigatorContext } from '../MainNavigatorContext';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import get from 'lodash.get';
 import { getNavigator } from '../../navigators';
@@ -133,7 +133,7 @@ export const Navigator = ({
 	const { state } = useNavigation();
 
 	// Extract parent navigator/routes
-	const { navigator: mainNavigator } = useContext(MainNavigatorContext);
+	const { rawNavigator: mainNavigator } = useContext(MainNavigatorContext);
 
 	// Merge standalone navigator into parent
 	const newNav = insertChildNavigator(mainNavigator, inputProps, state.routeName);
@@ -150,7 +150,10 @@ export const Navigator = ({
 
 	// Need to re-create main navigation context with new merged configs
 	return (
-		<MainNavigatorContextProvider key={key} value={navigatorObject}>
+		<MainNavigatorContext.Provider
+			key={key}
+			value={{ navigator: navigatorObject, rawNavigator: newNav }}
+		>
 			<Route>
 				{(routerProps: RouteChildrenProps) => {
 					// Need to re-create navigation context with new merged configs
@@ -169,7 +172,7 @@ export const Navigator = ({
 					);
 				}}
 			</Route>
-		</MainNavigatorContextProvider>
+		</MainNavigatorContext.Provider>
 	);
 };
 
