@@ -1,6 +1,7 @@
 import { NavigationActionsObject, NavigatorProps, RouteConfig } from '@bluebase/components';
 
 import { ScreenProps } from '../types';
+import get from 'lodash.get';
 import { resolveThunk } from '@bluebase/core';
 
 export const resolveRouteOptions = (
@@ -20,13 +21,13 @@ export const resolveRouteOptions = (
 	// };
 
 	// Create navigationOptions from main navigation configs
-	let navigationOptions = resolveThunk(mainNavigator.defaultNavigationOptions || {}, {
+	let navigationOptions = resolveThunk(get(mainNavigator, 'defaultNavigationOptions', {}), {
 		...ctx,
 		navigationOptions: {},
 	});
 
 	// Create navigationOptions from navigatior defaultNavigationOptions
-	navigationOptions = resolveThunk(navigator.defaultNavigationOptions || navigationOptions, {
+	navigationOptions = resolveThunk(get(navigator, 'defaultNavigationOptions', navigationOptions), {
 		...ctx,
 		navigationOptions,
 	});

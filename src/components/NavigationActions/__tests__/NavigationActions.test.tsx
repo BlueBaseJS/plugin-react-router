@@ -1,4 +1,4 @@
-import { MainNavigatorContext } from '../../Navigation';
+import { MainNavigatorContext } from '../../MainNavigatorContext';
 import { MemoryRouter } from 'react-router';
 import { NavigationActions } from '../NavigationActions';
 import React from 'react';
@@ -71,6 +71,6 @@ describe('NavigationActions', () => {
 
 		const result = children.mock.calls[0][0];
 
-		expect(result.state.routeName).toBe('Root');
+		expect(result.state.routeName).toBe('');
 	});
 });

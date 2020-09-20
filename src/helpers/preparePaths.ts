@@ -1,6 +1,8 @@
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
 import { joinPaths, resolveThunk } from '@bluebase/core';
 
+import { NavigatorPropsWithResolvedRoutes } from '../types';
+
 /**
  * Converts paths from react-navigation pattern to react-router pattern
  * @param navigator
@@ -9,7 +11,7 @@ import { joinPaths, resolveThunk } from '@bluebase/core';
 export const preparePaths = (
 	navigator: NavigatorProps,
 	parentPath: string = ''
-): NavigatorProps => {
+): NavigatorPropsWithResolvedRoutes => {
 	// If routes prop is a thunk, resolve it.
 	// Then map it to have new paths
 	const routes = resolveThunk(navigator.routes || []).map((r: RouteConfig) => {
