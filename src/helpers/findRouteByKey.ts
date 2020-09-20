@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
 
+import get from 'lodash.get';
 import { resolveThunk } from '@bluebase/core';
 
 /**
@@ -23,7 +24,7 @@ export function findRouteByKey(
 	let found = null;
 
 	// If routes prop is a thunk, resolve it
-	const routes = resolveThunk(configs.routes);
+	const routes = resolveThunk(get(configs, 'routes', []));
 
 	// Iterate the routes array to commence 🧙‍♀️ witch hunt!
 	for (const route of routes) {

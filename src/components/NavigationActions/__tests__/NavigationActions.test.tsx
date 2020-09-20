@@ -71,6 +71,6 @@ describe('NavigationActions', () => {
 
 		const result = children.mock.calls[0][0];
 
-		expect(result.state.routeName).toBe('Root');
+		expect(result.state.routeName).toBe('');
 	});
 });

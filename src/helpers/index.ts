@@ -1,6 +1,7 @@
 export * from './executeAction';
 export * from './findRouteByKey';
 export * from './historyToActionObject';
+export * from './insertChildNavigator';
 export * from './preparePaths';
 export * from './resolveRouteOptions';
 export * from './resolveScreenComponent';

@@ -4,11 +4,7 @@ import {
 	Redirect,
 	RouteConfig,
 } from '@bluebase/components';
-import {
-	MainNavigatorContext,
-	MainNavigatorContextProvider,
-	insertChildNavigator,
-} from '../MainNavigatorContext';
+import { MainNavigatorContext, MainNavigatorContextProvider } from '../MainNavigatorContext';
 import { NavigationContext, resolveThunk, useComponent, useNavigation } from '@bluebase/core';
 import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router';
@@ -22,7 +18,9 @@ import {
 } from '../../helpers';
 
 import { RouteConfigWithResolveSubRoutes } from '../../types';
+import get from 'lodash.get';
 import { getNavigator } from '../../navigators';
+import { insertChildNavigator } from '../../helpers/insertChildNavigator';
 
 export interface NavigatorProps extends BBNavigatorProps {
 	standalone: boolean;
@@ -120,6 +118,8 @@ export const NavigatorInternal = ({ standalone, ...props }: NavigatorProps) => {
 	);
 };
 
+NavigatorInternal.displayName = 'NavigatorInternal';
+
 export const Navigator = ({
 	standalone,
 	standaloneLocationRouteName,
@@ -144,7 +144,7 @@ export const Navigator = ({
 	// Find processed standalone navigator
 	const routeObj = findRouteByKey(state.routeName, 'name', navigatorObject);
 
-	const key = (routeObj!.navigator!.routes as RouteConfig[])
+	const key = (get(routeObj, 'navigator.routes', []) as RouteConfig[])
 		.map((r: RouteConfig) => r.name)
 		.join(',');
 
@@ -161,7 +161,10 @@ export const Navigator = ({
 
 					return (
 						<NavigationContext.Provider value={navigation}>
-							<NavigatorInternal {...routeObj!.navigator!} standalone={false} />
+							<NavigatorInternal
+								{...get(routeObj, 'navigator', {} as NavigatorProps)}
+								standalone={false}
+							/>
 						</NavigationContext.Provider>
 					);
 				}}

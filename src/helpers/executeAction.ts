@@ -33,6 +33,7 @@ export const executeAction = (
 	}
 
 	if (!path) {
+		debugger;
 		throw Error('Invalid props provided to navigation action');
 	}
 
