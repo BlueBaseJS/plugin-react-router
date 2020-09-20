@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.1...v1.4.2) (2020-09-20)
+
+### Bug Fixes
+
+-   Fixed wrong path generation in standalone mode ([d38fcb9](https://github.com/BlueBaseJS/plugin-react-router/commit/d38fcb9463d01ea508f99aea760e20c05434a87f))
+
 ## [1.4.1](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.0...v1.4.1) (2020-09-20)
 
 ### Bug Fixes
