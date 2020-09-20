@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.0...v1.4.1) (2020-09-20)
+
+### Bug Fixes
+
+-   Fixed standalone Navigator ([#242](https://github.com/BlueBaseJS/plugin-react-router/issues/242)) ([17bc6d8](https://github.com/BlueBaseJS/plugin-react-router/commit/17bc6d83dc7a15cd7993622b3be649cab5791ca6))
+
 # [1.4.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.3.0...v1.4.0) (2020-09-19)
 
 ### Bug Fixes
