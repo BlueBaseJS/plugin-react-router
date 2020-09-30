@@ -71,7 +71,7 @@
     "@bluebase/components": "^6.4.0",
     "expo": "^36.0.2",
     "lodash.get": "^4.4.2",
-    "path-to-regexp": "^3.0.0",
+    "path-to-regexp": "^6.2.0",
     "react-native": "^0.61.5",
     "react-router-dom": "^5.1.2",
     "react-router-native": "^5.1.2",
