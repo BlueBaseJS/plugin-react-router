@@ -11,17 +11,17 @@ const { JSDOM } = require('jsdom');
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
 
-function copyProps(src: any, target: any) {
+const copyProps = (src: any, target: any) => {
 	Object.defineProperties(target, {
 		...Object.getOwnPropertyDescriptors(src),
 		...Object.getOwnPropertyDescriptors(target),
 	});
-}
+};
 
 declare const global: {
-	document: any,
-	navigator: any,
-	window: any,
+	document: any;
+	navigator: any;
+	window: any;
 };
 
 global.window = window;

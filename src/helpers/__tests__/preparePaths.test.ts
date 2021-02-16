@@ -43,8 +43,10 @@ const input: NavigatorProps = {
 // 				path: '/',
 // 				routes: [
 // 					{ name: 'Home', path: '/', exact: true, screen: 'HomeScreen', navigationOptions: {} },
-// 					{ name: 'Settings', path: '/p/settings', exact: true, screen: 'SettingsScreen', navigationOptions: {} },
-// 					{ name: 'SettingsDetail', path: '/p/settings/:id', screen: fn, navigationOptions: {}, navigator: undefined }
+// 					{ name: 'Settings', path: '/p/settings', exact: true,
+// 					 screen: 'SettingsScreen', navigationOptions: {} },
+// 					{ name: 'SettingsDetail', path: '/p/settings/:id', screen: fn,
+// 					 navigationOptions: {}, navigator: undefined }
 // 				],
 // 				type: 'stack',
 // 			},

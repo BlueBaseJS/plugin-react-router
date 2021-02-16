@@ -1,3 +1,1 @@
-export default function (input: any, paths: any) {
-	return input;
-}
+export default (input: any, paths: any) => input;

@@ -6,7 +6,7 @@ import { mount } from 'enzyme';
 
 const createRouterContext = require('react-router-test-context').default;
 
-const mainNavigator = {
+const mainNavigator:any = {
 	initialRouteName: 'Root',
 	routes: [
 		{
