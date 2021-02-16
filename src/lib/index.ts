@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 
 export {
-	BrowserRouter as Router,
+	HashRouter as Router,
 	MemoryRouter,
 	StaticRouter,
 	Switch,
@@ -13,3 +13,4 @@ export {
 	useLocation,
 } from 'react-router-dom';
 // export { default as Stack } from 'react-router-native-stack';
+// HashRouter is used instead of BrowserRouter to fix hard refresh window
