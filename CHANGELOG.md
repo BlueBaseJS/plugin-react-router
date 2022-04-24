@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/BlueBaseJS/plugin-react-router/compare/v2.0.0...v2.0.1) (2022-04-24)
+
+### Bug Fixes
+
+*   Fixed bad imports ([1e05331](https://github.com/BlueBaseJS/plugin-react-router/commit/1e05331a1b8b1305e7e652b2609556c0a71d262c))
+
 # [2.0.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.2...v2.0.0) (2022-04-24)
 
 ### Features
