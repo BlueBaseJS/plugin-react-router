@@ -1,3 +1,13 @@
+# [2.0.0](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.2...v2.0.0) (2022-04-24)
+
+### Features
+
+*   **Expo 44:** Updated to expo 44 ([8c3bb57](https://github.com/BlueBaseJS/plugin-react-router/commit/8c3bb57df9febc7d5a8f2fe543e3bd093d5cd582))
+
+### BREAKING CHANGES
+
+*   **Expo 44:** Updated to Expo 44
+
 ## [1.4.2](https://github.com/BlueBaseJS/plugin-react-router/compare/v1.4.1...v1.4.2) (2020-09-20)
 
 ### Bug Fixes
