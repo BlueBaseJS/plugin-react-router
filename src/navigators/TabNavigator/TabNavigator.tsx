@@ -56,11 +56,13 @@ export const TabNavigator = (
 
 		const icon = getIcon(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
-			index === currentIndex
+			index === currentIndex,
+			theme
 		);
 		const title = getTitle(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
-			index === currentIndex
+			index === currentIndex,
+			theme
 		);
 
 		return (

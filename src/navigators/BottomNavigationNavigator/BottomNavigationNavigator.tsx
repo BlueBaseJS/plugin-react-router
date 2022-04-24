@@ -59,12 +59,14 @@ export const BottomNavigationNavigator = (
 
 		const icon = getIcon(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
-			index === currentIndex
+			index === currentIndex,
+			theme
 		);
 
 		const title = getTitle(
 			merge<any>({ headerTitle: route.name, ...options }, { tabBarOptions }),
-			index === currentIndex
+			index === currentIndex,
+			theme
 		);
 
 		return <BottomNavigationAction icon={icon} label={title} value={index as any} key={index} />;

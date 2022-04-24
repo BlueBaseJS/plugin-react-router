@@ -30,3 +30,5 @@ export const ScreenView: React.ComponentType<ScreenViewProps> = ({
 ScreenView.defaultProps = {
 	Layout: Noop,
 };
+
+ScreenView.displayName = 'ScreenView';

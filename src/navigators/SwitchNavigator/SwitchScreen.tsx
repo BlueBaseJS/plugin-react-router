@@ -39,7 +39,7 @@ export interface SwitchScreenProps {
  */
 export const SwitchScreen = (props: SwitchScreenProps) => {
 	const { Screen, route, options, navigator, ...rest } = props;
-	return Screen ? <Screen {...rest} /> : (rest.children as any);
+	return Screen ? <Screen {...rest} /> : rest.children;
 };
 
 SwitchScreen.displayName = 'SwitchScreen';

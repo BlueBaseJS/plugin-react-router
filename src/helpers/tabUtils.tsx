@@ -1,8 +1,8 @@
+import { Theme, isMobile } from '@bluebase/core';
 import React from 'react';
 import { Text } from '@bluebase/components';
-import { isMobile } from '@bluebase/core';
 
-export const getTitle = (options: any = {}, focused: boolean = false) => {
+export const getTitle = (options: any = {}, focused: boolean = false, theme: Theme) => {
 	const { tabBarOptions = {} } = options as any;
 
 	const label = (options as any).tabBarLabel || options.title || options.headerTitle;
@@ -11,7 +11,9 @@ export const getTitle = (options: any = {}, focused: boolean = false) => {
 		return;
 	}
 
-	const tintColor = focused ? tabBarOptions.activeTintColor : tabBarOptions.inactiveTintColor;
+	const activeTintColor = tabBarOptions.activeTintColor || theme.palette.text.primary;
+	const inactiveTintColor = tabBarOptions.inactiveTintColor || theme.palette.text.secondary;
+	const tintColor = focused ? activeTintColor : inactiveTintColor;
 
 	if (typeof label === 'function') {
 		return label({ focused, tintColor });
@@ -24,7 +26,7 @@ export const getTitle = (options: any = {}, focused: boolean = false) => {
 	);
 };
 
-export const getIcon = (options: any = {}, focused: boolean = false) => {
+export const getIcon = (options: any = {}, focused: boolean = false, theme: Theme) => {
 	const { tabBarOptions = {} } = options as any;
 	const icon = (options as any).tabBarIcon;
 
@@ -32,7 +34,9 @@ export const getIcon = (options: any = {}, focused: boolean = false) => {
 		return;
 	}
 
-	const tintColor = focused ? tabBarOptions.activeTintColor : tabBarOptions.inactiveTintColor;
+	const activeTintColor = tabBarOptions.activeTintColor || theme.palette.text.primary;
+	const inactiveTintColor = tabBarOptions.inactiveTintColor || theme.palette.text.secondary;
+	const tintColor = focused ? activeTintColor : inactiveTintColor;
 
 	if (typeof icon === 'function') {
 		return icon({

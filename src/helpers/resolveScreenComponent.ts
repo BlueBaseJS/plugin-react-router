@@ -1,6 +1,8 @@
-import { Noop, RouteConfig } from '@bluebase/components';
-
 import { BlueBase } from '@bluebase/core';
+import { RouteConfig } from '@bluebase/components';
+
+const Noop = ({ children }: any) => children;
+Noop.displayName = 'Noop';
 
 /**
  * Given a route object, resolves and returns a screen component
@@ -9,5 +11,11 @@ import { BlueBase } from '@bluebase/core';
  */
 export const resolveScreenComponent = (route: RouteConfig, BB: BlueBase) => {
 	const componentName: string | React.ComponentType<any> = route.component || route.screen || Noop;
-	return BB.Components.resolveFromCache(componentName);
+	const Component = BB.Components.resolveFromCache(componentName);
+
+	if (typeof componentName === 'string') {
+		Component.displayName = componentName;
+	}
+
+	return Component;
 };

@@ -1,18 +1,22 @@
 const configs = require('@bluebase/code-standards/jest.config');
 
-const esModules = ['react-native', 'react-router-native'].join('|');
+const modules = [
+	'@unimodules/.*',
+	'@react-native/.*',
+	'@react-native-community/.*',
+	'expo',
+	'react-native',
+	'react-router-native',
+	'react-navigation-stack',
+	'react-navigation',
+	'react-native-gesture-handler',
+	'rn-placeholder',
+	'react-native-modal-datetime-picker',
+	'unimodules-permissions-interface',
+	'@react-native-community/datetimepicker',
+].join('|');
 
 module.exports = Object.assign(configs, {
-	transformIgnorePatterns: [`/node_modules/(?!${esModules})`],
+	transformIgnorePatterns: [`/node_modules/(?!${modules})`],
 	setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
-	testPathIgnorePatterns: [...configs.testPathIgnorePatterns, '<rootDir>/src/demo/'],
-	coveragePathIgnorePatterns: [...configs.coveragePathIgnorePatterns, '<rootDir>/src/demo/'],
-	coverageThreshold: {
-		global: {
-			branches: 90,
-			functions: 90,
-			lines: 90,
-			statements: 90,
-		},
-	},
 });
