@@ -1,9 +1,9 @@
-import { getIcon, getTitle } from '../tabUtils';
-
-import { BlueBaseApp } from '@bluebase/core';
-import React from 'react';
+import { BlueBaseApp, BlueBaseTheme } from '@bluebase/core';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+
+import { getIcon, getTitle } from '../tabUtils';
 
 describe('DrawerNavigator', () => {
 	describe('helpers', () => {
@@ -18,7 +18,8 @@ describe('DrawerNavigator', () => {
 							showLabel: true,
 						},
 					} as any,
-					false
+					false,
+					BlueBaseTheme
 				);
 
 				const wrapper = mount(<BlueBaseApp>{node}</BlueBaseApp>);
@@ -43,7 +44,8 @@ describe('DrawerNavigator', () => {
 							showLabel: true,
 						},
 					} as any,
-					false
+					false,
+					BlueBaseTheme
 				);
 
 				const wrapper = mount(<BlueBaseApp>{node}</BlueBaseApp>);
@@ -68,7 +70,8 @@ describe('DrawerNavigator', () => {
 							showLabel: true,
 						},
 					} as any,
-					true
+					true,
+					BlueBaseTheme
 				);
 
 				const wrapper = mount(<BlueBaseApp>{node}</BlueBaseApp>);
@@ -90,7 +93,7 @@ describe('DrawerNavigator', () => {
 						tabBarOptions: {
 							showLabel: true,
 						},
-					} as any)
+					} as any, false, BlueBaseTheme)
 				).toBe('foo');
 			});
 

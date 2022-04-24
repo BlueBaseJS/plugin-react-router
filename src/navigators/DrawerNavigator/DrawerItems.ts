@@ -1,4 +1,5 @@
 import { NavigationActionsObject, RouteConfig } from '@bluebase/components';
+import React from 'react';
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export interface DrawerItemsProps {

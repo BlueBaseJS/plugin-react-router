@@ -1,8 +1,9 @@
-import { MainNavigatorContext } from '../../MainNavigatorContext';
-import { MemoryRouter } from 'react-router';
-import { NavigationActions } from '../NavigationActions';
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
+import { MemoryRouter } from 'react-router';
+
+import { MainNavigatorContext } from '../../MainNavigatorContext';
+import { NavigationActions } from '../NavigationActions';
 
 const createRouterContext = require('react-router-test-context').default;
 
@@ -60,7 +61,7 @@ describe('NavigationActions', () => {
 
 		mount(
 			<MemoryRouter>
-				<MainNavigatorContext.Provider value={mainNavigator}>
+				<MainNavigatorContext.Provider value={mainNavigator as any}>
 					<NavigationActions>{children}</NavigationActions>
 				</MainNavigatorContext.Provider>
 			</MemoryRouter>,

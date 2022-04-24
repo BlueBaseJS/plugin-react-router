@@ -1,7 +1,8 @@
-import { BasePlugin } from './BasePlugin';
-import { Router } from './lib/index';
-import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';
+
+import { BasePlugin } from './BasePlugin';
+import { createNavigation } from './components';
+import { Router } from './lib/index';
 
 export { createNavigation } from './components';
 

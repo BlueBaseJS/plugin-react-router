@@ -4,10 +4,11 @@
 // import App4 from './apps/app4';
 // import App5 from './apps/app5';
 import { BootOptions } from '@bluebase/core';
-import DemoApp from './apps/plugin-settings-app';
 import MaterialUI from '@bluebase/plugin-material-ui';
-import commonBootOptions from '../common/bluebase';
 import deepmerge from 'deepmerge';
+
+import commonBootOptions from '../common/bluebase';
+import DemoApp from './apps/plugin-settings-app';
 
 /**
  * Add your platform specific configs here.

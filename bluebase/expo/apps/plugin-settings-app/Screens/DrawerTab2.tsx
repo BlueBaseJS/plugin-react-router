@@ -1,5 +1,4 @@
 import { ComponentState, DrawerActions } from '@bluebase/components';
-
 import React from 'react';
 
 export class DrawerTab2Screen extends React.Component {

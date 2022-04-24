@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
+import { Text } from '@bluebase/components';
+import { createPlugin } from '@bluebase/core';
 import { DynamicIcon } from '@bluebase/core/dist/components';
 import React from 'react';
-import { Text } from '@bluebase/components';
 import { View } from 'react-native';
-import { createPlugin } from '@bluebase/core';
 
 // Custom component doesn't resepect size in this plugin
 export default createPlugin({

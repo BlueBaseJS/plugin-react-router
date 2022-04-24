@@ -1,5 +1,5 @@
-import { BottomNavigationNavigator } from './BottomNavigationNavigator';
 import { SwitchScreen } from '../SwitchNavigator/SwitchScreen';
+import { BottomNavigationNavigator } from './BottomNavigationNavigator';
 
 export const BottomNavigation = {
 	Navigator: BottomNavigationNavigator,

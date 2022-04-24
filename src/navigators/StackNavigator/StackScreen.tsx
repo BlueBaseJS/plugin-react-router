@@ -6,9 +6,9 @@ import {
 	View,
 } from '@bluebase/components';
 import { MaybeThunk, useTheme } from '@bluebase/core';
+import React from 'react';
 
 import { NavigatorPropsWithResolvedRoutes } from '../../types';
-import React from 'react';
 
 export interface StackScreenProps {
 	Screen?: React.ComponentType<any>;

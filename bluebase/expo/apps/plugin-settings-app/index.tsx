@@ -2,8 +2,11 @@
 // https://github.com/kmagiera/react-native-gesture-handler/issues/320#issuecomment-443815828
 import 'react-native-gesture-handler';
 
+import { ComponentState } from '@bluebase/components';
+import { createPlugin } from '@bluebase/core';
+import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { ComponentState, Noop } from '@bluebase/components';
+
 // tslint:disable: object-literal-sort-keys
 import {
 	HomeScreen,
@@ -12,12 +15,9 @@ import {
 	Tab1Screen,
 	Tab2Screen,
 } from './Screens';
-
 import { DrawerTab1Screen } from './Screens/DrawerTab1';
 import { DrawerTab2Screen } from './Screens/DrawerTab2';
 import { ParamsScreen } from './Screens/Params';
-import React from 'react';
-import { createPlugin } from '@bluebase/core';
 
 const plugin = createPlugin({
 	key: 'settings',

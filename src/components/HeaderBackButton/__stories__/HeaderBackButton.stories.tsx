@@ -1,8 +1,8 @@
 // tslint:disable:no-console
-import { Button } from 'react-native';
-import React from 'react';
 import { getComponent } from '@bluebase/core';
 import storiesOf from '@bluebase/storybook-addon';
+import React from 'react';
+import { Button } from 'react-native';
 
 const HeaderBackButton = getComponent('HeaderBackButton');
 

@@ -1,6 +1,7 @@
-import { ModalNavigator } from './ModalNavigator';
-import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
+
+import { NavigatorPropsWithResolvedRoutes } from '../../types';
+import { ModalNavigator } from './ModalNavigator';
 
 export interface StackNavigatorProps extends NavigatorPropsWithResolvedRoutes {
 	children: React.ReactNode;

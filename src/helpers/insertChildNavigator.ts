@@ -1,7 +1,6 @@
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
-
-import get from 'lodash.get';
 import { resolveThunk } from '@bluebase/core';
+import get from 'lodash.get';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function insertChildNavigator(

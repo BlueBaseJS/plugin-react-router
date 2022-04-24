@@ -1,4 +1,5 @@
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
+
 import { findRouteByKey } from '../findRouteByKey';
 
 const inputRoutes: NavigatorProps = {

@@ -1,8 +1,8 @@
 import { NavigationActionsObject, Noop, RouteConfig } from '@bluebase/components';
-
-import React from 'react';
-import { resolveScreenComponent } from '../../helpers';
 import { useBlueBase } from '@bluebase/core';
+import React from 'react';
+
+import { resolveScreenComponent } from '../../helpers';
 
 export interface ScreenViewProps {
 	children?: React.ReactNode;

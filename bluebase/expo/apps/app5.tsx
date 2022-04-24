@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
-import React from 'react';
 import { Text } from '@bluebase/components';
 import { createPlugin } from '@bluebase/core';
+import React from 'react';
 
 export default createPlugin({
 	key: 'App 5',

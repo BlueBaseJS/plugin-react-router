@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/typedef */
+import { NavigationOptions } from '@bluebase/components';
+import { getComponent, Theme } from '@bluebase/core';
+import React from 'react';
 import {
 	I18nManager,
 	Image,
@@ -11,10 +14,6 @@ import {
 	View,
 	ViewStyle,
 } from 'react-native';
-import { Theme, getComponent } from '@bluebase/core';
-
-import { NavigationOptions } from '@bluebase/components';
-import React from 'react';
 
 const HeaderBackButton = getComponent('HeaderBackButton');
 const HeaderTitle = getComponent('HeaderTitle');
@@ -66,6 +65,8 @@ export interface HeaderStyles {
  * 🎩 Header
  */
 export class Header extends React.PureComponent<HeaderProps, HeaderState> {
+	readonly state: HeaderState = {};
+
 	// static get HEIGHT() {
 	// 	return APPBAR_HEIGHT + STATUSBAR_HEIGHT;
 	// }
@@ -76,8 +77,6 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			layoutPreset: Platform.OS === 'ios' ? 'center' : 'left',
 		};
 	}
-
-	readonly state: HeaderState = {};
 
 	static defaultStyles = (theme: Theme): HeaderStyles => {
 		const root = Platform.OS === 'web' ? { zIndex: 1100 } : {};
@@ -194,7 +193,7 @@ export class Header extends React.PureComponent<HeaderProps, HeaderState> {
 			<SafeAreaView onLayout={onLayout} style={rootStyles}>
 				<View style={wrapperStyles}>
 					{background}
-					{<View style={styles.flexOne}>{appBar}</View>}
+					<View style={styles.flexOne}>{appBar}</View>
 				</View>
 			</SafeAreaView>
 		);

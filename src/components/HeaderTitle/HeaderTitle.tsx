@@ -1,7 +1,6 @@
 import { HeaderTitleProps, Text } from '@bluebase/components';
-
-import React from 'react';
 import { Theme } from '@bluebase/core';
+import React from 'react';
 
 const HeaderTitle: React.FunctionComponent<HeaderTitleProps> = ({
 	style,
@@ -13,7 +12,7 @@ const HeaderTitle: React.FunctionComponent<HeaderTitleProps> = ({
 		numberOfLines={1}
 		{...rest}
 		style={[styles && styles.root, style]}
-		accessibilityTraits="header"
+		// accessibilityTraits="header"
 	/>
 );
 

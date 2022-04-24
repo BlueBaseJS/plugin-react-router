@@ -1,5 +1,5 @@
-import { BlueBase, IntlContextData, Theme, ThemeContextData } from '@bluebase/core';
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
+import { BlueBase, IntlContextData, Theme, ThemeContextData } from '@bluebase/core';
 
 export interface ScreenProps {
 	BB: BlueBase;

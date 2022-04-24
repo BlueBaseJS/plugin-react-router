@@ -1,10 +1,11 @@
-import { BlueBaseApp } from '@bluebase/core';
-import { MemoryRouter } from '../../../lib';
 import { Noop } from '@bluebase/components';
-import React from 'react';
-import { createNavigation } from '../createNavigation';
+import { BlueBaseApp } from '@bluebase/core';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+
+import { MemoryRouter } from '../../../lib';
+import { createNavigation } from '../createNavigation';
 
 // jest.mock('../../../lib');
 

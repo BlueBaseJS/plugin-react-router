@@ -6,14 +6,14 @@ import {
 	ScrollView,
 	View,
 } from '@bluebase/components';
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import React, { useContext } from 'react';
-import { getIcon, getTitle } from './helpers';
-import { resolveRouteOptions, useScreenProps } from '../../helpers';
 import { useNavigation, useTheme } from '@bluebase/core';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { MainNavigatorContext } from '../../components';
-import { useLocation } from 'react-router-dom';
+import { resolveRouteOptions, useScreenProps } from '../../helpers';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
+import { getIcon, getTitle } from './helpers';
 
 export const DrawerNavigator = (
 	props: NavigatorPropsWithResolvedRoutes & { children: React.ReactNode }

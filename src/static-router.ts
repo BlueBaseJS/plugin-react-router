@@ -1,7 +1,8 @@
-import { BasePlugin } from './BasePlugin';
-import { StaticRouter } from './lib';
-import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';
+
+import { BasePlugin } from './BasePlugin';
+import { createNavigation } from './components';
+import { StaticRouter } from './lib';
 
 export default createPlugin({
 	...BasePlugin,

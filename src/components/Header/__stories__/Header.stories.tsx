@@ -1,9 +1,8 @@
 // tslint:disable:no-console
-import { Image, Text } from 'react-native';
-
-import React from 'react';
 import { getComponent } from '@bluebase/core';
 import storiesOf from '@bluebase/storybook-addon';
+import React from 'react';
+import { Image, Text } from 'react-native';
 
 const Header = getComponent('Header');
 

@@ -1,7 +1,8 @@
-import { BasePlugin } from './BasePlugin';
-import { MemoryRouter } from './lib';
-import { createNavigation } from './components';
 import { createPlugin } from '@bluebase/core';
+
+import { BasePlugin } from './BasePlugin';
+import { createNavigation } from './components';
+import { MemoryRouter } from './lib';
 
 export default createPlugin({
 	...BasePlugin,

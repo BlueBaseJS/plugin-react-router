@@ -1,13 +1,15 @@
 import {
-	NavigatorProps as BBNavigatorProps,
 	NavigationActionsObject,
+	NavigatorProps as BBNavigatorProps,
 	Redirect,
 	RouteConfig,
 } from '@bluebase/components';
 import { NavigationContext, resolveThunk, useComponent, useNavigation } from '@bluebase/core';
+import get from 'lodash.get';
 import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router';
 import { RouteChildrenProps, RouteComponentProps } from 'react-router-dom';
+
 import {
 	findRouteByKey,
 	historyToActionObject,
@@ -15,12 +17,10 @@ import {
 	resolveRouteOptions,
 	useScreenProps,
 } from '../../helpers';
-
-import { MainNavigatorContext } from '../MainNavigatorContext';
-import { RouteConfigWithResolveSubRoutes } from '../../types';
-import get from 'lodash.get';
-import { getNavigator } from '../../navigators';
 import { insertChildNavigator } from '../../helpers/insertChildNavigator';
+import { getNavigator } from '../../navigators';
+import { RouteConfigWithResolveSubRoutes } from '../../types';
+import { MainNavigatorContext } from '../MainNavigatorContext';
 
 export interface NavigatorProps extends BBNavigatorProps {
 	standalone: boolean;

@@ -1,4 +1,5 @@
 import { NavigatorProps } from '@bluebase/components';
+
 import { insertChildNavigator } from '../insertChildNavigator';
 
 const inputRoutes: NavigatorProps = {

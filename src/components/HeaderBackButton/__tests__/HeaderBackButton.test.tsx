@@ -1,16 +1,16 @@
 import { BlueBaseApp, getComponent } from '@bluebase/core';
-import { Button, I18nManager, Platform } from 'react-native';
-
-import Plugin from '../../../';
-import React from 'react';
 import deepmerge from 'deepmerge';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Button, I18nManager, Platform } from 'react-native';
+
+import Plugin from '../../../';
 
 const HeaderBackButton = getComponent('HeaderBackButton');
 
 describe('HeaderBackButton', () => {
-	test(`should only render back image`, async () => {
+	test('should only render back image', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton />
@@ -25,7 +25,7 @@ describe('HeaderBackButton', () => {
 		expect(wrapper.find('HeaderBackButton [testID="header-back-title"]').length).toBe(0);
 	});
 
-	test(`should only render back image and standard title`, async () => {
+	test('should only render back image and standard title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton backTitleVisible />
@@ -45,7 +45,7 @@ describe('HeaderBackButton', () => {
 		).toBe('Back');
 	});
 
-	test(`should render custom back image`, async () => {
+	test('should render custom back image', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton
@@ -68,7 +68,7 @@ describe('HeaderBackButton', () => {
 		).toBe('Back');
 	});
 
-	test(`should not render title when title prop is null`, async () => {
+	test('should not render title when title prop is null', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton title={null} backTitleVisible />
@@ -83,7 +83,7 @@ describe('HeaderBackButton', () => {
 		expect(wrapper.find('HeaderBackButton [testID="header-back-title"]').length).toBe(0);
 	});
 
-	test(`should only render back image and custom title`, async () => {
+	test('should only render back image and custom title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton backTitleVisible title="Foo" />
@@ -103,7 +103,7 @@ describe('HeaderBackButton', () => {
 		).toBe('Foo');
 	});
 
-	test(`should only render back image and truncated title`, async () => {
+	test('should only render back image and truncated title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton backTitleVisible title="A very very long title sentence" width={100} />
@@ -128,7 +128,7 @@ describe('HeaderBackButton', () => {
 		).toBe('Back');
 	});
 
-	test(`should only render back image and custom truncated title`, async () => {
+	test('should only render back image and custom truncated title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton
@@ -198,7 +198,7 @@ describe('HeaderBackButton', () => {
 		).toBe(205);
 	});
 
-	test(`should only render back image and title with custom tint color`, async () => {
+	test('should only render back image and title with custom tint color', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<HeaderBackButton backTitleVisible tintColor="red" />
@@ -232,7 +232,7 @@ describe('HeaderBackButton', () => {
 		expect(textStyles.color).toBe('red');
 	});
 
-	test(`should only render back image on android platform`, async () => {
+	test('should only render back image on android platform', async () => {
 		jest.mock('react-native/Libraries/Utilities/Platform', () => {
 			// const Platform = (require as any).requireActual('Platform');
 			// Platform.Version = 22;
@@ -264,7 +264,7 @@ describe('HeaderBackButton', () => {
 		// expect(wrapper.find('HeaderBackButton [testID="header-back-title"]').length).toBe(0);
 	});
 
-	test(`should only render back image on android platform`, async () => {
+	test('should only render back image on android platform', async () => {
 		jest.mock('react-native/Libraries/Utilities/Platform', () => {
 			const Platform = (require as any).requireActual('Platform');
 			Platform.OS = 'android';
@@ -289,7 +289,7 @@ describe('HeaderBackButton', () => {
 		// expect(wrapper.find('HeaderBackButton [testID="header-back-title"]').length).toBe(0);
 	});
 
-	test(`should only render reverse back image on rtl layout`, async () => {
+	test('should only render reverse back image on rtl layout', async () => {
 		jest.mock('react-native/Libraries/ReactNative/I18nManager', () => {
 			const I18nManager = jest.requireActual('react-native/Libraries/ReactNative/I18nManager');
 			I18nManager.isRTL = true;

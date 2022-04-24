@@ -1,5 +1,4 @@
 import { H1, View } from '@bluebase/components';
-
 import React from 'react';
 
 export class NotFoundScreen extends React.Component {

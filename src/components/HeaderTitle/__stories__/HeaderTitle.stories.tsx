@@ -1,7 +1,7 @@
 // tslint:disable:no-console
-import React from 'react';
 import { getComponent } from '@bluebase/core';
 import storiesOf from '@bluebase/storybook-addon';
+import React from 'react';
 
 const HeaderTitle = getComponent('HeaderTitle');
 

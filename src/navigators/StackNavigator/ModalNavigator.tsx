@@ -1,12 +1,12 @@
-import { Switch, useLocation } from '../../lib';
-
 import { Dialog } from '@bluebase/components';
+import { useNavigation } from '@bluebase/core';
+import get from 'lodash.get';
+import { compile } from 'path-to-regexp';
 import React from 'react';
+
+import { Switch, useLocation } from '../../lib';
 import { RouteConfigWithResolveSubRoutes } from '../../types';
 import { StackNavigatorProps } from './StackNavigator';
-import { compile } from 'path-to-regexp';
-import get from 'lodash.get';
-import { useNavigation } from '@bluebase/core';
 
 export interface ModalNavigatorProps extends StackNavigatorProps {}
 

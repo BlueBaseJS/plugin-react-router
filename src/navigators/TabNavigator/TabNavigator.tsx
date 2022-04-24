@@ -1,13 +1,13 @@
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import React, { useContext } from 'react';
 import { Tab, Tabs, View } from '@bluebase/components';
-import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../helpers';
 import { merge, useNavigation, useTheme } from '@bluebase/core';
+import get from 'lodash.get';
+import { compile } from 'path-to-regexp';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { MainNavigatorContext } from '../../components';
-import { compile } from 'path-to-regexp';
-import get from 'lodash.get';
-import { useLocation } from 'react-router-dom';
+import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../helpers';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 
 const baseOptions: any = {
 	showIcon: true,

@@ -1,4 +1,12 @@
-import { BottomNavigation, Drawer, Stack, Switch, Tab } from './';
+import React from 'react';
+
+import {
+	BottomNavigation,
+	Drawer,
+	Stack,
+	Switch,
+	Tab
+} from './';
 
 const NavigatorMap: { [key: string]: any } = {
 	'bottom-tab': BottomNavigation,

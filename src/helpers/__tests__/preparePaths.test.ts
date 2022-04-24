@@ -1,4 +1,5 @@
 import { NavigatorProps } from '@bluebase/components';
+
 import { preparePaths } from '../preparePaths';
 
 const input: NavigatorProps = {

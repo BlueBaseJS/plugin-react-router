@@ -1,5 +1,10 @@
-import { Header, HeaderBackButton, HeaderTitle, Navigator, ScreenView } from './components';
-
+import {
+	Header,
+	HeaderBackButton,
+	HeaderTitle,
+	Navigator,
+	ScreenView
+} from './components';
 import { VERSION } from './version';
 
 export const BasePlugin = {

@@ -1,8 +1,8 @@
 import { NavigationActionsObject, NavigationOptions, RouteConfig } from '@bluebase/components';
-
 import { MaybeThunk } from '@bluebase/core';
-import { NavigatorPropsWithResolvedRoutes } from '../../types';
 import React from 'react';
+
+import { NavigatorPropsWithResolvedRoutes } from '../../types';
 
 export interface SwitchScreenProps {
 	Screen?: React.ComponentType<any>;
@@ -37,7 +37,7 @@ export interface SwitchScreenProps {
  * Screen component, renders a screen with a header
  * @param props
  */
-export const SwitchScreen = (props: SwitchScreenProps) => {
+export const SwitchScreen: any = (props: SwitchScreenProps) => {
 	const { Screen, route, options, navigator, ...rest } = props;
 	return Screen ? <Screen {...rest} /> : rest.children;
 };

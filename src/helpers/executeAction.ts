@@ -5,10 +5,10 @@ import {
 	NavigatorProps,
 	NavitionActionRouteNamePayload,
 } from '@bluebase/components';
-
-import { compile } from 'path-to-regexp';
-import { findRouteByKey } from './findRouteByKey';
 import { joinPaths } from '@bluebase/core';
+import { compile } from 'path-to-regexp';
+
+import { findRouteByKey } from './findRouteByKey';
 
 export const executeAction = (
 	configs: NavigatorProps,

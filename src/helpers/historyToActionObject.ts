@@ -4,13 +4,13 @@ import {
 	NavigationActionsObject,
 	NavigatorProps,
 } from '@bluebase/components';
-
-import { RouteChildrenProps } from 'react-router-dom';
+import get from 'lodash.get';
 import { compile } from 'path-to-regexp';
+import queryString from 'query-string';
+import { RouteChildrenProps } from 'react-router-dom';
+
 import { executeAction } from './executeAction';
 import { findRouteByKey } from './findRouteByKey';
-import get from 'lodash.get';
-import queryString from 'query-string';
 
 export const historyToActionObject = (
 	router: RouteChildrenProps,

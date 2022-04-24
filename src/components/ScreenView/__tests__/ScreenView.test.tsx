@@ -1,10 +1,11 @@
 import { BlueBaseApp } from '@bluebase/core';
-import Plugin from '../../../';
-import React from 'react';
-import { ScreenView } from '../ScreenView';
-import { Text } from 'react-native';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Text } from 'react-native';
+
+import Plugin from '../../../';
+import { ScreenView } from '../ScreenView';
 
 describe('ScreenView', () => {
 	it('should render SettingsScreen', async () => {

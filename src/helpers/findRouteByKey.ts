@@ -1,8 +1,7 @@
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 import { NavigatorProps, RouteConfig } from '@bluebase/components';
-
-import get from 'lodash.get';
 import { resolveThunk } from '@bluebase/core';
+import get from 'lodash.get';
 
 /**
  * This function is this plugin's dog 🐶. Give it a bone and it will find it from

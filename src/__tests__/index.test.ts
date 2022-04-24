@@ -1,6 +1,7 @@
 import { BlueBase } from '@bluebase/core';
-import MemoryRouter from '../memory-router';
+
 import Plugin from '../index';
+import MemoryRouter from '../memory-router';
 import StaticRouter from '../static-router';
 
 test('Plugin should be correctly registered', async () => {

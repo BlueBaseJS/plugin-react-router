@@ -1,18 +1,18 @@
-import { Button, Text } from 'react-native';
 import { DrawerActions, DrawerItem } from '@bluebase/components';
-
 import { BlueBaseApp } from '@bluebase/core';
 import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
-import { DrawerNavigator } from '../DrawerNavigator';
+import { mount } from 'enzyme';
+import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Button, Text } from 'react-native';
+import { MemoryRouter } from 'react-router';
+
 import { DrawerTab1Screen } from '../../../../bluebase/expo/apps/plugin-settings-app/Screens/DrawerTab1';
 import { DrawerTab2Screen } from '../../../../bluebase/expo/apps/plugin-settings-app/Screens/DrawerTab2';
-import { MainNavigatorContext } from '../../../components';
-import { MemoryRouter } from 'react-router';
 import Plugin from '../../..';
-import React from 'react';
-import { mount } from 'enzyme';
+import { MainNavigatorContext } from '../../../components';
 import { useLocation } from '../../../lib';
-import { waitForElement } from 'enzyme-async-helpers';
+import { DrawerNavigator } from '../DrawerNavigator';
 
 jest.mock('../../../lib');
 

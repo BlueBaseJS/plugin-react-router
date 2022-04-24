@@ -1,2 +1,2 @@
-export * from './Navigation';
 export * from './createNavigation';
+export * from './Navigation';

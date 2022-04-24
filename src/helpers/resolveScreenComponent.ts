@@ -1,5 +1,6 @@
-import { BlueBase } from '@bluebase/core';
 import { RouteConfig } from '@bluebase/components';
+import { BlueBase } from '@bluebase/core';
+import React from 'react';
 
 const Noop = ({ children }: any) => children;
 Noop.displayName = 'Noop';

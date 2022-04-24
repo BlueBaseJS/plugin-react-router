@@ -1,11 +1,11 @@
 import { BlueBaseApp, getComponent } from '@bluebase/core';
-
-import Plugin from '../../..';
-import React from 'react';
-import { StackScreen } from '../StackScreen';
-import { Text } from 'react-native';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Text } from 'react-native';
+
+import Plugin from '../../..';
+import { StackScreen } from '../StackScreen';
 
 const HomeScreen = getComponent('HomeScreen');
 

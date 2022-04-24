@@ -1,11 +1,11 @@
 import { BottomNavigation, BottomNavigationAction, View } from '@bluebase/components';
-import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
-import React, { useContext } from 'react';
-import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../helpers';
 import { merge, useNavigation, useTheme } from '@bluebase/core';
+import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { MainNavigatorContext } from '../../components';
-import { useLocation } from 'react-router-dom';
+import { getIcon, getTitle, resolveRouteOptions, useScreenProps } from '../../helpers';
+import { NavigatorPropsWithResolvedRoutes, RouteConfigWithResolveSubRoutes } from '../../types';
 
 export const BottomNavigationNavigator = (
 	props: NavigatorPropsWithResolvedRoutes & { children: React.ReactNode }

@@ -1,15 +1,15 @@
 /* istanbul ignore file */
 
 export {
-	BrowserRouter as Router,
+	Link,
 	MemoryRouter,
+	Route,
+	RouteComponentProps,
+	BrowserRouter as Router,
+	Switch as Stack,
 	StaticRouter,
 	Switch,
-	Switch as Stack,
-	Route,
-	Link,
-	withRouter,
-	RouteComponentProps,
 	useLocation,
+	withRouter,
 } from 'react-router-dom';
 // export { default as Stack } from 'react-router-native-stack';

@@ -1,14 +1,14 @@
-import { BlueBaseApp, BlueBaseAppErrorProps } from '@bluebase/core';
-
-import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
-import { MainNavigatorContext } from '../../index';
-import { MemoryRouter } from 'react-router';
-import { Navigator } from '../Navigator';
 import { NavigatorProps } from '@bluebase/components';
-import Plugin from '../../../index';
-import React from 'react';
+import { BlueBaseApp, BlueBaseAppErrorProps } from '@bluebase/core';
+import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { MemoryRouter } from 'react-router';
+
+import Plugin from '../../../index';
+import { MainNavigatorContext } from '../../index';
+import { Navigator } from '../Navigator';
 
 jest.mock('../../../lib');
 

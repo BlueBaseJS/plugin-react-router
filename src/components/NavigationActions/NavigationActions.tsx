@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { RouteComponentProps, withRouter } from '../../lib';
-
-import { MainNavigatorContext } from '../MainNavigatorContext';
 import { NavigationActionsProps } from '@bluebase/components';
+import React, { useContext } from 'react';
+
 import { historyToActionObject } from '../../helpers/historyToActionObject';
+import { RouteComponentProps, withRouter } from '../../lib';
+import { MainNavigatorContext } from '../MainNavigatorContext';
 
 type NavigationActionsWithRouter = NavigationActionsProps & RouteComponentProps;
 

@@ -1,13 +1,9 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable @typescript-eslint/typedef */
-import {
-	HeaderBackButtonProps,
-	TouchableItem,
-} from '@bluebase/components';
-import { Image, Platform, Text, View } from 'react-native';
-
-import React, { useCallback, useState } from 'react';
+import { HeaderBackButtonProps, TouchableItem } from '@bluebase/components';
 import { Theme, useIntl, useNavigation, useStyles } from '@bluebase/core';
+import React, { useCallback, useState } from 'react';
+import { Image, Platform, Text, View } from 'react-native';
 
 // import defaultBackImage from '../assets/back-icon.png';
 // tslint:disable-next-line: no-var-requires
@@ -84,7 +80,6 @@ export const HeaderBackButton = (props: HeaderBackButtonProps) => {
 		setInitialTextWidth(e.nativeEvent.layout.x + e.nativeEvent.layout.width);
 	}, [initialTextWidth]);
 
-
 	const renderBackImage = () => {
 		if (React.isValidElement(backImage)) {
 			return backImage;
@@ -106,7 +101,7 @@ export const HeaderBackButton = (props: HeaderBackButtonProps) => {
 			return null;
 		} else if (!title) {
 			return truncatedTitle;
-		} else if (initialTextWidth && width && initialTextWidth > width) {
+		} else if (initialTextWidth && width && initialTextWidth! > width) {
 			return truncatedTitle;
 		} else {
 			return title;
@@ -144,16 +139,16 @@ export const HeaderBackButton = (props: HeaderBackButtonProps) => {
 
 	const button = (
 		<TouchableItem
-			accessible={true}
+			accessible
 			accessibilityRole="button"
-			accessibilityComponentType="button"
+			// accessibilityComponentType="button"
 			accessibilityLabel={title ? `${title}, back` : 'Go back'}
-			accessibilityTraits="button"
+			// accessibilityTraits="button"
 			testID="header-back"
 			delayPressIn={0}
 			onPress={onPress || goBack}
 			pressColor={pressColorAndroid}
-			borderless={true}
+			borderless
 			style={style}
 		>
 			<View testID="header-back-wrapper" style={styles.wrapper as any}>

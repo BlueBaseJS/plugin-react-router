@@ -1,8 +1,8 @@
 import { NavigationActionsObject, NavigatorProps, RouteConfig } from '@bluebase/components';
+import { resolveThunk } from '@bluebase/core';
+import get from 'lodash.get';
 
 import { ScreenProps } from '../types';
-import get from 'lodash.get';
-import { resolveThunk } from '@bluebase/core';
 
 export const resolveRouteOptions = (
 	route: RouteConfig,

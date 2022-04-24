@@ -1,17 +1,17 @@
-import { BlueBaseApp, NavigationContext } from '@bluebase/core';
-import { MemoryRouter, Route } from 'react-router';
-import { Tab1Screen, Tab2Screen } from '../../../../bluebase/expo/apps/plugin-settings-app/Screens';
-
-import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
-import { MainNavigatorContext } from '../../../components';
-import Plugin from '../../..';
-import React from 'react';
 import { Tab } from '@bluebase/components';
-import { TabNavigator } from '../TabNavigator';
-import { Text } from 'react-native';
+import { BlueBaseApp, NavigationContext } from '@bluebase/core';
+import BlueBasePluginMaterialUI from '@bluebase/plugin-material-ui';
 import { mount } from 'enzyme';
-import { useLocation } from '../../../lib';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Text } from 'react-native';
+import { MemoryRouter, Route } from 'react-router';
+
+import { Tab1Screen, Tab2Screen } from '../../../../bluebase/expo/apps/plugin-settings-app/Screens';
+import Plugin from '../../..';
+import { MainNavigatorContext } from '../../../components';
+import { useLocation } from '../../../lib';
+import { TabNavigator } from '../TabNavigator';
 
 jest.mock('../../../lib');
 

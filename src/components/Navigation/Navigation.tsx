@@ -1,9 +1,9 @@
-import { useComponent, useConfig } from '@bluebase/core';
-
-import { MainNavigatorContext } from '../MainNavigatorContext';
 import { NavigationProps } from '@bluebase/components';
+import { useComponent, useConfig } from '@bluebase/core';
 import React from 'react';
+
 import { preparePaths } from '../../helpers';
+import { MainNavigatorContext } from '../MainNavigatorContext';
 
 export interface RRNavigationProps extends NavigationProps {}
 

@@ -1,8 +1,8 @@
-import { Theme, isMobile } from '@bluebase/core';
-import React from 'react';
 import { Text } from '@bluebase/components';
+import { BlueBaseTheme, isMobile, Theme } from '@bluebase/core';
+import React from 'react';
 
-export const getTitle = (options: any = {}, focused: boolean = false, theme: Theme) => {
+export const getTitle = (options: any = {}, focused: boolean = false, theme: Theme = BlueBaseTheme) => {
 	const { tabBarOptions = {} } = options as any;
 
 	const label = (options as any).tabBarLabel || options.title || options.headerTitle;
@@ -26,7 +26,7 @@ export const getTitle = (options: any = {}, focused: boolean = false, theme: The
 	);
 };
 
-export const getIcon = (options: any = {}, focused: boolean = false, theme: Theme) => {
+export const getIcon = (options: any = {}, focused: boolean = false, theme: Theme = BlueBaseTheme) => {
 	const { tabBarOptions = {} } = options as any;
 	const icon = (options as any).tabBarIcon;
 

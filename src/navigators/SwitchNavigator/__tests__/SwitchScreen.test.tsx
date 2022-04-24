@@ -1,11 +1,11 @@
-import { Text, View } from 'react-native';
-
 import { BlueBaseApp } from '@bluebase/core';
-import Plugin from '../../..';
-import React from 'react';
-import { SwitchScreen } from '../SwitchScreen';
 import { mount } from 'enzyme';
 import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
+import { Text, View } from 'react-native';
+
+import Plugin from '../../..';
+import { SwitchScreen } from '../SwitchScreen';
 
 describe('SwitchScreen', () => {
 	it('should render SwitchScreen with given children', async () => {

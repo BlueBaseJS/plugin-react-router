@@ -1,10 +1,10 @@
 import { BlueBaseApp, getComponent } from '@bluebase/core';
+import { mount } from 'enzyme';
+import { waitForElement } from 'enzyme-async-helpers';
+import React from 'react';
 import { Image, Text } from 'react-native';
 
 import Plugin from '../../../';
-import React from 'react';
-import { mount } from 'enzyme';
-import { waitForElement } from 'enzyme-async-helpers';
 
 import deepmerge = require('deepmerge');
 
@@ -18,7 +18,7 @@ const Left = () => {
 };
 
 describe('Header', () => {
-	test(`should only render back image`, async () => {
+	test('should only render back image', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header />
@@ -33,7 +33,7 @@ describe('Header', () => {
 		expect(wrapper.find('Header [testID="header-back-title"]').length).toBe(0);
 	});
 
-	test(`should only render back image and title`, async () => {
+	test('should only render back image and title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" />
@@ -53,7 +53,7 @@ describe('Header', () => {
 		).toBe('Foo');
 	});
 
-	test(`should not render anything when header prop is null`, async () => {
+	test('should not render anything when header prop is null', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header header={null} title="Foo" />
@@ -73,7 +73,7 @@ describe('Header', () => {
 		).toBe(null);
 	});
 
-	test(`should render transparent Header`, async () => {
+	test('should render transparent Header', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" headerTransparent />
@@ -94,7 +94,7 @@ describe('Header', () => {
 		expect(textStyles.backgroundColor).toBeUndefined();
 	});
 
-	test(`should not render a back button`, async () => {
+	test('should not render a back button', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" headerLeft={null} />
@@ -114,7 +114,7 @@ describe('Header', () => {
 		).toBe('Foo');
 	});
 
-	test(`should not render a left element`, async () => {
+	test('should not render a left element', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" headerLeft={<Left />} />
@@ -133,7 +133,7 @@ describe('Header', () => {
 		).toBe('Left');
 	});
 
-	test(`should not render a back button with custom button text`, async () => {
+	test('should not render a back button with custom button text', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" backTitleVisible headerBackTitle="Go Back" />
@@ -158,7 +158,7 @@ describe('Header', () => {
 		).toBe('Foo');
 	});
 
-	test(`should not render a right element`, async () => {
+	test('should not render a right element', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" headerRight={<Right />} />
@@ -177,7 +177,7 @@ describe('Header', () => {
 		).toBe('Right');
 	});
 
-	test(`should not render a right element with custom styles`, async () => {
+	test('should not render a right element with custom styles', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header
@@ -201,7 +201,7 @@ describe('Header', () => {
 		expect(styles.backgroundColor).toBe('yellow');
 	});
 
-	test(`should not render a left element with custom styles`, async () => {
+	test('should not render a left element with custom styles', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header
@@ -225,7 +225,7 @@ describe('Header', () => {
 		expect(styles.backgroundColor).toBe('orange');
 	});
 
-	test(`should only render back image and custom truncated title`, async () => {
+	test('should only render back image and custom truncated title', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header title="Foo" headerRight={<Right />} />
@@ -271,7 +271,7 @@ describe('Header', () => {
 		// expect(wrapper.find('Header HeaderTitle[testID="header-title"]').last().prop('width')).toBe(75);
 	});
 
-	test(`should render back button and title with tint color`, async () => {
+	test('should render back button and title with tint color', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header backTitleVisible headerTintColor="yellow" headerBackTitle="Go Back" title="Foo" />
@@ -308,7 +308,7 @@ describe('Header', () => {
 		expect(textStyles.color).toBe('yellow');
 	});
 
-	test(`should render custom title component`, async () => {
+	test('should render custom title component', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header headerTitle={<Right />} />
@@ -323,7 +323,7 @@ describe('Header', () => {
 		expect(wrapper.find('Header Right').last().length).toBeGreaterThan(0);
 	});
 
-	test(`should prefer headerTitle prop over title prop`, async () => {
+	test('should prefer headerTitle prop over title prop', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header headerTitle="Bar" title="Foo" />
@@ -343,7 +343,7 @@ describe('Header', () => {
 		).toBe('Bar');
 	});
 
-	test(`should render a header background`, async () => {
+	test('should render a header background', async () => {
 		const wrapper = mount(
 			<BlueBaseApp plugins={[Plugin]}>
 				<Header
@@ -380,7 +380,7 @@ describe('Header', () => {
 			});
 		});
 
-		test(`should only render on android platform`, async () => {
+		test('should only render on android platform', async () => {
 			const wrapper = mount(
 				<BlueBaseApp plugins={[Plugin]}>
 					<Header layoutPreset="center" />
@@ -395,7 +395,7 @@ describe('Header', () => {
 		});
 	});
 
-	test(`should handler rtl layout`, async () => {
+	test('should handler rtl layout', async () => {
 		jest.mock('react-native/Libraries/ReactNative/I18nManager', () => {
 			const I18nManager = (require as any).requireActual(
 				'react-native/Libraries/ReactNative/I18nManager'
