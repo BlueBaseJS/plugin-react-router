@@ -13,14 +13,14 @@ export const getTitle = (options: any = {}, focused: boolean = false, theme: The
 
 	const activeTintColor = tabBarOptions.activeTintColor || theme.palette.text.primary;
 	const inactiveTintColor = tabBarOptions.inactiveTintColor || theme.palette.text.secondary;
-	const tintColor = focused ? activeTintColor : inactiveTintColor;
+	const color = focused ? activeTintColor : inactiveTintColor;
 
 	if (typeof label === 'function') {
-		return label({ focused, tintColor });
+		return label({ focused, color });
 	}
 
 	return (
-		<Text testID="tab-title" style={{ color: tintColor, ...tabBarOptions.labelStyle }}>
+		<Text testID="tab-title" style={{ color, ...tabBarOptions.labelStyle }}>
 			{label}
 		</Text>
 	);
@@ -36,13 +36,13 @@ export const getIcon = (options: any = {}, focused: boolean = false, theme: Them
 
 	const activeTintColor = tabBarOptions.activeTintColor || theme.palette.text.primary;
 	const inactiveTintColor = tabBarOptions.inactiveTintColor || theme.palette.text.secondary;
-	const tintColor = focused ? activeTintColor : inactiveTintColor;
+	const color = focused ? activeTintColor : inactiveTintColor;
 
 	if (typeof icon === 'function') {
 		return icon({
 			focused,
 			horizontal: !isMobile(),
-			tintColor,
+			color,
 		});
 	}
 
